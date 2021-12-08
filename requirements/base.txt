@@ -33,7 +33,6 @@ py==1.10.0
 python3-openid==3.1.0
 regex
 six==1.14.0
-urllib3==1.25.8
 virtualenv==20.0.7
 zipp==3.0.0
 django-cors-headers==3.5.0
