@@ -1,0 +1,81 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+{% load short_number %}
+{% load tz %}
+<div class="tab-pane show" id="ads" role="tabpanel">
+   <div class="profile-content sec-box small">
+      <table class="table ">
+         <p class="font-weight-bold"><a href="{% url 'users:profile_update' %}?export=ads_history">Export</a></p>
+         <thead>
+            <tr>
+               <th scope="col">#</th>
+               <th scope="col">Status</th>
+               <th scope="col">Start</th>
+               <th scope="col">End</th>
+               <th scope="col">Cost</th>
+               <th scope="col">Clicks</th>
+               <th scope="col">Impressions</th>
+               <th scope="col">Invoice</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for ad in ads_history %}
+            <tr>
+               <td scope="row"><abbr title={{ ad.ad_headline }}>{{ ad.slug }}</abbr></td>
+               <td>
+                  {% if ad.status == "1"%}
+                  <p class="primary-green">A</p>
+                  {% elif ad.status == "2" %}
+                  <p class="primary-red">R</p>
+                  {% elif ad.status == "4" %}
+                  <p class="text-muted">S</p>
+                  {% else %} 
+                  <p class="primary-red">P</p>
+                  {% endif %}
+               </td>
+               <td>
+                  {% if ad.ad_start_date %} {{ ad.ad_start_date }} {% else %} 
+                  <p class="primary-red">N/A</p>
+                  {% endif %}
+               </td>
+               <td>
+                  {% if ad.ad_end_date %} {{ ad.ad_end_date }} {% else %} 
+                  <p class="primary-red">N/A</p>
+                  {% endif %}
+               </td>
+               <td>
+                  {% if ad.amount_due %} £{{ad.amount_due|floatformat:0}} {% else %} 
+                  <p class="primary-red"> N/A </p>
+                  {% endif %}
+               </td>
+               <td>
+                  {% if ad.clicks %} {{ ad.clicks.all.count|short_number }} {% else %} 
+                  <p class="primary-red">N/A</p>
+                  {% endif %}
+               </td>
+               <td>
+                  {% if ad.clicks %} {{ ad.impressions|short_number }} {% else %} 
+                  <p class="primary-red">N/A</p>
+                  {% endif %}
+               </td>
+               <td><a href="{% url 'ads:ad-invoice' ad.slug %}">V</a></td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% if ads_history.paginator.num_pages > 1 %}
+      <ul class="pagination">
+         {% if ads_history.has_previous %}
+         <li><a href="?ads={{ ads_history.previous_page_number }}"><i class="ri-arrow-left-line"></i></a></li>
+         {% endif %}
+         {% if ads_history.has_next %}
+         <li><a href="?ads={{ ads_history.next_page_number }}"><i class="ri-arrow-right-line"></i></a></li>
+         {% endif %}
+      </ul>
+      {% endif %}
+      <p class="font-weight-bold">Total: {{ ads.count }}</p>
+   </div>
+</div>
+

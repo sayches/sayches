@@ -1,0 +1,26 @@
+
+
+{% load static %}
+<section class="blocks">
+   <div class="container">
+   <div class="block-item block-contnet">
+      {% if news.author_image %}
+      <img class="block-img" src="{{ news.author_image.url }}" alt="Author Photo">
+      {% endif %}
+      <div itemscope itemtype="http://schema.org/Article" class="text">
+         <p itemprop="name" class="newsroom-title text-center font-weight-bold">{{ news.article_title}}</p>
+         {% if news.author_name %}
+         <span class="subtitle">
+         <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+         <span itemprop="name">{{ news.author_name }}</span> </span><span itemprop="datePublished" content="{{ news.publish_date }}"> | {{ news.publish_date|date }}</span></span>
+         {% else %}
+         <span class="subtitle">{{ news.publish_date }}</span>
+         {% endif %}
+         {% if news.article_image %}
+         <img itemprop="image" class="img-desc" src="{{ news.article_image.url }}" alt="Cover Image">
+         {% endif %}
+         <div itemprop="articleBody" class= "news-content m-t-20">{{ news.article_content|safe }} </div>
+      </div>
+   </div>
+</section>
+

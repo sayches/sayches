@@ -1,0 +1,125 @@
+
+
+<div>
+    {% if user_obj.user_hash %} 
+    <p>Username: {{ user_obj.user_hash }}</p>
+    {% endif %}
+    {% if user_obj.country.name %}
+    <p>Time Zone: {{ user_obj.country.name }}</p>
+    {% endif %}
+    {% if user_obj.profile_update_time %}
+    <p>Destruction Period: {{ user_obj.profile_update_time }}</p>
+    {% endif %}
+    {% if user_obj.warrant_canary %}
+    <p>Warrant Canary: {{ user_obj.warrant_canary }}</p>
+    {% endif %}
+    {% if user_obj.alias %}
+    <p>Alias: {{ user_obj.alias }}</p>
+    {% endif %}
+    {% if user_obj.auto_account_delete_time %}
+    <p>Auto Account Deletion: {{ user_obj.auto_account_delete_time }}</p>
+    {% endif %}
+    {% if user_obj.last_activity_date %}
+    <p>Last Activity Date: {{ user_obj.last_activity_date }}</p>
+    {% endif %}
+    {% if user_obj.profile.photo_url %}
+    <p>Photo: <br><img src="{{ user_obj.profile.photo_url }}"></p>
+    {% endif %}
+    {% if user_obj.profile.bio %}
+    <p>Bio: {{ user_obj.profile.bio }}</p>
+    {% endif %}
+    {% if user_obj.profile.pgp_fingerprint %}
+    <p>PGP Fingerprint: {{ user_obj.profile.pgp_fingerprint }}</p>
+    {% endif %}
+    {% if user_obj.profile.btc_address %}
+    <p>Bitcoin Address: {{ user_obj.profile.btc_address }}</p>
+    {% endif %}
+    {% if user_obj.profile.website %}
+    <p>Website: {{ user_obj.profile.website }}</p>
+    {% endif %}
+    {% if user_obj.profile.disable_notifications  %}
+    <p>Disable Notifications: {{ user_obj.profile.disable_notifications }}</p>
+    {% endif %}
+    {% if user_obj.profile.disable_comments %}
+    <p>Disable Comments: {{ user_obj.profile.disable_comments }}</p>
+    {% endif %}
+    {% if user_obj.profile.disable_messages %}
+    <p>Disable Messages: {{ user_obj.profile.disable_messages }}</p>
+    {% endif %}
+    {% if user_obj.profile.disable_ping %}
+    <p>Disable Ping: {{ user_obj.profile.disable_ping }}</p>
+    {% endif %}
+    {% if rsa_obj.0 %}
+    <p>Public Encryption Key: <code>{{ rsa_obj.0 }}</code></p>
+    {% endif %}
+    {% if private_key %}
+    <p>Private Encryption Key: <code>{{ private_key }}</code></p>
+    {% endif %}
+    {% if token_obj %}
+    <p>Authorisation Token: <code>{{token_obj}}</code>{% endif %}
+       {% if request.session.session_key %}
+    <p>Session: <code>{{ request.session.session_key }}</code></p>
+    {% endif %}
+    {% if bell_obj.0 %}
+    <p>Your Watch List: {{bell_obj.0}}</p>
+    {% endif %}
+    {% if verification_obj.0 %}
+    <p>Verified: {{verification_obj.0}}</p>
+    {% endif %}
+    {% if report_user_obj %}
+    <p>Users Reported by You: {{report_user_obj}}</p>
+    {% endif %}
+    {% if notification_sender_obj %}
+    <p>Sent Notifications: {{notification_sender_obj}}</p>
+    {% endif %}
+    {% if notification_receiver_obj %}
+    <p>Received Notifications: {{notification_receiver_obj}}</p>
+    {% endif %}
+    {% if post_timestamp_obj %}
+    <p>Published Posts: {{post_timestamp_obj}}</p>
+    {% endif %}
+    {% if comment_timestamp_obj %}
+    <p>Published Comments: {{comment_timestamp_obj}}</p>
+    {% endif %}
+    {% if hashtag_obj %}
+    <p>Created Hashtags: {{hashtag_obj}}</p>
+    {% endif %}
+    {% if mention_obj %}
+    <p>Created Mentions: {{mention_obj}}</p>
+    {% endif %}
+    {% if reaction_obj %}
+    <p>Number of Reactions: {{reaction_obj}}</p>
+    {% endif %}
+    {% if report_post_obj %}
+    <p>Posts Reported by You: {{report_post_obj}}</p>
+    {% endif %}
+    {% if ad_obj %}
+    <p>Numeber of Ads: {{ad_obj}}</p>
+    {% endif %}
+    {% if chat_obj %}
+    <p>Numeber of Chats: {{chat_obj}}</p>
+    {% endif %}
+    {% if help_obj %}
+    <p>Number of Help Tickets: {{help_obj.count}}</p>
+    {% endif %}
+    {% for h in help_obj %}
+    <p>Help Request Email: {{h.email}}</p>
+    <p>Help Request Message: {{h.what_i_did}}. {{h.what_i_expected_to_happen}}. {{h.what_actually_happened}}. {{h.anything_else}}.</p>
+    <p>Help Reference Number: {{h.reference_number}}</p>
+    {% endfor %}
+    {% if business_obj %}
+    {% for b in business_obj %}
+    <p>Business Name: {{b.business_name}}</p>
+    <p>Business Location: {{b.business_location}}</p>
+    <p>Business Website: {{b.business_website}}</p>
+    <p>Full Name: {{b.full_name}}</p>
+    <p>Job Title: {{b.job_title}}</p>
+    <p>Professional Email: {{b.professional_email}}</p>
+    {% endfor %}
+    {% endif %}
+    <hr />
+    <p>WARNING: This export contain your data in an unencrypted format. You should not store or send the exported file over insecure channels (such as email). Delete it immediately after you are done using it.</p>
+ </div>
+ <script>window.print();</script>
+ 
+ 

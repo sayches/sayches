@@ -1,0 +1,65 @@
+
+
+{% for comment in comments %}
+<div class="post-box after-comment" post-id="{{ comment.id }}">
+<div class="post-header">
+   <div class="first-box">
+      <div class="user-img">
+         <a href="{% url 'users:profile_name' comment.user.user_hash %}"><img src="{{ comment.get_user_image }}" alt="Profile Picture"></a>
+      </div>
+      <div class="user-name-box">
+         <h4 class="heading name-h"><a href="{% url 'users:profile_name' comment.user.user_hash %}">{{ comment.user.display_user_name }}</a></h4>
+         <p class="reply-mention">Replying to
+            <span><a href="{% url 'users:profile_name' comment.post.user.user_hash %}">{{ comment.post.user.user_hash }}</a></span>
+         <div class="post-popup">
+            <div class="popup-header">
+               <div class="first-box">
+                  <div class="user-img">
+                     <a href="{% url 'users:profile_name' comment.post.user.user_hash %}">
+                     <img src="{{ comment.get_user_image }}" alt="Profile Picture">
+                     </a>
+                  </div>
+                  <div class="user-name-box">
+                     <a href="{% url 'users:profile_name' comment.post.user.user_hash %}">
+                        <h4 class="heading name-h">{{ comment.get_user_name }}</h4>
+                        <p class="parag profile-p">{{ comment.user.user_hash }}</p>
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <p class="description-pop heading">{{ comment.user.profile.bio }}</p>
+         </div>
+      </div>
+      </p>
+   </div>
+   <div class="sec-box">
+      <p class="parag custom-time">{{ comment.created_at }}</p>
+   </div>
+</div>
+<div class="post-body">
+   <p class="parag post-comment" dir="auto">{{ comment.content }} <a href="javascript:void(0)" class="tertiary-blue f-s-11 pa-5" onclick="replyUser('{{ comment.user.user_hash }}')">Reply</a>{% if comment.user == user %}<a href="#" class="delete-click" id="{{ comment.id }}"><span class="f-s-11 primary-red">Delete</span></a>{% endif %}
+   </p>
+</div>
+{% endfor %}
+<script>
+   function replyUser(e){
+   $('#reply-area').val(e+' ');
+   $('.up-btn').click()
+   }
+</script>
+<script>
+   $('.delete-click').on('click', function (e) {
+     var commentId = $(this).attr('id')
+   
+     $.ajax({
+       url: '{% url "posts:delete-comment" %}',
+       type: 'POST',
+       data: {"comment_id": commentId},
+       success: function (data) {
+         loadComments()
+       }
+     });
+   })
+   
+</script>
+

@@ -1,0 +1,95 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+{% load tz %}
+<div class="tab-pane show" id="privacy" role="tabpanel">
+   <div class="profile-content sec-box">
+      <a class="settings-link" data-toggle="modal" data-target="#ModalCenter5">
+         <div class="preferences-danger-zone">
+            <p class="primary-red font-weight-bold">Danger Zone</p>
+      <a href="{% url 'users:export_my_data' user.username %}" class="settings-link">
+      Export my data
+      </a>
+      <a
+         class="settings-link"
+         data-toggle="modal"
+         data-target="#ModalCenter5">
+      Forget me
+      </a>
+      <div class="pref-item">
+      <p>Destroy my account if I am away for</p>
+      <select  name="user_nickname" class="custom-input profile-input setting-custom-select" id="auto_account_delete">
+      {% if user.disposable %}
+      <option id= "0" value="0" {% if  user.auto_account_delete_time == 0 %}selected{% endif %}>1 Day</option>
+      {% endif %}
+      <option id= "1" value="1" {% if  user.auto_account_delete_time == 1 %}selected{% endif %}>1 Month</option>
+      <option id="6" value="6" {% if  user.auto_account_delete_time == 6 %}selected{% endif %}>6 Months</option>
+      <option id="12" value="12" {% if  user.auto_account_delete_time == 12 %}selected{% endif %}>12 Months</option>
+      </select>
+      </div>
+      <p class="text-item short-p text-justify">
+      If you do not come online at least once within this period, your account will be deleted along with all your data.
+      </p>
+      </div>
+      <br>
+      <div class="modal fade"
+         id="ModalCenter6"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="ModalCenterTitle"
+         aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-body forget-me">
+                  <div class="settings-popup-header">
+                     <span class="font-weight-bold f-s-16">Forget Me</span>
+                     <img class="close-img" src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close"
+                        data-dismiss="modal" aria-label="Close">
+                  </div>
+                  <div class="popup-content">
+                     <p class="text-center forget-p">Are you TOTALLY sure you want to destroy your account?</p>
+                  </div>
+                  <div class="popup-footer forget">
+                     <button class="primary-button  primary-b-red destroy-account-btn" type="button"><a
+                        href="{% url 'users:forget-user' request.user.user_hash %}" class="text-white">I'm 100% sure!</a></button>
+                     <button class="primary-button" type="button" data-dismiss="modal"><a
+                        href="" class="text-white">Hell no!</a></button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade"
+         id="ModalCenter5"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="ModalCenterTitle"
+         aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-body forget-me">
+                  <div class="settings-popup-header">
+                     <span class="font-weight-bold f-s-16">Forget Me</span>
+                     <img class="close-img" src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close"
+                        data-dismiss="modal" aria-label="Close">
+                  </div>
+                  <div class="popup-content">
+                     <p class="text-center forget-p">Leaving so quick? Why not stay and fish around?</p>
+                  </div>
+                  <div class="popup-footer forget">
+                     <button class="primary-button" type="button" data-dismiss="modal">
+                     <a>Stay</a>
+                     </button>
+                     <button class="primary-button" type="button" data-dismiss="modal" data-toggle="modal"
+                        data-target="#ModalCenter6">
+                     <a>Leave</a>
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+

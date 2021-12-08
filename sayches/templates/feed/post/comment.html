@@ -1,0 +1,32 @@
+
+
+{% load static %}
+<script src="{% static 'assets/js/prevent-multiple.js' %}"></script>
+{% if post.user.profile.disable_comments == False and request.user.is_authenticated %}
+<div class="postForm-box reply-form after-comment">
+   <div class="user-img">
+      <img src="{{ request.user.profile.photo_url }}" alt="Profile Picture">
+   </div>
+   <form class="postForm ReplyForm-comment" action="{% url 'posts:create_comment' post.id %}" method="post">
+      {% csrf_token %}
+      <p class="reply-mention">Replying to
+         <span><a href="{% url 'users:profile_name' post.user.user_hash %}">{{ post.user.user_hash }}</a></span>
+      </p>
+      <textarea class="reply-textarea" onkeyup="checklenghtAndChangeColor(this)" placeholder="Type your reply...." name="text"
+         id="reply-area" dir="auto" oninput="maxLengthCheck()"></textarea>
+      <div class="btn-post">
+         <span class="custom-counter d-inline m-r-12" id="remainingChars"></span>
+         <button type="submit" class="post-btn prevent_multiple primary-button" id="reply-btn">Reply</button>
+      </div>
+   </form>
+</div>
+{% endif %}
+<div id="comment-sec">
+   {% include 'feed/post/comment_section.html' %}
+</div>
+<script>
+   var commentsDetailForDetailPost = "{% url 'posts:comments_detail_for_detail_post' post.id %}";
+   var createComment = "{% url 'posts:create_comment' post.id %}";
+</script>
+<script src="{% static 'assets/js/comment.js' %}"></script>
+

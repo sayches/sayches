@@ -1,0 +1,159 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Signup' />
+<meta name="twitter:title" content='Sayches / Signup'>
+{% endblock %}
+{% block title %}Sayches / Signup{% endblock %}
+{% block content %}
+<div class="form-sec make-margin">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-7 d-flex align-items-center">
+            <div class="img-box">
+               <img src="{% static 'assets/images/reactions/register.png' %}" alt="Sign-up" class="img-fluid">
+            </div>
+         </div>
+         <div class="col-lg-5 col-md-9">
+            {% if not sayches_customization %}
+            <div class="form-box">
+               {% if messages %}
+               {% if messages.error %}
+               <div class="alert alert-danger">
+                  {{messages.error}}
+               </div>
+               {% endif %}
+               {% if messages.sucesss %}
+               <div class="alert alert-success">
+                  {{messages.sucesss}}
+               </div>
+               {% endif %}
+               {% endif %}
+               <h2 class="f-s-18 font-weight-bold">Engage today - content won't be there tomorrow!</h2>
+               <form action='{% url "signup" %}' novalidate method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                     <input type="text" value=False  name=pre_user_register   class="d-none">
+                  </div>
+                  {% if user_form.user_hash.errors %}
+                  <div class="form-group">
+                     <div class="input-box custom-user custom-error">
+                        {% render_field user_form.user_hash placeholder="Pick a username" id="reg-name" name="reg-name" class="custom-input custom-at" %}
+                     </div>
+                  </div>
+                  {% else %}
+                  <div class="form-group">
+                     <div class="input-box custom-user ">
+                        {% render_field user_form.user_hash placeholder="Pick a username" id="reg-name" name="reg-name" class="p-custom-input custom-input custom-at remove-space" %}
+                        <p class="parag custom-forget"><a href="#" id="generate_username" class="margin-right-feeling-lucky">I'm Feeling Lucky</a></p>
+                     </div>
+                  </div>
+                  {% endif %}
+                  {% if user_form.password.errors %}
+                  <div class="form-group">
+                     <div class="input-box custom-pass custom-error">
+                        {% render_field user_form.password placeholder="Master Password" id="reg-pass" name="reg-pass" class="p-custom-input custom-input"  %}
+                        <p class="parag custom-forget"><a href="#" id="generate_password">Challenge Password</a></p>
+                        <i toggle="#reg-pass" class="toggle-password ri-eye-fill"></i>
+                     </div>
+                  </div>
+                  {% else %}
+                  <div class="form-group">
+                     <div class="input-box custom-pass ">
+                        {% render_field user_form.password placeholder="Master Password" id="reg-pass" name="reg-pass" class="p-custom-input custom-input" %}
+                        <p class="parag custom-forget"><a href="#" id="generate_password">Challenge Password</a></p>
+                        <i toggle="#reg-pass" class="toggle-password ri-eye-fill"></i>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-box">
+                        <div class="h-captcha" name=hcaptcha data-sitekey='{{ hcaptcha_sitekey }}'></div>
+                     </div>
+                  </div>
+                  {% endif %}
+                  <div class="form-group">
+                     <div class="row">
+                        <div class="col-md-8 d-flex align-items-center">
+                           {% if user_form.agree_terms.errors %}
+                           <div class="custom-checkbox custom-error">
+                              <div class="pretty p-icon p-curve">
+                                 <div class="row">
+                                    <div class="col-md-7">
+                                       {{ user_form.agree_terms }}
+                                       <div class="state">
+                                          <i class="icon mdi mdi-close ri-check-line font-weight-bold"></i>
+                                          <label class="indent-i-agree ml-3 parag check-label float-left f-s-13">I agree to the Sayches <a href="{% url 'subsections:docs' %}privacy-policy" class="f-s-13 d-inline-block">ToS & PP.</a></label>                                                  
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="custom-checkbox">
+                           <div class="pretty p-icon p-curve">
+                              <div class="row col align-self-start">
+                                 <div class="col-md-7">
+                                    {{ user_form.disposable }}
+                                    <div class="state">
+                                       <i class="icon mdi mdi-close ri-check-line font-weight-bold"></i>
+                                       <label class="indent-i-agree ml-3 parag check-label float-left f-s-13 primary-red">One-Day Account <small>(Disposable)<small></label>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        {% else %}
+                        <div class="custom-checkbox ">
+                           <div class="pretty p-icon p-curve">
+                              <div class="row align-items-start">
+                                 <div class="col-md-7">
+                                    {{ user_form.agree_terms }}
+                                    <div class="state">
+                                       <i class="icon mdi mdi-close ri-check-line font-weight-bold"></i>
+                                       <label for="custom-agree" class="indent-i-agree ml-3 parag check-label float-left f-s-13">I agree to the Sayches <a href="{% url 'subsections:docs' %}privacy-policy" class="f-s-13 d-inline-block">ToS & PP.</a></label>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="custom-checkbox">
+                        <div class="pretty p-icon p-curve">
+                           <div class="row col align-self-start">
+                              <div class="col-md-7">
+                                 {{ user_form.disposable }}
+                                 <div class="state">
+                                    <i class="icon mdi mdi-close ri-check-line font-weight-bold"></i>
+                                    <label class="indent-i-agree ml-3 parag check-label float-left f-s-13 primary-red">One-Day Account <small>(Disposable)<small></label>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     {% endif %}
+                     <br>
+                     <div class="col-md-8 d-flex">
+                        <div class="float-right">
+                           <button type="submit" class="primary-button" id="validationSumbit">1-Click</button>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            </form>
+         </div>
+         {% else %}
+         <h4 class="text-center">{{sayches_customization.custom_error_message}} </h4>
+         {% endif %}
+      </div>
+   </div>
+</div>
+</div>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'lib/js/hcaptcha_api.js' %}" async defer></script>
+<script src="{% static 'assets/js/login-signup.js' %}"></script>
+{% endblock %}
+

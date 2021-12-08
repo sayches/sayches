@@ -1,0 +1,26 @@
+
+
+{% load static %}
+<div class="modal fade" id="ModalCenter6"  tabindex="-1" role="dialog"  aria-labelledby="ModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-body forget-me">
+            <div class="settings-popup-header">
+               <span class="font-weight-bold f-s-16">Delete Post</span>
+               <img class="close-img" src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close"
+                  data-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="popup-content">
+               <p class="text-center forget-p">Are you sure want to delete this post?</p>
+            </div>
+            <div class="popup-footer forget">
+               <button class="primary-button" type="button" data-dismiss="modal"><a>No</a></button>
+               <button class="primary-button" type="button">
+               <a id="deleteMyPost" class="text-white">Yes</a>
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+

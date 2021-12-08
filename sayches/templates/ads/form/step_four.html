@@ -1,0 +1,108 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Advertising'/>
+<meta name="twitter:title" content='Sayches / Advertising'>
+{% endblock %}
+{% block title %}Sayches / Advertising{% endblock %}
+{% block content %}
+<div class="multi-form-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-10">
+            <div class="multi-form-content">
+               <form action="{% url 'subsections:ads-step-four' ads_slug %}" method="post" id="step4" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div id="multi-form" class="form-box">
+                     <ul>
+                        <li>
+                           <a href="#step1">
+                           <span class="custom-circle parag"><i class="primary-green ri-check-line font-weight-bold"></i></span>
+                           <span class="parag header-p">About Your Business</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step2">
+                           <span class="custom-circle parag"><i class="primary-green ri-check-line font-weight-bold"></i></span>
+                           <span class="parag header-p">Design Your Ad</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step3">
+                           <span class="custom-circle parag"><i class="primary-green ri-check-line font-weight-bold"></i></span>
+                           <span class="parag header-p">Plan Your Ad</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step4">
+                           <span class="custom-circle parag">4</span>
+                           <span class="parag header-p">Checkout</span>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+                  <br>
+                  <div id="step4">
+                     <div class="card-deck">
+                        <div class="card ads-card mb-3">
+                           <div class="card-body f-s-14">
+                              <hr>
+                              <h5 class="font-weight-bold">Payment Method</h5>
+                              <hr>
+                              <select class="custom-input">
+                                 {% for p in payment_method %}
+                                 <option value="{{ p.0 }}">{{ p.1 }}</option>
+                                 {% endfor %}
+                              </select>
+                              <hr>
+                              <p><span class="font-weight-bold">BTC amount:</span> {{ btc_amount|floatformat:6 }}</p>
+                              <p><span class="font-weight-bold">BTC address:</span> {% if bitcoin_address %}<code>{{bitcoin_address}}</code>{% else %}<span class="primary-red">N/A. Contact Sayches Support.</span> {% endif %}</p>
+                              <hr>
+                              <p><span class="font-weight-bold">Reference number:</span> {{ads_slug}}</p>
+                              <hr>
+                              <p class="small text-secondary text-justify">We won’t charge until your ads are approved and delivering. Your ads will be reviewed within the next 24 hours.
+                              <p>
+                                 <button type="submit" class="primary-button m-auto d-block"name="update_profile_basic">Checkout</button>
+                           </div>
+                        </div>
+                        <div class="card ads-card mb-3">
+                           <div class="card-body f-s-14">
+                              <hr>
+                              <h5 class="font-weight-bold">Summary</h5>
+                              <hr>
+                              <p><span class="font-weight-bold">Plan:</span> {{ plan }}</p>
+                              <p><span class="font-weight-bold">Plan cost:</span> £{{ ad_price|floatformat:2 }} GBP / per day</p>
+                              <p>{{ start_date }} - {{ end_date }} ({{ days }} days)</p>
+                              <hr>
+                              <p><span class="font-weight-bold">Total amount:</span> £{{ total_amount|floatformat:2}} GBP
+                              <p>
+                              <p><span class="font-weight-bold">Discount:</span> -{{discount_percentage}}%
+                              <p>
+                              <p><span class="font-weight-bold">Amount due:</span> £{{amount_due|floatformat:2}} GBP</p>
+                              <hr>
+               </form>
+               <form method="GET" action="{% url 'subsections:ads-step-four' ads_slug %}" >
+               {% if invalid_voucher %}
+               <div class="position-relative pr-0 custom-error-2">
+               {% render_field voucher_form.voucher placeholder="Voucher Code" name="voucher" class="custom-input ads-voucher-code" %}<button class="btn text-primary font-weight-bold f-s-14 ads-apply">Apply</button>
+               </div>
+               {% else %}
+               {% render_field voucher_form.voucher placeholder="Voucher Code" name="voucher" class="custom-input ads-voucher-code" %}<button class="btn text-primary font-weight-bold f-s-14 ads-apply">Apply</button>
+               {% endif %}
+               </form>
+               </div>
+               </div>
+               </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>
+{% endblock %}
+

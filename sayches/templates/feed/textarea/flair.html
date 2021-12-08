@@ -1,0 +1,35 @@
+
+
+{% load static %}
+<form class="postForm newPost" data-form="new-form" action="" method="" id="myForm">
+   <div class="main-type-box" data-conn="new-form">
+      <div class="select-flair" data-target="select-flair">
+         <p class="parag flair-p" id="my_radio_box">Select Flair</p>
+      </div>
+      <div class="flair-list" data-id="select-flair" id="flair-div">
+         <ul class="flair-ul">
+            {% for value, text in form.fields.flair.choices %}
+            <li class="custom-radiobutton">
+               <div class="pretty p-default p-round">
+                  {% if value == 'No Flair' %}
+                  <input type="radio" data-name="{{value}}" name="flair-post" value="{{value}}" checked />
+                  <div class="state">
+                     <label class="parag radio-label custom-NoFlair">{{text}}</label>
+                  </div>
+                  {% else %}
+                  <input type="radio" data-name="{{value}}" name="flair-post" value="{{value}}" />
+                  <div class="state">
+                     <label class="parag radio-label custom-{{text}}">{{text}}</label>
+                  </div>
+                  {% endif %}
+               </div>
+            </li>
+            {% endfor %}
+         </ul>
+      </div>
+      <div class="type-post-box">
+      </div>
+   </div>
+   {% include "feed/textarea/textarea.html" %}
+</form>
+

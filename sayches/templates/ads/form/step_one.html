@@ -1,0 +1,170 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Advertising'/>
+<meta name="twitter:title" content='Sayches / Advertising'>
+{% endblock %}
+{% block title %}Sayches / Advertising{% endblock %}
+{% block content %}
+<div class="multi-form-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-10">
+            <div class="multi-form-content">
+               <form action="/ads/" method="post" id="step1">
+                  {% csrf_token %}
+                  {% if form.non_field_errors %}
+                  {{ form.non_field_errors }}
+                  {% endif %}
+                  <div id="multi-form" class="form-box">
+                     <ul>
+                        <li>
+                           <a href="#step1">
+                           <span class="custom-circle parag">1</span>
+                           <span class="parag header-p">About Your Business</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step2">
+                           <span class="custom-circle parag">2</span>
+                           <span class="parag header-p">Design Your Ad</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step3">
+                           <span class="custom-circle parag">3</span>
+                           <span class="parag header-p">Plan Your Ad</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step4">
+                           <span class="custom-circle parag">4</span>
+                           <span class="parag header-p">Checkout</span>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+                  <div id="step1">
+                     <div class="custom-step-content">
+                        <div class="step-heading-box">
+                           <br/>
+                           <h2 class="parag step-heading">About Your Business</h2>
+                           <p class="step-p text-secondary mt-3 text-center ">Easily set up your ad within the budget that works your business</p>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.business_name.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.business_name placeholder="What is your business name?" id="business-name" name="business-name" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.business_name placeholder="What is your business name?" id="business-name" name="business-name" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group select-custom">
+                                 <div>
+                                    {% if form.business_location.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.business_location placeholder="Where do you do business?" id="business-location" name="business-location" class="img-code custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.business_location placeholder="Where do you do business?" id="business-location" name="business-location" class="img-code custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.full_name.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.full_name placeholder="What is your full name?" id="full-name" name="full-name" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.full_name placeholder="What is your full name?" id="full-name" name="full-name" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.job_title.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.job_title placeholder="What is your job title?" id="job-title" name="job-title" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.job_title placeholder="What is your job title?" id="job-title" name="job-title" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.professional_email.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.professional_email placeholder="What is your professional email address?" id="professional-email" name="professional-email" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.professional_email placeholder="What is your professional email address?" id="professional-email" name="professional-email" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.business_website.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.business_website placeholder="What is your business official website?" id="business-website" name="business-website" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.business_website placeholder="What is your business official website?" id="business-website" name="business-website" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    <span id="error"></span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            <p class="small text-justify text-secondary">– Sayches requires advertisers to undergo a verification process to ensure a safe and trustworthy ad experience for users. This verification process helps us learn about our advertisers’ business, the products, and services they offer.
+            <br><br>
+            – The person responsible for completing the verification should be familiar with business operations and advertising practices.
+            <br><br>
+            – By clicking, “Next”, I represent and warrant that I am authorised to submit this request on behalf of business, and I agree on behalf of business to the Terms of Service.
+            </p>
+            <button type="submit" class="primary-button m-auto d-block"
+               name="update_profile_basic">Next
+            </button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>
+{% endblock %}
+

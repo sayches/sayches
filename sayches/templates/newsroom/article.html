@@ -1,0 +1,51 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="theme-color" content="#F7941D">
+      <meta name="description" content="{{ meta_tag_desp }}" />
+      <meta property="og:title" content="Sayches / {{ news.article_title}}" />
+      <meta property="og:image" content="{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}" />
+      <meta property="og:description" content="{{ meta_tag_desp }}" />
+      <meta property="og:site_name" content="Sayches" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Sayches / {{ news.article_title}}">
+      <meta name="twitter:description" content="{{ meta_tag_desp }}" />
+      <meta name="twitter:image" content="{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}" />
+      <link rel="stylesheet" href="{% static 'lib/css/4.0.0-bootstrap.min.css' %}">
+      <link href="{% static 'lib/css/fontface.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'lib/webfonts/remixicon/remixicon.css' %}">
+      <link href="{% static 'lib/css/pretty-checkbox.min.css' %}" rel="stylesheet" />
+      <link href="{% static 'lib/css/select2.min.css' %}" rel="stylesheet" />
+      <link rel="icon" href="{% static 'assets/images/saychesLogo/favicon.ico' %}" />
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/keyframes.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/media.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/stylesheet.css' %}">
+      <title>Sayches / {{ news.article_title}}</title>
+   </head>
+   <body>
+      <div class="main-container">
+         {% include "newsroom/article_header.html" %}
+         {% if news.external %}
+         <script>window.location.href = '{{news.external}}'</script>
+         {% else %}
+         {% include "newsroom/article_block.html" %}
+         {% endif %}
+         <footer class="sticky-footer">
+            {% include "base/footer/footer.html" %}
+         </footer>
+      </div>
+   </body>
+   <script>
+      function Previous() {
+          window.history.go(-1);
+      }
+   </script>
+   {% include "newsroom/base_js.html" %}
+</html>
+

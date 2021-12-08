@@ -1,0 +1,91 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+{% load tz %}
+{% load community_feature %}
+<form action="{% url 'users:profile_update' %}" method="post" enctype="multipart/form-data" novalidate id="profile_form">
+   {% csrf_token %}
+   <div class="info-box">
+      <div class="profile-img custom-cam">
+         <img src="{{ user.profile.photo_url }}" alt="Profile Picture" id="Avtar-image" class="img-fluid edit-pro-img" onclick="document.getElementById('img').click()">
+         <input type="file" accept="image/png, image/jpeg" id="img" name="img"
+            onchange="preview_image(event)" class="d-none">
+         {% render_field form.img class="custom-upload" id="edit-image" name="edit-image" type="file" placeholder="Photo" %}
+      </div>
+   </div>
+   <div class="profile-content pa-t-50">
+      <div class="profile-form">
+         <div class="form-group m-t-20">
+            <label class="font-weight-bold parag">Pseudonym</label>
+            {% render_field form.name id="edit-name" placeholder="Your pseudonym" name="edit-name" class="custom-input profile-input" %}
+         </div>
+         <div class="form-group">
+            <label class="font-weight-bold parag">Username</label>
+            {% render_field form.username id="edit-user-name" name="edit-user-name" class="custom-at custom-input profile-input custom-disable-field" %}
+            {{ form.username.errors }}
+         </div>
+         <div class="form-group">
+            <label class="font-weight-bold parag">Bio</label>
+            {% if form.bio.errors %}
+            <div class="position-relative pr-0 custom-error-2">
+               {% render_field form.bio id="edit-bio" name="edit-bio" maxlength="150" placeholder="What is your story in one line?" class="custom-input profile-input" %}
+            </div>
+            {% else %}
+            {% render_field form.bio id="edit-bio" name="edit-bio" maxlength="150" placeholder="What is your story in one line?" class="custom-input profile-input" %}
+            {% endif %}
+         </div>
+         <div class="form-group">
+            <label class="font-weight-bold parag">Onion Website</label>
+            {% if form.website.errors %}
+            <div class="position-relative pr-0 custom-error-2">
+               {% render_field form.website placeholder="V3 onion address 56 characters long" id="edit-website" name="edit-website" class="custom-input profile-input" %}
+            </div>
+            {% else %}
+            {% render_field form.website placeholder="V3 onion address 56 characters long" id="edit-website" name="edit-website" class="custom-input profile-input" %}
+            {% endif %}
+         </div>
+         <div class="form-group" title='{{"Mohab Gabber"|community_feature}}'>
+            <label class="font-weight-bold parag">BTC Address</label>
+            {% if form.btc_address.errors %}
+            <div class="position-relative pr-0 custom-error-2">
+               {% render_field form.btc_address placeholder="Bitcoin address" id="btc-address" name="btc-address" class="custom-input profile-input" title="This feature is developed by and within the community. By Mohab Gabber." %}
+            </div>
+            {% else %}
+            {% render_field form.btc_address placeholder="Bitcoin address" id="btc-address" name="btc-address" class="custom-input profile-input" %} 
+            {% endif %}
+         </div>
+         <div class="form-group">
+            <label class="font-weight-bold parag">PGP Fingerprint</label>
+            {% if form.pgp_fingerprint.errors %}
+            <div class="position-relative pr-0 custom-error-2">
+               {% render_field form.pgp_fingerprint placeholder="Forty-byte PGP key fingerprint" id="edit-pgp-fingerprint" name="edit-pgp-fingerprint" class="custom-input profile-input" %}
+            </div>
+            {% else %}
+            {% render_field form.pgp_fingerprint placeholder="Forty-byte PGP key fingerprint" id="edit-pgp-fingerprint" name="edit-pgp-fingerprint" class="custom-input profile-input" %}
+            {% endif %}
+         </div>
+         <div class="form-group">
+            <label class="font-weight-bold parag">Time Zone</label>
+            {% render_field form.country class="form-control" required="true" %}
+            <div class="sec-select select-custom">
+               {% load countries %}
+               {% get_countries as countries %}
+               <select class="img-code" id="edit-location" name="edit-location" required>
+                  <option value="" {% if not request.user.country.name %}selected="selected" {% endif %}>Select Location</option>
+                  {% for country in countries %}
+                  {% if country.code == request.user.country %}
+                  <option value="{{ country.code }}" selected="selected">{{ country.name }}</option>
+                  {% else %}
+                  <option value="{{ country.code }}">{{ country.name }}</option>
+                  {% endif %}
+                  {% endfor %}
+               </select>
+            </div>
+         </div>
+         <input type="hidden" value="edit_profile" name="form_type">
+         <button type="submit" class="primary-button" name="update_profile_basic">Save</button>
+      </div>
+   </div>
+</form>
+

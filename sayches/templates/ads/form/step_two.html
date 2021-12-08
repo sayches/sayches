@@ -1,0 +1,183 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Advertising'/>
+<meta name="twitter:title" content='Sayches / Advertising'>
+{% endblock %}
+{% block title %}Sayches / Advertising{% endblock %}
+{% block content %}
+<div class="multi-form-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-10">
+            <div class="multi-form-content">
+               <form action="{% url 'subsections:ads-step-two' ads_slug %}" method="post" id="step2" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div id="multi-form" class="form-box">
+                     <ul>
+                        <li>
+                           <a href="#step1">
+                           <span class="custom-circle parag"><i class="primary-green ri-check-line font-weight-bold"></i></span>
+                           <span class="parag header-p">About Your Business</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step2">
+                           <span class="custom-circle parag">2</span>
+                           <span class="parag header-p">Design Your Ad</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step3">
+                           <span class="custom-circle parag">3</span>
+                           <span class="parag header-p">Plan Your Ad</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#step4">
+                           <span class="custom-circle parag">4</span>
+                           <span class="parag header-p">Checkout</span>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+                  <div id="step2">
+                     <div class="custom-step-content">
+                        <div class="step-heading-box">
+                           <br/>
+                           <h2 class="parag step-heading">Design Your Ad</h2>
+                           <p class="step-p text-secondary mt-3 text-center ">What should your ad say? When should your Ad start?</p>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.ad_headline.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_headline placeholder="Headline (max 25 characters)" id="headline" name="headline" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_headline placeholder="Headline (max 25 characters)" id="headline" name="headline" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.ad_body.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_body placeholder="Body (max 150 characters)" id="body" name="body" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_body placeholder="Body (max 150 characters)" id="body" name="body" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group select-custom">
+                                 <div >
+                                    {% if form.ad_location.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_location placeholder="Location" id="ad-location" name="ad-location" class="img-code custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_location placeholder="Location" id="ad-location" name="ad-location" class="img-code custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.ad_link.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_link placeholder="Link" id="ad-link" name="ad-link" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_link placeholder="Link" id="ad-link" name="ad-link" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.tags.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_keywords data-role="tagsinput" placeholder="Keywords (max 3 keywords)" id="keywords" name="keywords" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_keywords data-role="tagsinput" placeholder="Keywords (max 3 keywords)" id="keywords" name="keywords" class="custom-input" %}
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.ad_image.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_image placeholder="Image (373px x 256px)" id="image" name="image" class="f-s-13" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_image placeholder="Image (373px x 256px)" id="image" name="image" class="f-s-13"%}
+                                    {% endif %}
+                                    <p class="small text-secondary">If Flyer</p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="input-warp">
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.ad_start_date.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_start_date placeholder="Start Date" id="ad-start-date" name="ad-start-date" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_start_date placeholder="Start Date" id="ad-start-date" name="ad-start-date" class="custom-input" %}
+                                    {% endif %}
+                                    <label class="small text-secondary">When should your Ad start?</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="box">
+                              <div class="form-group">
+                                 <div>
+                                    {% if form.ad_end_date.errors %}
+                                    <div class="position-relative pr-0 custom-error-2">
+                                       {% render_field form.ad_end_date placeholder="End Date" id="ad-end-date" name="ad-end-date" class="custom-input" %}
+                                    </div>
+                                    {% else %}
+                                    {% render_field form.ad_end_date placeholder="End Date" id="ad-end-date" name="ad-end-date" class="custom-input" %}
+                                    {% endif %}
+                                    <label class="small text-secondary">When should your Ad end?</label>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            <button type="submit" class="primary-button m-auto d-block"
+               name="update_profile_basic">Next
+            </button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>
+{% endblock %}
+

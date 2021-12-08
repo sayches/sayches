@@ -1,0 +1,94 @@
+
+
+<!doctype html>
+{% load i18n %}
+{% load static %}
+{% load compress %}
+<html lang="en" dir="ltr">
+   <head>
+      <noscript>
+         <meta HTTP-EQUIV="refresh" content=0;url="/">
+      </noscript>
+      {% include "base/meta_tags.html" %}
+      {% block othermeta %} {% endblock %}
+      <link href="{% static 'lib/css/bootstrap.min.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'lib/css/4.0.0-bootstrap.min.css' %}">
+      <link href="{% static 'lib/css/select2.min.css' %}" rel="stylesheet" />
+      <link href="{% static 'lib/css/pretty-checkbox.min.css' %}" rel="stylesheet" />
+      <link rel="stylesheet" href="{% static 'lib/webfonts/remixicon/remixicon.css' %}">
+      <link rel="icon" href="{% static 'assets/images/saychesLogo/favicon.ico' %}" />
+      {% compress css %}
+      <link href="{% static 'lib/css/fontface.css' %}" rel="stylesheet">
+      {% endcompress %}
+      {% compress css %}
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+      {% endcompress %}
+      {% compress css %}
+      <link rel="stylesheet" href="{% static 'assets/css/keyframes.css' %}">
+      {% endcompress %}
+      {% compress css %}
+      <link rel="stylesheet" href="{% static 'assets/css/media.css' %}">
+      {% endcompress %}
+      {% compress css %}
+      <link rel="stylesheet" href="{% static 'assets/css/stylesheet.css' %}">
+      {% endcompress %}
+      <title>{% block title %}Sayches{% endblock %}</title>
+   </head>
+   <body>
+      {% block head %}
+      {% include "base/header/header.html" %}
+      {% endblock head %}
+      {% block modal %}{% endblock modal %}
+      <main>
+         <div class="up-btn"><i class="ri-arrow-up-s-line font-weight-bold"></i></div>
+         <a href="{% url 'posts:post_like' %}" class="like_post_view d-none"></a>
+         <a href="{% url 'posts:create_post' %}" class="create_post_view d-none"></a>
+         <a href="{% url 'posts:pin_post' %}" class="pin-post-view d-none"></a>
+         <a href="{% url 'users:notification_number' %}" class="notification_number_view_view d-none"></a>
+         <a href="{% url 'users:mark_all_read' %}" class="mark_all_read_view d-none"></a>
+         <a href="{% url 'users:notify_read' %}" class="notify_read_view d-none"></a>
+         <a href="{% url 'users:admin_notify_read' %}" class="admin_notify_read_view d-none"></a>
+         <a href="{% url 'posts:post_read' %}" class="post_read_view d-none"></a>
+         <a href="{% url 'message:chat_header_data' %}" class="chat_header_view d-none"></a>
+         <a href="{% url 'message:admin_messages_content_data' %}" class="admin_messages_content_view d-none"></a>
+         <a href="{% url 'message:old_messages_content_data' %}" class="old_messages_content_data_view d-none"></a>
+         <a href="{% url 'message:new_messages_content_data' %}" class="new_messages_content_data_view d-none"></a>
+         <a href="{% url 'message:delete_chat' id=12345 %}" class="delete_chat_view d-none"></a>
+         <a href="{% url 'message:create_message' %}" class="create_message_view d-none"></a>
+         {% if close_site %}
+         <br>
+         <h2 class="span4 text-center font-weight-bold">{{ closing_text }}</h2>
+         {% else %}
+         {% block content %}
+         {% endblock content %}
+         {% endif %}
+      </main>
+      {% if request.path != "/feed" %}
+      <footer>
+         {% include "base/footer/footer.html" %}
+      </footer>
+      {% endif %}
+      <script src="{%static 'lib/js/jquery.min.js' %}"></script>
+      <script src="{%static 'lib/js/popper.min.js' %}"></script>
+      <script src="{%static 'lib/js/bootstrap.min.js' %}"></script>
+      <script src="{%static 'lib/js/select2.full.min.js' %}"></script>
+      <script src="{%static 'lib/js/jquery.smartWizard.min.js' %}"></script>
+      <script src="{% static 'lib/js/pace.min.js' %}"></script>
+      <script language="javascript">var STATIC_URL = "{{ STATIC_URL|escapejs }}";</script>
+      {% compress js %}
+      <script src="{% static 'assets/js/script.js' %}"></script>
+      {% endcompress %}
+      {% compress js %}
+      <script src="{%static 'assets/js/script-ajax2.js' %}"></script>
+      {% endcompress %}
+      {% compress js %}
+      <script src="{% static 'assets/js/load-reacton.js' %}"></script>
+      {% endcompress %}
+      {% if backbtn %}
+      <script>function goBack() { window.history.back(); }</script>
+      {%endif%}
+      {% block js %}
+      {% endblock js %}
+   </body>
+</html>
+

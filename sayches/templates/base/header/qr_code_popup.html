@@ -1,0 +1,19 @@
+
+
+{% load static %}
+{% load qr_code %}
+<div class="qrModal modal fade" id="ModalCenter" tabindex="-1" role="dialog"
+   aria-labelledby="ModalCenterTitle" aria-hidden="true" title="QR codes can be read by any supporting third-party camera applications.">
+   <div class="justify-content-center modal-dialog modal-dialog-centered" role="document">
+      {% with request.schema|add:request.get_host|add:"/u/"|add:request.user.username as profile_url %}
+      <a href='{% qr_url_from_text profile_url size="t" image_format="png" error_correction="L" %}'>
+      <input id="profileURL" type="text"
+         value='{% qr_url_from_text profile_url size="t" image_format="png" error_correction="L" %}'
+         hidden>
+      <img class="b-r-12" src='{% qr_url_from_text profile_url size="t" image_format="png" error_correction="L" %}'
+         alt="QR Code">
+      </a>
+      {% endwith %}
+   </div>
+</div>
+

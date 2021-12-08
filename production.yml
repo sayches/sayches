@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  django: &django
+    ports:
+      - "80:5000"
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: sayches_production_django
+    depends_on:
+      - redis
+    env_file:
+      - ./.envs/.production
+    command: /start
+
+  redis:
+    container_name: sayches-redis
+    image: redis
+
+  celeryworker:
+    <<: *django
+    ports: []
+    image: sayches_production_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: sayches_production_celerybeat
+    command: /start-celerybeat
+    ports: []
+
+  flower:
+    <<: *django
+    image: sayches_production_flower
+    ports:
+      - "5555:5555"
+    command: /start-flower

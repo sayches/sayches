@@ -1,0 +1,20 @@
+
+
+{% load static %}
+<div class="col-lg-9 col-md-12 pa-unset">
+   <div class="tab-content" >
+      {% if  other_docs %}
+      <div>
+         <div class="body-content" class="tabcontent">{{ single_doc.content|safe }}</div>
+      </div>
+      {% else %}
+      <div class="body-content">
+         <h4 class="text-center font-weight-bold"> No Data Available</h4>
+      </div>
+      {% endif %}
+   </div>
+   <footer class="sticky-footer">
+      {% include "base/footer/footer.html" %}
+   </footer>
+</div>
+

@@ -1,0 +1,22 @@
+
+
+{% load tz %}
+{% load static %}
+<div class="overlay-box"></div>
+<div class="link-popup main-popup">
+   <img src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" class="custom-ex link-modal">
+   <h3 class="popup-h">Heads up!</h3>
+   <p class="popup-p parag">
+      <span class="main-txt-pop"></span>
+      <span class="msg-txt"></span>
+      <span class="msg-txt2"></span>
+      <span class="msg-link">
+      </span>
+   </p>
+   <div class="btn-popup-box">
+      <button type="button" class="btn-cancel heading link-modal" data-dismiss="modal"
+         aria-label="Close">Cancel</button>
+      <p class="btn-continue  heading"><a href="#">Continue</a></p>
+   </div>
+</div>
+

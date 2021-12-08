@@ -1,0 +1,36 @@
+
+
+{% load static %}
+<div class="hero-help">
+   <header>
+      <div class="custom-nav landing">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-6 col-2">
+                  <div class="nav-box">
+                     <div class="logo-box">
+                        <a href="{% url 'subsections:home' %}">
+                        <img src="{% static 'assets/images/saychesLogo/sayches_black_175x175.svg' %}" alt="Sayches Logo" class="img-fluid">
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </header>
+   <div class="hero-text">
+      <h1>Help</h1>
+      <form action="{% url 'posts:search' %}">
+         <div class="help-search">
+            <div class="search-box">
+               <button type="submit">
+               <i class="ri-search-line primary-colour header-icon img-fluid"></i>
+               </button>
+               <input type="text" autocomplete="off" placeholder="SEARCH OR JUMP TO..." name="search" id="search">
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+

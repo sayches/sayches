@@ -1,0 +1,27 @@
+
+
+{% load static %}
+<div class="container">
+   <div class="block-item">
+      {% if new.external %}
+      <a class="text" href="{{new.external}}" target="_blank">
+      {% else %}
+      <a class="text" href="{% url 'subsections:article' new.slug %}">
+         {% endif %}
+         {% if new.author_image %}
+         <img class="block-img" src="{{ new.author_image.url }}" alt="Author Photo">
+         {% endif %}
+         <p itemprop="name" class="newsroom-title text-center font-weight-bold">
+            {{ new.article_title}}{% if new.tag %}<small class="Newsroom-Tag validation">{{new.tag}}</small>{% endif %}
+         </p>
+         {% if new.author_name %}
+         <span class="subtitle">
+         <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+         <span itemprop="name">{{ new.author_name }}</span> </span> | <span itemprop="datePublished" content="{{ new.publish_date }}">{{ new.publish_date|date }}</span></span>
+         {% else %}
+         <span class="subtitle">{{ new.publish_date }}</span>
+         {% endif %}
+      </a>
+   </div>
+</div>
+

@@ -1,0 +1,59 @@
+
+
+{% extends 'base/base.html' %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / Direct Messages" />
+<meta name="twitter:title" content="Sayches / Direct Messages">
+{% endblock %}
+{% block title %}Sayches / Direct Messages{% endblock %}
+{% load static %}
+{% block content %}
+<div class="main-sec">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12">
+            {% if not is_message_block %}
+            <div class="msg-sec">
+               <div class="chat-list">
+                  <div class="chat-search">
+                     <form method="get" >
+                        <div class="search-box">
+                           <input type="text" placeholder="JUMP TO..." name="search-chat" id="search-chat" class="search-chat">
+                        </div>
+                     </form>
+                  </div>
+                  <div class="user-chat-box" id="box-msg">
+                  </div>
+               </div>
+               <div class="chat-content"  >
+                  <div class="single-chat">
+                     <div class="empty-box">
+                        <p class="parag box-p">No message selected</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% else %}
+            <h4 class="text-center"> Messages suspended </h4>
+            <p class="text-center">Sayches suspends your DMs which violate the Sayches Rules</p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+<input type="text" id="chatUserFromProfile" value="{{ mate_username }}" hidden>
+{% endblock content%}
+{% block js %}
+<script>
+   $.ajaxSetup({
+     headers: {
+         "X-CSRFToken": '{{ csrf_token }}'
+     }
+   });
+   
+   var messageChatData= "{% url 'message:chat_data' %}";
+</script>
+<script src="{% static 'assets/js/inbox.js' %}"></script>
+<script src="{% static 'assets/js/remove-tags.js' %}"></script>
+{% endblock js %}
+

@@ -1,0 +1,47 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / {{ post.user.user_hash }} on Sayches" />
+<meta name="twitter:title" content="Sayches / {{ post.user.user_hash }} on Sayches">
+{% endblock %}
+{% block title %}Sayches / {{ post.user.user_hash }} on Sayches {% endblock %}
+{% block content %}
+<div class="main-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-8">
+            <div class="up-btn">
+               <i class="ri-arrow-up-s-line font-weight-bold"></i>
+            </div>
+            {% if not is_block_post %}
+            <div class="main-post-box">
+               {% for reaction in reactions %}
+               {{reaction.reaction_name}}
+               {%endfor%}
+            </div>
+            {% else %}
+            {% include "base/suspended.html" %}
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+{% include "feed/post/delete_post.html" %}
+{%include 'feed/popup.html'%}
+{%include 'feed/post/report.html'%}
+{% endblock content %}
+{% block js %}
+<script>
+   $.ajaxSetup({
+   headers: {
+       "X-CSRFToken": '{{ csrf_token }}'
+   }
+   });
+   var commentsDetailForDetailPost = "{% url 'posts:comments_detail_for_detail_post' post_id %}"
+   var postDetail = "{% url 'posts:post_detail' post_id %}";
+</script>
+<script src="{% static 'assets/js/comment-content.js' %}"></script>
+{% endblock js %}
+

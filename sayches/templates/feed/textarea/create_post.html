@@ -1,0 +1,20 @@
+
+
+{% load static %}
+{% load tz %}
+<div class="postForm-box main-box sec-box" id="postForm-box">
+   <div class="user-img">
+      <a href="{% url 'users:profile_name' request.user.user_hash %}">
+      {% if request.user.profile %}
+      <img alt="Profile Picture" src="{{request.user.profile.photo_url}}"></a>
+      {% endif %}
+      </a>
+   </div>
+   {% include "feed/textarea/flair.html" %}
+</div>
+{% if is_block_post %}
+{% include "feed/post_block.html" %}
+{% endif %}
+<script src="{% static 'assets/js/prevent-multiple.js' %}"></script>
+<script src="{% static 'assets/js/create-post.js' %}"></script>
+

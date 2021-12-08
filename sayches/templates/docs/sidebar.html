@@ -1,0 +1,24 @@
+
+
+{% load static %}
+<div class="col-lg-3 col-md-12 pa-unset sidebar-css">
+   <div class="nav nowrap flex-column nav-pills lists " id="v-pills-tab" role="tablist"
+      aria-orientation="vertical">
+      <div class="img-docs-container">
+         <a href="{% url 'subsections:home' %}">
+         <img class="width-39" src="{% static 'assets/images/saychesLogo/sayches_271x271.svg' %}" alt="Sayches Logo">
+         </a>
+         {% if show_beta_icon %}
+         <span class="beta-icon">BETA</span>
+         {% endif %}
+      </div>
+      <div class='list-wrapers'>
+         {% for do in other_docs %}
+         <div class="card-item-header tablinks" id='{{ do.slug }}' onclick="openCity(event, '{{ do.id }}', '{{do.slug}}')">
+            <a href="{% url 'subsections:single_docs' do.slug  %}"><span itemprop="articleSection">{{ do.name }}</span></a>
+         </div>
+         {% endfor %}   
+      </div>
+   </div>
+</div>
+

@@ -1,0 +1,30 @@
+
+
+{% load static %}
+{% if current_user and request.user !=  profile.user %}
+<div class="sec-box">
+   <div class="profile-dropdown ">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false">
+      <i class="ri-more-2-fill" pop-attr=""></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+         {% if profile.disable_ping == False %}
+         <a id="ping" class="dropdown-item {% if not today_ping %}ping-btn{% else %}disable{% endif %}" href="#" {% if today_ping %}disabled {% endif %}>Ping</a>
+         {% endif %}
+         <a id="bellNotification" class="dropdown-item" title= "Make sure you never miss updates from your favourite accounts by turning on the ringing bell to be notified of new posts.">
+         <span id="bell_notification" style="display:{% if belled %}block{%else%}none{% endif %}; cursor: pointer" class="primary-red" onclick="updateBellNotificaion()">UnWatch</span>
+         <span id="unbell_notification" style="display:{% if belled %}none{%else%}block{% endif %}; cursor: pointer" onclick="updateBellNotificaion()">Watch</span>
+         </a>
+         {% if profile.disable_messages == False %}
+         <a href="{% url 'message:chat-specfic-user' profile.user.username %}" class="dropdown-item">
+         Message
+         </a>
+         {% endif %}
+         <a class="dropdown-item" data-toggle="Report-popup" onclick="$('.option-popup-box').addClass('d-flex')" href="#">Report</a>
+      </div>
+   </div>
+</div>
+{% endif %}
+</div>
+

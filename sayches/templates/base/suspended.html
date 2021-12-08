@@ -1,0 +1,16 @@
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/keyframes.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/media.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/stylesheet.css' %}">
+{% if is_block_post %}
+<h4 class='text-center font-weight-bold'>Account suspended</h4>
+<p class='text-center'>Sayches suspends accounts which violate the Sayches Rules</p>
+{% endif %}
+{% if user.disposable and not is_block_post  %}
+<h4 class='text-center font-weight-bold'>Why do you need settings?</h4>
+<p class='text-center'>Trash account does not have access to the settings</p>
+{% endif %}
+

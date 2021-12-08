@@ -1,0 +1,37 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+<div id="step-1">
+   <div class="custom-step-content">
+      <div class="step-heading-box">
+         <h2 class="parag step-heading">High Five! <span>&#9995;</span> </h2>
+         <p class="parag step-p mt-3 text-center "> <i class="ri-lock-fill"></i> Free products have failed us over and over. Sayches is private throughout, and you are the one who controls your data.</p>
+      </div>
+      <div class="input-warp">
+         <div class="box">
+            <div class="form-group">
+               <div class="input-box">
+                  {% render_field steps_form.alias placeholder="Your Alias" name="alias" class="custom-input" %}
+               </div>
+            </div>
+         </div>
+         <div class="box">
+            <div class="form-group">
+               <div class="input-box select-custom">
+                  {% load countries %}
+                  {% get_countries as countries %}
+                  <select class="img-code text-gray" id="location" name="location">
+                     <option value="" {% if not request.user.country.name %}selected="selected" {% endif %}>Select Time Zone</option>
+                     {% for country in countries %}
+                     <option value="{{ country.code }}">{{ country.name }}</option>
+                     {% endfor %}
+                  </select>
+                  </select>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+

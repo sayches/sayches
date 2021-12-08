@@ -1,0 +1,51 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Directory'/>
+<meta name="twitter:title" content='Sayches / Directory'>
+{% endblock %}
+{% block title %}Sayches / Directory{% endblock %}
+{% block content %}
+<script> $(function () { $('[data-toggle="tooltip"]').tooltip() }) </script>
+<div class="multi-form-sec">
+   <div class="row justify-content-center">
+      <div class="col-lg-6">
+         <div class="step-heading-box">
+            <br/>
+            <h2 class="step-heading">Directory</h2>
+         </div>
+         <div class="row d-flex justify-content-center">
+            {% for u in user %}
+            <a href="{% url 'users:profile_name' u.user %}">
+            <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="{{ u.user }}">
+            <img class="profile-picure" src="{{ u.user.profile.photo_url }}" alt="Profile Picture" />
+            </button>
+            </a>
+            {% endfor %}
+         </div>
+         {% if page_obj.paginator.num_pages > 1 %}
+         <ul class="pagination">
+            {% if page_obj.has_previous %}
+            {% if default %}
+            <li><a href="?p={{ page_obj.previous_page_number }}&q={{default}}"><i class="ri-arrow-left-line"></i></a></li>
+            {% else %}
+            <li><a href="?p={{ page_obj.previous_page_number }}"><i class="ri-arrow-left-line"></i></a></li>
+            {% endif %}
+            {% endif %}
+            {% if page_obj.has_next %}
+            {% if default %}
+            <li><a href="?p={{ page_obj.next_page_number }}&q={{default}}"><i class="ri-arrow-right-line"></i></a></li>
+            {% else %}
+            <li><a href="?p={{ page_obj.next_page_number }}"><i class="ri-arrow-right-line"></i></a></li>
+            {% endif %}
+            {% endif %}
+         </ul>
+         {% endif %}
+      </div>
+   </div>
+</div>
+{% endblock %}
+

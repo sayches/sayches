@@ -1,0 +1,31 @@
+
+
+{% load static %}
+<div class="authenticated-user-img dropdown">
+   <div class="noti-box2">
+      <a class="img-icon noti2-click" href="#">
+      <img src="{{ request.user.profile.photo_url }}" alt="Profile Picture">
+      </a>
+      <div class="notification-dropdown2">
+         <div class="notification-content">
+            <a class="dropdown-item" href="{% url 'users:profile_name' request.user.user_hash %}">
+            <i class="ri-user-line primary-colour pr-4"></i>
+            Profile
+            </a>
+            <a class="dropdown-item" href="{% url 'users:profile_update' %}">
+            <i class="ri-settings-5-line primary-colour pr-4"></i>
+            Settings
+            </a>
+            <a class="dropdown-item qr-code" href="#" data-toggle="modal" data-target="#ModalCenter">
+            <i class="ri-qr-code-line primary-colour pr-4"></i>
+            QR Code
+            </a>
+            <a class="dropdown-item" href="{% url 'logout' %}">
+            <i class="ri-shut-down-line primary-colour pr-4"></i>
+            Log out
+            </a>
+         </div>
+      </div>
+   </div>
+</div>
+

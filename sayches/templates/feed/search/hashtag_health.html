@@ -1,0 +1,18 @@
+
+
+{% load static %}
+{% load short_number %}
+<div class="main-box sidebar-box search-result-box">
+   <div>
+      <p class="f-s-14 m-unset">Hashtag: <a class="tertiary-blue" href="#">{{ hashtag }}</p>
+      </a>
+      Author: <a class="tertiary-blue" href="{% url 'users:profile_name' hashtag_post_user %}">{{ hashtag_post_user }}</a>
+      <p class="f-s-14 m-unset">
+         Number: {% if counter == 1 %} {{ counter|short_number }} post {% else %} {{ counter|short_number }} posts {% endif %}
+      </p>
+      <p class="f-s-14 m-unset">
+         Status: <span class="{% if status == 'Clean' %}primary-green {% else %}primary-red{% endif %}">{{ status }}</span>
+      </p>
+   </div>
+</div>
+

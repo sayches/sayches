@@ -1,0 +1,91 @@
+
+
+{% load static %}
+{% load qr_code %}
+<header>
+   {%include 'base/reminders.html'%}
+   <div class="custom-nav landing">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-6 col-4">
+               <div class="nav-box">
+                  <div class="logo-box">
+                     <a href="{% url 'subsections:home' %}">
+                     <img src="{% static 'assets/images/saychesLogo/sayches_271x271.svg' %}" alt="Sayches Logo" class="img-fluid">
+                     </a>
+                     {% if show_beta_icon %}
+                     <span class="beta-icon">BETA</span>
+                     {% endif %}
+                  </div>
+                  {%if backbtn %}
+                  {%include 'base/header/backbtn.html'%}
+                  {%endif%}
+                  <div class="custom-search dropdown">
+                     <img src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close" class="custom-ex">
+                     <form action="{% url 'posts:search' %}">
+                        <div class="search-box">
+                           <input type="text" placeholder="SEARCH OR JUMP TO..." name="search" id="search">
+                           <button type="button" data-toggle="dropdown" id="dropdownMenuButton">
+                           <button type="submit">
+                           <i class="ri-search-line primary-colour header-icon img-fluid"></i>
+                           </button>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="search_ops">
+                           </ul>
+                        </div>
+                     </form>
+                  </div>
+                  <div class="mob-search">
+                     <img src="{% static 'assets/images/icons/svgIcons/search_100x100.svg' %}" alt="Search">
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 col-8">
+               {% if request.user.is_authenticated %}
+               <div class="authenticated-user-box">
+                  {% if request.path == "/" %}
+                  <a href="{% url 'subsections:home' %}" class="primary-button">Feed</a>
+                  {% else %}
+                  <div class="authenticated-user-list">
+                     <ul id="header_reload">
+                        {% include 'base/header/notifications.html' %}
+                     </ul>
+                  </div>
+                  {% if request.user.profile %}
+                  {%include 'base/header/dropdown.html'%}
+                  {% endif %}
+                  {% endif %}
+               </div>
+               {% else %}
+               <div class="authenticated-user-box">
+                  <div class="btns-container">
+                     {% if not request.user.is_authenticated %}
+                     <a href="{% url 'signup' %}" class="primary-button">Sign up</a>
+                     <a href="{% url 'login' %}" class="primary-button">Login</a>
+                     {% endif %}
+                  </div>
+               </div>
+               {% endif %}
+            </div>
+         </div>
+         {%include 'base/header/qr_code_popup.html'%}
+      </div>
+   </div>
+</header>
+<script type="text/javascript"  src="{%static 'lib/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/header.js' %}"></script>
+<script src="{% static 'assets/js/mobile-search.js' %}"></script>
+<script>
+   setInterval(function () {
+     $.ajax({
+       type: 'Post',
+       url: notificationsReload,
+       data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+       success: function (data) {
+         $('#header_reload').html(data);
+       }
+     });
+   }, 30 * 1000);
+   var pongUser = "{% url 'users:pong-user' id=9999 %}";
+   var notificationsReload = "{% url 'users:notifications_reload' %}";
+</script>
+

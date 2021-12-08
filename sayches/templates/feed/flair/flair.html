@@ -1,0 +1,40 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / {% if flair_name %}{{ flair_name }}{% else %}Explore{% endif %}" />
+<meta name="twitter:title" content="Sayches / {% if flair_name %}{{ flair_name }}{% else %}Explore{% endif %}">
+{% endblock %}
+{% block title %}Sayches / {% if flair_name %}{{ flair_name }}{% else %}Explore{% endif %}{% endblock %}
+{% block content %}
+<div class="main-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-8">
+            <div class="sort-by" id="current-sort-type"></div>
+            <div class="tab-content">
+               <div class="tab-pane active" role="tabpanel">
+                  <div class="main-post-box">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+   $.ajaxSetup({
+     headers: {
+       "X-CSRFToken": '{{ csrf_token }}'
+     }
+   });
+   
+   var flairPosts = "{% url 'posts:flair_posts' flair %}";
+   var query = "{{query}}";
+</script>
+<script src="{% static 'assets/js/flair.js' %}"></script>
+{% endblock js %}
+

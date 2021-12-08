@@ -1,0 +1,50 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      {% include "base/outer_base.html" %}
+      <meta property="og:title" content="Sayches / Newsroom" />
+      <meta name="twitter:title" content="Sayches / Newsroom">
+      {% include "base/meta_tags.html" %}
+      <title>Sayches / Newsroom</title>
+   </head>
+   <body>
+      <div class="main-container">
+         {% include "newsroom/newsroom_header.html" %}
+         {% if news %}
+         <section itemscope itemtype="http://schema.org/Article" class="blocks">
+            {% for new in news %}
+            {% include "newsroom/article_container.html" %}
+            {% endfor %}
+         </section>
+         {% else %}
+         <h4 class="text-center font-weight-bold h6"> No Data Available</h4>
+         {% endif %}
+         {% if page_obj.paginator.num_pages > 1 %}
+         <ul class="pagination">
+            {% if page_obj.has_previous %}
+            {% if default %}
+            <li><a href="?p={{ page_obj.previous_page_number }}&q={{default}}"><i class="ri-arrow-left-line"></i></a></li>
+            {% else %}
+            <li><a href="?p={{ page_obj.previous_page_number }}"><i class="ri-arrow-left-line"></i></a></li>
+            {% endif %}
+            {% endif %}
+            {% if page_obj.has_next %}
+            {% if default %}
+            <li><a href="?p={{ page_obj.next_page_number }}&q={{default}}"><i class="ri-arrow-right-line"></i></a></li>
+            {% else %}
+            <li><a href="?p={{ page_obj.next_page_number }}"><i class="ri-arrow-right-line"></i></a></li>
+            {% endif %}
+            {% endif %}
+         </ul>
+         {% endif %}
+         <footer class="sticky-footer">
+            {% include "base/footer/footer.html" %}
+         </footer>
+      </div>
+   </body>
+   {% include "newsroom/base_js.html" %}
+</html>
+

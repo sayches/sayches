@@ -1,0 +1,67 @@
+
+
+{% load static %}
+{% load core_extras %}
+<div class="option-popup-box option-p parag"  data-id="Report-popup">
+<div class="option-popup">
+<div class="popup-heading">
+   <h3 class="font-weight-bold f-s-17">Report a violation</h3>
+   <img alt="Close" src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" class="popup-exit">
+</div>
+<div class="popup-body text-left">
+   {% if not check_post_report %}
+   <form class="postForm reportForm AjaxForm" onsubmit="reportAPost(event)" id="reportForm">
+      {% csrf_token %}
+      <input type="hidden" name="postid" value="{{post.id}}" />
+      <input type="hidden" name="post_url" value="/p/{{post.id}}/" />
+      <div class="form-group">
+         <p><U>Report an account for:</U></p>
+         <div>
+            <input type="radio" id="reason_1" name="reason" value="Civic integrity" Checked />
+            <label for="reason_1">&nbsp  Civic integrity</label><br>
+            <input type="radio" id="reason_2" name="reason" value="Copyright infringement / DMCA takedown and counter notice"/>
+            <label for="reason_2">Copyright infringement / DMCA takedown and counter notice</label><br>
+            <input type="radio" id="reason_3" name="reason"  value="Cyberbullying"/>
+            <label for="reason_3">&nbsp Cyberbullying</label><br>
+            <input type="radio" id="reason_4" name="reason"  value="Harassment, hateful or abusive"/>
+            <label for="reason_4">&nbsp Harassment, hateful or abusive</label><br>
+            <input type="radio" id="reason_5" name="reason"  value="Hate speech"/>
+            <label for="reason_5">&nbsp Hate speech</label><br>
+            <input type="radio" id="reason_6" name="reason" value="Illegal or certain regulated goods or services"/>
+            <label for="reason_6">&nbsp Illegal or certain regulated goods or services</label><br>
+            <input type="radio" id="reason_7" name="reason" value="Impersonation / Notice of trademark violation"/>
+            <label for="reason_7">&nbsp Impersonation / Notice of trademark violation</label><br>
+            <input type="radio" id="reason_8" name="reason"  value="Legal request for content removal"/>
+            <label for="reason_8">&nbsp Legal request for content removal</label><br>
+            <input type="radio" id="reason_9" name="reason" value="Multiple policy violations"/>
+            <label for="reason_9">&nbsp Multiple policy violations</label><br>
+            <input type="radio" id="reason_10" name="reason"  value="Nudity, sexual or pornography"/>
+            <label for="reason_10">&nbsp Nudity, sexual or pornography</label><br>
+            <input type="radio" id="reason_11" name="reason"  value="Private information"/>
+            <label for="reason_11">&nbsp Private information</label><br>
+            <input type="radio" id="reason_12" name="reason" value="Promoting suicide or self-harm"/>
+            <label for="reason_12">&nbsp Promoting suicide or self-harm</label><br>
+            <input type="radio" id="reason_13" name="reason" value="Spam, misleading and scams"/>
+            <label for="reason_13">&nbsp Spam, misleading and scams</label><br>
+            <input type="radio" id="reason_14" name="reason"  value=" Terrorism/violent extremism"/>
+            <label for="reason_14">&nbsp  Terrorism/violent extremism</label><br>
+            <input type="radio" id="reason_15" name="reason" value="Violence"/>
+            <label for="reason_15">&nbsp Violence</label><br>
+            <div class="form-group">
+               <p><input required type="checkbox" id="check_1" onclick="checkBox_Ticked_OR_Not()" class="termCheck" name="terms_and_conditions_1" value="terms_and_conditions"> I understand that Sayches may provide third parties, for example the reported user with details of this report, such as the reported content. Your contact information, like your email address, will not be disclosed.</label><br></p>
+               <p><input required type="checkbox" id="check_2" onclick="checkBox_Ticked_OR_Not()" class="termCheck" name="terms_and_conditions_2" value="terms_and_conditions"> I declare under penalty of perjury that all of the information provided above is accurate.</br></p>
+            </div>
+            <div class="btn-center-box">
+               <button btn-input="QuoteInput" onclick="addClassToDiv()" id="reportButton" type="submit" class="post-btn primary-button prevent_multiple">Submit</button>
+            </div>
+   </form>
+   {% else %}
+   <form >
+   <h6>Yor have alreday reported this post.</h6>
+   </form>
+   {% endif %}
+   </div>
+   </div>
+</div>
+<script src="{% static 'assets/js/report-post.js' %}"></script>
+

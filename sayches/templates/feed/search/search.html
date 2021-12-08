@@ -1,0 +1,55 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / {% if hashtag %}{{ hashtag }}{% else %}Explore{% endif %}" />
+<meta name="twitter:title" content="Sayches / {% if hashtag %}{{ hashtag }}{% else %}Explore{% endif %}">
+{% endblock %}
+{% block title %}Sayches / {% if hashtag %}{{ hashtag }}{% else %}Explore{% endif %}{% endblock %}
+{% block content %}
+<div class="main-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-8">
+            {% if ads %}
+            {% include "feed/search/ad.html" %}
+            {% endif %}
+            {% if hashtag_post_user %}
+            {% include "feed/search/hashtag_health.html" %}
+            {% endif %}
+            {% include "feed/search/tab.html" %}
+            <div class="tab-content">
+               <div class="tab-pane active" id="posts" role="tabpanel">
+                  <div class="sort-by" id="current-sort-type"></div>
+                  {% if not is_block_post %}
+                  <div class="main-post-box">
+                  </div>
+                  {% else %}
+                  {% include "base/suspended.html" %}
+                  {% endif %}
+               </div>
+               {%include 'feed/search/user_tab.html'%}
+               {%include 'feed/search/hashtag_tab.html'%}
+            </div>
+            {%include 'feed/popup.html'%}
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+   $.ajaxSetup({
+       headers: {
+          "X-CSRFToken": '{{ csrf_token }}'
+       }
+     });
+   
+   var search = "{% url 'posts:search' %}";
+   var query = "{{query}}";
+</script>
+<script src="{% static 'assets/js/search.js' %}"></script>
+<script src="{% static 'assets/js/load-reacton.js' %}"></script>
+{% endblock js %}
+

@@ -1,0 +1,58 @@
+
+
+{% load static %}
+{% load short_number %}
+<div class="profile-section">
+<div class="info-box profile-profile-img">
+   <div class="profile-img">
+      <img alt="Profile Picture" src="{{ profile.photo_url }}" class="img-fluid">
+   </div>
+   <div class="profile-txt">
+      <h3 class="font-weight-bold f-s-18 text-truncate-150-media">{{ user.get_name_or_username|escapejs }} {% if user_birthday_flag %}<button type="button" class="btn pa-0-5" data-container="body" data-toggle="popover" data-placement="top" data-content="It's {{ user.user_hash }} birthday! 🥳"><span>🎂<span></button> {% endif %}
+      </h3>
+      <div class="nav-box">
+         <p class="profile-p parag">{{ user.user_hash }}</p>
+         <small class="validation {{ user_verification_form.verification.value }}">
+         {{user_verification_form.verification.value}}
+         </small>
+         {% if user.disposable %}<small class="Disposable validation">Disposable</small>{% else %}
+         {% if not profile.photo or user.first_login or user.first_post or user.profile_age == '0 days' %}<small class="Virgin validation">Virgin</small>{% endif %} 
+         {% endif %} 
+         <div class="profile-icons row">
+            {% if user.warrant_canary %}
+            <button type="button" class="btn profile-btn" data-container="body" data-toggle="popover" data-placement="top"
+               data-content="Sayches has not been served with a secret government subpoena to obtained access to {{ user.user_hash }} information or records. Watch very closely for the removal of this sign.">
+            <img src="{% static 'assets/images/avatars/warrantCanary.svg' %}" alt="Warrant Canary" class="warrant-icon">
+            </button>{% endif %}
+            {% if profile.btc_address %}
+            <button type="button" class="btn profile-btn" data-container="body" data-toggle="popover" data-placement="top"
+               data-content="{{ profile.btc_address }}">
+            <i class="ri-bit-coin-fill primary-colour f-s-24" aria-hidden="true"></i>
+            </button>
+            {% endif %}
+            {% if profile.pgp_fingerprint %}
+            <button type="button" class="btn profile-btn" data-container="body" data-toggle="popover" data-placement="top"
+               data-content="{{ profile.pgp_fingerprint }}">
+            <i class="ri-key-2-fill primary-colour" aria-hidden="true"></i>
+            </button>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+<div class="main-box profile-box">
+   <div class="follow-box">
+      <div class="first-box {% if current_user and request.user ==  profile.user %}d-flex{% else %}profile-block{% endif %}">
+         {% if current_user %}
+         <span class="parag follow-p"><span>{{ user_total_posts|short_number }}</span>BLOWS</span>
+         <span class="parag follow-p"><span>{{ user_current_posts|short_number }}</span>AVAILABLE BLOWS</span>
+         {% else %}
+         <span class="parag follow-p"><span>{{ user_total_posts|short_number }}</span>POSTS</span>
+         <span class="parag follow-p"><span>{{ user_current_posts|short_number }}</span>AVAILABLE BLOWS</span>
+         {% endif %}
+      </div>
+      {% include 'profile/dropdown.html' %}
+      {% include "profile/user_info.html" %}
+   </div>
+</div>
+

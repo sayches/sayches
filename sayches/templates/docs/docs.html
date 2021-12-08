@@ -1,0 +1,31 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      {% include "base/outer_base.html" %}
+      <meta name="twitter:title" content="Sayches / Documents">
+      <meta property="og:title" content="Sayches / Documents" />
+      {% include "base/meta_tags.html" %}  
+      <title>Sayches / {% if single_doc.name %} {{single_doc.name}} {% else %} Documents {% endif %}</title>
+   </head>
+   <body>
+      <section>
+         <div class="container-fluid">
+            <div class="docs">
+               <div itemscope itemtype="http://schema.org/Article" class="row">
+                  {% include "docs/sidebar.html" %}
+                  {% include "docs/body.html" %}
+               </div>
+            </div>
+         </div>
+      </section>
+      <script src="{%static 'lib/js/jquery.min.js' %}"></script>
+      <script>    
+         current_path=window.location.pathname.split('/')[2]
+         $("#"+current_path).addClass("doc_tab_active");
+      </script>
+   </body>
+</html>
+

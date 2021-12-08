@@ -1,0 +1,35 @@
+
+
+{% load static %}
+<div class="col-lg-4 col-md-9">
+   <div class="custom-sidebar tap-sidebar">
+      <div class="list-group tap-profile" id="myList" role="tablist">
+         <a class="list-group-item list-group-item-action active" data-toggle="list" href="#profile" role="tab">
+            <p class="tap-name parag">👤 Profile</p>
+         </a>
+         <a class="list-group-item list-group-item-action" data-toggle="list" href="#privacy" role="tab">
+            <p class="tap-name parag">🔒 Privacy & Security</p>
+         </a>
+         <a class="list-group-item list-group-item-action" data-toggle="list" href="#preferences" role="tab">
+            <p class="tap-name parag">⚙️ Preferences</p>
+         </a>
+         <a class="list-group-item list-group-item-action" data-toggle="list" href="#from-sayches" role="tab">
+            <p class="tap-name parag">✉️ From Sayches</p>
+         </a>
+         {% if not verification_tag %}
+         <a class="list-group-item list-group-item-action" data-toggle="list" href="#verification" role="tab">
+            <p class="tap-name parag">✅ Request Verification</p>
+         </a>
+         {% endif %}
+         {% if ads %}
+         <a class="list-group-item list-group-item-action" data-toggle="list" href="#ads" role="tab">
+            <p class="tap-name parag">🧾 Ads History</p>
+         </a>
+         {% endif %}
+         <a class="list-group-item list-group-item-action" data-toggle="list" href="#developer" role="tab">
+            <p class="tap-name parag">🖥 Developer</p>
+         </a>
+      </div>
+   </div>
+</div>
+

@@ -1,0 +1,33 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+{% load tz %}
+<div class="tab-pane show" role="tabpanel">
+   <form action="{% url 'users:profile_update' %}" method="post" enctype="multipart/form-data">
+      <input type="hidden" value="{{request.user.id}}" name="user">
+      {% csrf_token %}
+      <div class="profile-content">
+         <div class="form-group">
+            <label class="font-weight-bold parag">Username</label>
+            {% render_field form.username class="custom-at custom-input profile-input custom-disable-field"  %}
+            {{ form.username.errors }}
+         </div>
+         <div class="form-group">
+            <label class="font-weight-bold parag">URL of Your Corresponding Verified Account</label>
+            {% render_field user_verification_form.url class="custom-input profile-input" placeholder="https://" %}
+            <label class="text-item short-p text-justify">
+            – To get the verification badge, your account must be authentic and active.<br>
+            – Please share a URL where you have a verified account on another service
+            (e.g. Wikipedia page or official social media account that has a visible link to your Sayches account).<br>
+            – Sayches may remove the verified badge of a Sayches account at any time and without notice.
+            </label>
+         </div>
+         {% if user_verification %}
+         <p class="primary-green f-s-13 font-weight-bold">Thank you for providing this information. Unfortunately, your request could not be confirmed automatically. Please wait while our moderators check your application manually.</p>
+         {% endif %}
+         <button type="submit" class="{% if user_verification %}disabled-button{% endif %} primary-button" name="profile_verification" {% if user_verification %} disabled {% endif %}>Submit</button>
+      </div>
+   </form>
+</div>
+

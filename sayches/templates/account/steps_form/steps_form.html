@@ -1,0 +1,57 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches' />
+<meta name="twitter:title" content='Sayches'>
+{% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="multi-form-sec">
+<div class="container">
+<div class="row justify-content-center">
+   <div class="col-lg-10">
+      <div class="multi-form-content">
+         <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="multi-form" class="form-box">
+               <ul>
+                  <li>
+                     <a href="#step-1">
+                     <span class="custom-circle parag">1</span>
+                     <span class="parag header-p">Set up ⚙️</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#step-2">
+                     <span class="custom-circle parag">2</span>
+                     <span class="parag header-p">Selfie 🤳</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#step-3">
+                     <span class="custom-circle parag">3</span>
+                     <span class="parag header-p">Support 💷</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#step-4">
+                     <span class="custom-circle parag">4</span>
+                     <span class="parag header-p">Rules 📌</span>
+                     </a>
+                  </li>
+               </ul>
+               <div>
+                  {% include "account/steps_form/step1.html" %}
+                  {% include "account/steps_form/step2.html" %}
+                  {% include "account/steps_form/step3.html" %}
+                  {% include "account/steps_form/step4.html" %}
+         </form>
+         </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+

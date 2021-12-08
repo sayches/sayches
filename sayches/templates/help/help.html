@@ -1,0 +1,34 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="theme-color" content="#F7941D">
+      <meta property="og:title" content="Sayches / Help" />
+      <meta name="twitter:title" content="Sayches / Help">
+      {% include "base/meta_tags.html" %}
+      <link rel="stylesheet" href="{% static 'lib/css/4.0.0-bootstrap.min.css' %}">
+      <link href="{% static 'lib/css/fontface.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'lib/webfonts/remixicon/remixicon.css' %}">
+      <link rel="icon" href="{% static 'assets/images/saychesLogo/favicon.ico' %}" />
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/keyframes.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/media.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/stylesheet.css' %}">
+      <title>Sayches / Help</title>
+   </head>
+   <body>
+      {% include "help/header.html" %}
+      {% include "help/form.html" %}
+      <footer>
+      {% include "base/footer/footer.html" %}
+      <footer>
+      <script src="{% static 'lib/js/hcaptcha_api.js' %}" async defer></script>
+      <script src="{%static 'lib/js/jquery.min.js' %}"></script>
+   </body>
+</html>
+

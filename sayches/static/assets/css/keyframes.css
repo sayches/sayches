@@ -1,0 +1,46 @@
+@keyframes translateLeft {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes animate-love {
+  0% {
+    transform: scale(1, 1) rotate(0);
+    box-shadow: 0px 0px 1px 0px rgba(215, 58, 73, 0);
+    background-color: rgba(215, 58, 73, 0);
+  }
+  50% {
+    transform: scale(1.4, 1.4) rotate(180deg);
+    box-shadow: 0px 0px 1px 10px rgba(215, 58, 73, 0.13);
+    background-color: rgba(215, 58, 73, 0.13);
+  }
+  100% {
+    transform: scale(1, 1) rotate(360deg);
+    box-shadow: 0px 0px 1px 0px rgba(215, 58, 73, 0);
+    background-color: rgba(215, 58, 73, 0);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@-webkit-keyframes spinner-border {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-border {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

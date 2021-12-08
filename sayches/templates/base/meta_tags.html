@@ -1,0 +1,15 @@
+
+
+{% load static %}
+<meta name="description" content="{% if profile.bio %}{{ profile.bio }}{% else %}Sayches is an anonymous social media platform that champions the free flow of information, takes anti-surveillance measures, and resists censorship.{% endif %}" />
+<meta property="og:site_name" content="Sayches" />
+<meta property="og:image" content="{% if profile.photo_url %}{{ profile.photo_url }}{% else %}{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}{% endif %}" />
+<meta property="og:description" content="{% if profile.bio %}{{ profile.bio }}{% else %}Sayches is an anonymous social media platform that champions the free flow of information, takes anti-surveillance measures, and resists censorship.{% endif %}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="{% if profile.bio %}{{ profile.bio }}{% else %}Sayches is an anonymous social media platform that champions the free flow of information, takes anti-surveillance measures, and resists censorship.{% endif %}" />
+<meta name="twitter:image" content="{% if profile.photo_url %}{{ profile.photo_url }}{% else %}{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}{% endif %}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="theme-color" content="#F7941D">
+<link rel="canonical" href="{{ request.get_full_path }}" />
+

@@ -1,0 +1,20 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+{% block othermeta %}
+<meta property="og:title" content='Page not found' />
+<meta name="twitter:title" content='Page not found'>
+{% endblock %}
+{% block title %}Page not found{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<div class="fourWrap background-404">
+   <div>
+      <h2>Sorry, we didn't catch that</h2>
+      <a class="btn-a fourBtn d-block" href="{% url 'subsections:home' %}"> Take me back</a>
+   </div>
+</div>
+{% endblock content %}
+

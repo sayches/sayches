@@ -1,0 +1,76 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Advertising'/>
+<meta name="twitter:title" content='Sayches / Advertising'>
+{% endblock %}
+{% block title %}Sayches / Advertising{% endblock %}
+{% block content %}
+<div class="multi-form-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-10">
+            <div id="multi-form" class="form-box">
+               <ul>
+                  <li>
+                     <a href="#step1">
+                     <span class="custom-circle parag"><i class="primary-green ri-check-line font-weight-bold"></i></span>
+                     <span class="parag header-p">About Your Business</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#step2">
+                     <span class="custom-circle parag"><i class="primary-green ri-check-line font-weight-bold"></i></span>
+                     <span class="parag header-p">Design Your Ad</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#step3">
+                     <span class="custom-circle parag">3</span>
+                     <span class="parag header-p">Plan Your Ad</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#step4">
+                     <span class="custom-circle parag">4</span>
+                     <span class="parag header-p">Checkout</span>
+                     </a>
+                  </li>
+               </ul>
+            </div>
+            <div id="step3">
+               <div class="custom-step-content">
+                  <div class="step-heading-box">
+                     <br/>
+                     <h2 class="parag step-heading">Plan Your Ad</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="card-deck">
+               {% for ads in ads_pricing %}
+               <div class="card ads-card mb-3">
+                  <div class="card-body">
+                     <h5 class="font-weight-bold">{{ ads.title }}{% if ads.type %}<small class="tag m-l-20">{{ ads.type }}</small>{% endif %}</h5>
+                     <p class="text-secondary small">{% if ads.description %} {{ ads.description }} {% endif %}</p>
+                     {% if ads.image %} <img class="width-100 float-right" src="{{ ads.image.url }}" alt="Ad Sample">{% endif %}
+                     <p class="text-secondary small">{% if ads.price %}£{{ ads.price|floatformat:2 }}{% endif %}{% if ads.per == 'None' %} {{ ads.per }} {% endif %}</p>
+                     <form action="." method="post">
+                        <input type="hidden" name="ads_pricing_id" value="{{ads.id}}">
+                        {% csrf_token %}
+                        {% if ads.pick %}<button class="btn font-weight-bold text-primary">Pick</button>{% else %}<a class="font-weight-bold text-primary" href="{% url 'subsections:help' %}">Contact Us</a>{% endif%}
+                     </form>
+                  </div>
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>
+{% endblock %}
+

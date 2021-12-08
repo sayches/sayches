@@ -1,0 +1,36 @@
+
+
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / Sign Out" />
+<meta name="twitter:title" content="Sayches / Sign Out">
+{% endblock %}
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block content %}
+<div class="form-sec logout-popup-window">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-lg-7 d-flex align-items-center">
+   <div class="img-box">
+      <img src="{% static 'assets/images/reactions/arrested.png' %}" alt="Login" class="img-fluid">
+   </div>
+</div>
+<div class="col-lg-5 col-md-9">
+<div class="form-box">
+<p class="font-weight-bold f-s-17">Are you sure you want to sign out, {{ request.user.user_hash }}?</p>
+<p class="font-weight-bold f-s-14 primary-red">You can regain access to your Sayches account only if you remember your previous Master Password.</p>
+<form method="post" action="#">
+   {% csrf_token %}
+   {% if redirect_field_value %}
+   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+   {% endif %}
+   <div class="col-md-6 logout-user">
+      <div class="danger">
+         <button type="submit" class="primary-button">Log out</button>
+      </div>
+   </div>
+</form>
+{% endblock %}
+

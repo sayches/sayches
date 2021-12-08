@@ -1,0 +1,113 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / Login" />
+<meta name="twitter:title" content="Sayches / Login">
+{% endblock %}
+{% block title %}Sayches / Login{% endblock %}
+{% block content %}
+<div class="form-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-7 d-flex align-items-center">
+            <div class="img-box">
+               <img src="{% static 'assets/images/reactions/login.png' %}" alt="Logo" class="img-fluid">
+            </div>
+         </div>
+         <div class="col-lg-5 col-md-9 pt-md-5">
+            {% if error == "Your account has beed suspended" %}
+            <div>
+               <p class="font-weight-bold">{{ error }}</p>
+            </div>
+            {% else %}
+            <div class="form-box login-form-alin">
+               <h2 class="font-weight-bold f-s-18">Login</h2>
+               <form method="post" novalidate action="{% url 'login' %}?next=/feed" >
+                  {% csrf_token %}
+                  {% if form.username.errors or error %}
+                  <div class="form-group">
+                     <div class="input-box custom-user custom-error">
+                        {% render_field form.login placeholder="Username" class="custom-input remove-space" %}
+                        {{ login_form.non_field_errors.as_text }}
+                     </div>
+                  </div>
+                  {% else %}
+                  <div class="form-group">
+                     <div class="input-box custom-user ">
+                        {% if remember_me_data.username %}
+                        {% render_field form.login placeholder="Username" value=remember_me_data.username class="custom-input remove-space" %}
+                        {{ login_form.non_field_errors.as_text }}
+                        {% else %}
+                        {% render_field form.login placeholder="Username" class="custom-input remove-space" %}
+                        {{ login_form.non_field_errors.as_text }}
+                        {%  endif %}
+                     </div>
+                  </div>
+                  {% endif %}
+                  {% if login_form.password.errors or error %}
+                  <div class="form-group">
+                     <div class="input-box custom-pass forget-box custom-error">
+                        {% render_field form.password placeholder="Master Password" id="login-pass" name="login-pass" class="custom-input" %}
+                        <button type="button" class="custom-forget btn primary-blue" data-container="body" data-toggle="popover" data-placement="top"
+                           data-content="Sayches has no knowledge of, way to retrieve, or way to reset your Master Password.">
+                        Forgot?
+                        </button>
+                        <i toggle="#login-pass" class="toggle-password ri-eye-fill"></i>
+                     </div>
+                  </div>
+                  {% else %}
+                  <div class="form-group">
+                     <div class="input-box custom-pass forget-box ">
+                        {% if remember_me_data.password %}
+                        {% render_field form.password placeholder="Master Password" value=remember_me_data.password id="login-pass" name="login-pass" class="custom-input" %}
+                        {% else %}
+                        {% render_field form.password placeholder="Master Password" id="login-pass" name="login-pass" class="custom-input" %}
+                        {% endif %}
+                        <button type="button" class="custom-forget btn primary-blue" data-container="body" data-toggle="popover" data-placement="top"
+                           data-content="Sayches has no knowledge of, way to retrieve, or way to reset your Master Password.">
+                        Forgot?
+                        </button>
+                        <i toggle="#login-pass" class="toggle-password ri-eye-fill"></i>
+                     </div>
+                  </div>
+                  {% endif %}
+                  <div class="form-group">
+                     <div class="row">
+                        <div class="col-md-6 d-flex align-items-center">
+                           <div class="custom-checkbox login-form">
+                              <div class="pretty p-icon p-curve">
+                                 {% render_field form.remember_me id="custom-remember" name="remember_me" class="custom-input" %}
+                                 <input type="checkbox"  id="custom-remember" name="remember_me">
+                                 <div class="state">
+                                    <i class="icon mdi mdi-close ri-check-line font-weight-bold"></i>
+                                    <label for="custom-remember" class="parag check-label">Remember me</label>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="float-right">
+                              <button type="submit" class="primary-button">Login</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+               <div class="txt-al-c">
+                  <p class="parag social-p">New to Sayches? <a href="{% url 'signup' %}">SIGN UP</a></p>
+               </div>
+            </div>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+<script src="{% static 'assets/js/login-signup.js' %}"></script>
+<script>$(function () {$('[data-toggle="popover"]').popover()})</script>   
+{% endblock content %}
+

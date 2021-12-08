@@ -1,0 +1,16 @@
+
+
+{% load static %}
+<div class="custom-search">
+   <img src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close" class="custom-ex">
+   <form method="GET" action="{% url 'subsections:news' %}" >
+      <div class="search-box">
+         <input type="text" placeholder="SEARCH OR JUMP TO..." name="q" id="search">
+         <button type="submit"><img alt="Search" src="{% static 'assets/images/icons/svgIcons/search_100x100.svg' %}"></button>
+      </div>
+   </form>
+</div>
+<div class="mob-search">
+   <img src="{% static 'assets/images/icons/svgIcons/search_100x100.svg' %}" alt="Search">
+</div>
+

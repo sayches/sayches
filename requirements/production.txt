@@ -1,0 +1,7 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r ./base.txt
+
+gunicorn
+psycopg2==2.8.5 --no-binary psycopg2
+django-storages[boto3]==1.9.1

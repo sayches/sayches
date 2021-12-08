@@ -1,0 +1,39 @@
+
+
+{% load static %}
+<header>
+   <div class="custom-nav landing newsroom">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-6 col-2">
+               <div class="nav-box">
+                  <div class="logo-box">
+                     <a href="{% url 'subsections:home' %}">
+                     <img src="{% static 'assets/images/saychesLogo/sayches_271x271.svg' %}" alt="Sayches Logo" class="img-fluid">
+                     </a>
+                     {% if show_beta_icon %}
+                     <span class="beta-icon">BETA</span>
+                     {% endif %}
+                  </div>
+                  <div class="logo-box" onclick="Previous()">
+                     {%include 'base/header/backbtn.html'%}
+                  </div>
+                  <div class="custom-search dropdown">
+                     <img src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close" class="custom-ex">
+                     <form method="GET" action="{% url 'subsections:news' %}" >
+                        <div class="search-box">
+                           <input type="text" placeholder="SEARCH OR JUMP TO..." name="q" id="search">
+                           <button type="submit"><img alt="Search" src="{% static 'assets/images/icons/svgIcons/search_100x100.svg' %}"></button>
+                        </div>
+                     </form>
+                  </div>
+                  <div class="mob-search">
+                     <img src="{% static 'assets/images/icons/svgIcons/search_100x100.svg' %}" alt="Search">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</header>
+

@@ -1,0 +1,27 @@
+
+
+{% load static %}
+{% include "base/footer/cookie_banner.html" %}
+<div class="custom-footer landing-footer">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="footer-box">
+               <ul class="footer-list">
+                  <li><a href="{% url 'subsections:docs' %}">Docs</a></li>
+                  <li><a href="{% url 'subsections:news' %}">Newsroom</a></li>
+                  <li><a href="{% url 'subsections:ads' %}">Ads</a></li>
+                  <li><a href="{% url 'subsections:help' %}">Help</a></li>
+               </ul>
+               <div>
+                  <p class="footer-p mr-3"
+                  {% if request.path != '/' %}
+                  {% endif %}
+                  ><a href="#">SAYCHES © 2021 {{ version_no }}</a></p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+

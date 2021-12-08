@@ -1,0 +1,23 @@
+
+
+{% load static%}
+<div class="tab-pane show" id="hashtags" role="tabpanel">
+   <div class="main-box sidebar-box search-result-box">
+      <h2 class="heading sidebar-h">Search results</h2>
+      {% for hashtag in hashtags %}
+      <div class="main-mini-box mini-search-box">
+         <div class="mini-box text-break">
+            <a href="{% url 'posts:search_hash' hashtag.explicit_name %}" class="overlay-link" data-id="{{ hashtag.id }}"></a>
+            <div class="trend-img">
+               <i class="ri-hashtag font-weight-bold"></i>
+            </div>
+            <div class="txt-box">
+               <h3 class="heading mini-box-h text-truncate-100-media"><span class="minibox-explicitname">{{ hashtag.explicit_name }} </span><br><span class="minibox-explicitcounter">{% if hashtag.hashtag_counter > 100 %} Hullabaloo {% else %} Nothingburger{% endif %}</span></h3>
+            </div>
+         </div>
+      </div>
+      {% endfor %}
+      <h4 class="custom-more"><a href="#">More...</a></h4>
+   </div>
+</div>
+

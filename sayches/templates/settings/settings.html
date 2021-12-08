@@ -1,0 +1,75 @@
+
+
+{% extends 'base/base.html' %}
+{% load tz %}
+{% load static %}
+{% load widget_tweaks %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / Settings' />
+<meta name="twitter:title" content='Sayches / Settings'>
+{% endblock %}
+{% block title %}Sayches / Settings{% endblock %}
+{% block content %}
+<div class="main-sec edit-profile-section">
+   <div class="container">
+      {% if is_block_user %}
+      {% include "base/suspended.html" %}
+      {% elif user.disposable %}
+      {% include "base/suspended.html" %}
+      {% else %}
+      <div class="row justify-content-center">
+         {%include 'settings/sidebar.html'%}
+         <div class="col-lg-8">
+            <div class="tab-content">
+               <div class="tab-pane active" id="profile" role="tabpanel">
+                  {%include 'settings/profile.html'%}
+               </div>
+               <div class="tab-pane show" id="privacy" role="tabpanel">
+                  {%include 'settings/privacy_security.html'%}
+               </div>
+               <div class="tab-pane show" id="preferences" role="tabpanel">
+                  {%include 'settings/preferences.html'%}
+               </div>
+               <div class="tab-pane show" id="from-sayches" role="tabpanel">
+                  {%include 'settings/from_sayches.html'%}
+               </div>
+               {% if user_verification_form.verified.value == False %}
+               <div class="tab-pane show" id="verification" role="tabpanel">
+                  {%include 'settings/request_verification.html'%}
+               </div>
+               {% endif %}
+               {% if ads %}
+               <div class="tab-pane show" id="ads" role="tabpanel">
+                  {%include 'settings/ads_history.html'%}
+               </div>
+               {% endif %}
+               <div class="tab-pane show" id="developer" role="tabpanel">
+                  {%include 'settings/developer.html'%}
+               </div>
+            </div>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{%static 'lib/js/jquery.min.js' %}"></script>
+<script src="{%static 'lib/js/jquery.smartWizard.min.js' %}"></script>
+<script src="{%static 'lib/js/select2.full.min.js' %}"></script>
+<script>
+   $.ajaxSetup({
+   headers: {
+       "X-CSRFToken": '{{ csrf_token }}'
+   }
+   });
+   var usersProfileNickname = '{% url "users:profile_nickname" %}';
+   var usersAutoAccountDeleteTime = '{% url "users:auto_account_delete_time" %}';
+   var profileProfileNickname = '{% url "profile:profile_nickname" %}';
+   var usersProfileToggles = '{% url "users:profile_toggles" %}';
+   var profileProfileUpdateTime = "{% url 'profile:profile_update_time' %}";
+   var usersProfileUpdate = "{% url 'users:profile_update' %}";
+</script>
+<script src="{% static 'assets/js/settings.js' %}"></script>
+{% endblock js %}
+

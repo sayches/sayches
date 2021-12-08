@@ -1,0 +1,53 @@
+
+
+{% extends 'base/base.html' %}
+{% load tz %}
+{% load static %}
+{% load qr_code %}
+{% block title %}Sayches / Feed {% endblock %}
+{% block othermeta %}
+<meta property="og:title" content="Sayches / Feed" />
+<meta name="twitter:title" content="Sayches / Feed">
+{% endblock %}
+{% block content %}
+<div class="main-sec">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8">
+            {% if request.user.is_authenticated %}
+            {%include 'feed/textarea/create_post.html'%}
+            {% if not is_block_post %}
+            <div class="sort-by" id="current-sort-type"></div>
+            {% endif %}
+            {% endif %}
+            {% if not is_block_post %}
+            <div class="main-post-box {% if not request.user.is_authenticated %}animation-content{% endif %}">
+            </div>
+            {% else %}
+            {% include "base/suspended.html" %}
+            {% endif %}
+            <div id="loadPostIconId" class="spinner-border">
+            </div>
+            {%include 'feed/popup.html'%}
+         </div>
+         {%include 'feed/sidebar.html'%}
+      </div>
+   </div>
+</div>
+{% include "base/footer/cookie_banner.html" %}
+{% endblock content %}
+{% block js %}
+<script>
+   $.ajaxSetup({
+       headers: {
+           "X-CSRFToken": '{{ csrf_token }}'
+       }
+   });
+   
+   var postsData = "{% url 'posts:posts_data' %}";
+   var newPostsData = "{% url 'posts:new_posts_data' %}";
+</script>
+<script src="{% static 'assets/js/feed.js' %}"></script>
+<script src="{% static 'assets/js/load-reacton.js' %}"></script>
+{% endblock js %}
+

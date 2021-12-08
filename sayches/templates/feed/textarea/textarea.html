@@ -1,0 +1,27 @@
+
+
+{% load static %}
+<textarea title="Tip: Write an essay. Summarise it. Post the summary. 24 hours later, start again." data-attr='new-post' class="post-textarea postInput reply-textarea"
+   placeholder="Keep your fin flapping and make some bubbles!" name="postInput" id="postInput"
+   dir="auto" onkeyup="checklenghtAndChangeColor(this)"></textarea>
+<img class="rounded" id="media-image-image" src="" />
+<div class="sec-box btn-post">
+   <div class="first-box">
+      <div class="option-box custom-hide" data-conn="new-form">
+         {% if not is_block_post %}
+         <div class="box">
+            {% include "feed/textarea/media.html" %}
+         </div>
+         {% endif %}
+      </div>
+   </div>
+   <div class="box-submit">
+      <span data-count="new-post" class="parag custom-counter mr-3 mt-1"></span>
+      {% if is_block_post %}
+      <button id="makePostSubmit" class="option-p parag" data-toggle="post-block" type="submit" class="post-btn">Blow!</button>
+      {% else %}
+      <button id="makePostSubmit" type="submit" class="primary-button post-btn prevent_multiple" name="post">Blow!</button>
+      {% endif %}
+   </div>
+</div>
+

@@ -1,0 +1,144 @@
+
+
+{% load static %}
+<ul>
+   <li>
+      <a href="{% url 'users:directory' %}"><i class="ri-spy-line primary-colour header-icon"></i></a>
+   </li>
+   {% if not is_message_block and not disable_messages%}
+   <li>
+      <a href="{% url 'message:inbox' %}">
+         <i class="ri-mail-line primary-colour header-icon"></i>
+         <div class="noti-box">
+            {% if user_unread_chats_count > 0 %}
+            <span class="num-noti msg-noti parag" id="">{{ user_unread_chats_count }}</span>
+            {% endif %}
+         </div>
+      </a>
+   </li>
+   {% endif %}
+   <li>
+      <div id="notifications_reload">
+      <div class="noti-box">
+      <i class="ri-notification-3-line noti-click primary-colour header-icon"></i>
+      {% if nfs_count > 0 %}
+      <span class="num-noti parag noti-click">{{ nfs_count }}</span>
+      {% endif %}
+      <div class="notification-dropdown">
+      <div class="box-header">
+         <p class="parag header-p"></p>
+         <p class="parag mark-p"><a href="#" onclick='markAllAsRead(event)'>Mark All As Read</a></p>
+      </div>
+      <div class="notification-content">
+      <h3 class="new-h after-border">New</h3>
+      {% if not_notification_follower %}
+      {% for adnf in not_notification_follower %}
+      <div class="box-item after-border admin-notifi" admin-notify-id="{{ adnf.id }}">
+         <a href="{{ adnf.nf_url }}" class="overlay-link"></a>
+         <div class="txt-box custom-unread">
+            <p class="parag txt-hint">{{ adnf.nf_title }}<span>{{ adnf.created_at.date }}</span></p>
+            <p class="parag txt-p"><span>{{ adnf.nf_description }}</span></p>
+         </div>
+         <div class="img-box">
+            <img alt="Profile Picture" src="{{ adnf.user.uprofile.photo_url }}">
+         </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% if notification_follower %}
+      <div class="box-item after-border admin-notifi" admin-notify-id="{{ notification_follower.id }}">
+         <a href="{{ notification_follower.nf_url }}" class="overlay-link"></a>
+         <div class="txt-box">
+            <p class="parag txt-hint">{{ notification_follower.nf_title }}<span>{{ notification_follower.created_at.date }}</span></p>
+            <p class="parag txt-p">{{ notification_follower.nf_description }}</p>
+         </div>
+      </div>
+      {% endif %}
+      {% if nfs_after_ajax %}
+      {% for nf in nfs_after_ajax %}
+      {% if nf.read == False %}
+      {% if nf.activity_type == "bell" %}
+      <div notify-id="{{ nf.id }}" class="box-item fav-box after-border custom-unread">
+      {% elif nf.activity_type == "ping" %}
+      <div notify-id="{{ nf.id }}" class="box-item after-border custom-unread ping-pong">
+         {% else %}
+         <div notify-id="{{ nf.id }}" class="box-item after-border custom-unread ">
+            {% endif %}
+            {% else %}
+            {% if nf.activity_type == "bell" %}
+            <div notify-id="{{ nf.id }}" class="box-item fav-box after-border">
+               {% elif nf.activity_type == "ping" %}
+               <div notify-id="{{ nf.id }}" class="box-item after-border ping-pong">
+                  {% else %}
+                  <div class="box-item after-border" notify-id="{{ nf.id }}">
+                     {% endif %}
+                     {% endif %}
+                     {% if nf.activity_type == "bell" %}
+                     <a href="{{ nf.target.pinger_user.get_absolute_url }}"></a>
+                     {% else %}
+                     {% endif %}
+                     <div class="txt-box">
+                        <a {% if nf.target_id is not None and nf.activity_type != 'ping' and nf.activity_type != 'bell' and nf.activity_type != 'pong' %}
+                        href = "{% url 'posts:post_detail' nf.target_id %}"
+                        {% elif nf.sender  and nf.activity_type == 'bell' %}
+                        href = "{% url 'posts:post_detail' nf.target_id %}"
+                        {% elif nf.sender or nf.activity_type == 'ping' %}
+                        href = "{% url 'users:profile_name' nf.sender %}"
+                        {% endif %} >
+                        <p class="parag txt-hint">Notification<span>{{ nf.created_at.date }}</span></p>
+                        <p class="parag txt-p">
+                           {% if nf.anonymous_user %}
+                           <span>{{ nf.anonymous_user }}</span>
+                           {% elif nf.sender == None %}
+                           {% else %}
+                           {% if request.user.is_authenticated %}
+                           <span>{{ nf.sender }}</span>
+                           {% else %}
+                           <span>{% if nf.target.get_mood_display %}{{ nf.target.get_mood_display }} {% else %}
+                           {{ nf.target.pinger_user.username }} {% endif %}</span>
+                           {% endif %}
+                           {% endif %}
+                           {{ nf.verb }}
+                        </p>
+                        </a>
+                     </div>
+                     {% if nf.anonymous_user %}
+                     <div class="img-box">
+                        <img alt="Anonymous" src="{% static 'assets/images/avatars/incognitoAvatar/incognitoAvatar_360x360.png' %}">
+                     </div>
+                     {% elif nf.sender.profile %}
+                     {% if nf.sender.profile.photo %}
+                     <div class="img-box">
+                        {% if nf.activity_type == "ping" %}
+                        {% with username=nf.target.pinger_user.username %}
+                        {% with id=nf.target.id %}
+                        <a class="pong-btn" id="pong-btn" {% if nf.target.pong %}disabled style="background: black;color: white; cursor: pointer" href="#"{% else %} style="cursor: pointer" onclick='pong_user("{{ id }}", this)' {% endif %} > Pong </a>
+                        {% endwith %}
+                        {% endwith %}
+                        <img alt="Profile Picture" src="{{ nf.sender.profile.photo_url }}">
+                        {% else %}
+                        <img alt="Profile Picture" src="{{ nf.sender.profile.photo_url }}">
+                        {% endif %}
+                     </div>
+                     {% else %}
+                     <div class="img-box">
+                        {% if nf.activity_type == "ping" %}
+                        {% with id=nf.target.id %}
+                        <a class="pong-btn" id="pong-btn" {% if nf.target.pong %}disabled style="background: black;color: white; cursor: pointer" href="#"{% else %} style="cursor: pointer" onclick='pong_user("{{ id }}", this)' {% endif %} > Pong </a>
+                        {% endwith %}
+                        {% endif %}
+                        <img alt="Profile Picture" src="{{ nf.sender.profile.photo_url }}">
+                     </div>
+                     {% endif %}
+                     {% endif %}
+                  </div>
+                  {% endfor %}
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+</ul>
+<script src="{% static 'assets/js/notifications.js' %}"></script>
+

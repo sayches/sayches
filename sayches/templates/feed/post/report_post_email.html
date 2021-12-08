@@ -1,0 +1,18 @@
+
+
+Hello {{ username }},
+We have received a complaint regarding your post, for the following content:
+Post ID: {{ post_id }}
+Post URL: {{ domain }}{{ post_url }}
+Post Text: {{ post_text }}
+{% if action == "Account has been suspended" %}
+Your account has been suspended from Sayches for {{reason}}
+Be sure to read up on the Sayches ToS to make sure you understand the rules for participating on Sayches. This is an automated message; responses will not be received.
+{% elif action == "No action taken" %}
+We have investigated your post and could not identify any violations of the Sayches Rules or applicable law. Accordingly, we have not taken any action at this time.
+{% elif action == "Post was removed" %}
+We have investigated your account and identified a violations of the Sayches Rules or applicable law. Accordingly, we have removed your post from your account.
+{% endif %}
+Sincerely,
+Sayches
+

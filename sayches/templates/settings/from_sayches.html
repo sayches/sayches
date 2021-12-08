@@ -1,0 +1,30 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+{% load tz %}
+<div class="tab-pane show" id="from-sayches" role="tabpanel">
+   <div class="profile-content sec-box small">
+      <p>Official Sayches messages about your account will appear here, and will not be sent to your email.</p>
+      {% if from_sayches_obj %}
+      <table class="table ">
+         <tbody>
+            {% for i in from_sayches_obj %}
+            <tr>
+               <td scope="row">
+                  <p class="font-weight-bold m-unset">{{i.title}}</p>
+                  <p class="m-unset">{{i.message}}</p>
+               </td>
+               <td>
+                  <p class="m-unset">{{i.created_at|date}}</p>
+               </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% else %}
+      <h4 class="text-center font-weight-bold h6"> No Data Available</h4>
+      {% endif %}
+   </div>
+</div>
+

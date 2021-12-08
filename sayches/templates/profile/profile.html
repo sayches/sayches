@@ -1,0 +1,57 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load core_extras %}
+{% load tz %}
+{% load humanize %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches / {{ user.name }} ({{ profile.user.username }})' />
+<meta name="twitter:title" content='Sayches / {{ user.name }} ({{ profile.user.username }})'>
+{% endblock %}
+{% block title %}Sayches / {{ user.name }} ({{ profile.user.username }}){% endblock %}
+{% block content %}
+<div class="main-sec">
+   <div class="container">
+      <div class="row justify-content-center">
+         {% if not is_login_block %}
+         <div class="col-lg-8">
+            {% include "profile/profile_section.html" %}
+            {% if request.user == profile.user %}
+            {%include 'feed/textarea/create_post.html'%}
+            {% endif %}
+            {% if not is_block_post %}
+            {%include 'profile/sort_by.html'%}
+            <div class="main-post-box"></div>
+            {% else %}
+            {% include "base/suspended.html" %}
+            {% endif %}
+            <div id="loadPostIconId" class="spinner-border"></div>
+            <div class="last-post">Last updated: {{ last_post_time|naturaltime }}</div>
+            <div class="overlay-box"></div>
+            {%include 'feed/popup.html'%}
+         </div>
+         {% else %}
+         <p class="text-center font-weight-bold">  {{ is_login_block.suspended_message }} </p>
+         {% endif %}
+         {% include 'profile/report.html' %}
+      </div>
+   </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script>
+   $.ajaxSetup({
+     headers: {
+         "X-CSRFToken": '{{ csrf_token }}'
+     }
+   });
+   
+   var uINum = "{% url 'users:profile' profile.id %}"
+   var setOrRemoveBell = "{% url 'users:set-or-remove-bell' profile.user.username %}"
+   var pingUsername = "{% url 'users:ping-user' profile.user.username %}"
+</script>
+<script src="{% static 'assets/js/profile.js' %}"></script>
+<script src="{% static 'assets/js/load-reacton.js' %}"></script>
+{% endblock js %}
+

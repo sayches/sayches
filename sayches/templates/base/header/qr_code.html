@@ -1,0 +1,14 @@
+
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load tz %}
+{% load qr_code %}
+{% block othermeta %}
+<meta property="og:title" content='Sayches' />
+<meta name="twitter:title" content='Sayches'>
+{% endblock %}
+{% block content %}
+{% qr_url_from_text "sayches.com" size="t" image_format="png" error_correction="L" %}
+{% endblock content %}
+

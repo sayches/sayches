@@ -1,0 +1,42 @@
+
+
+{% load static %}
+<div class="tab-pane show" id="users" role="tabpanel">
+   <div class="main-box sidebar-box search-result-box">
+      <h2 class="heading sidebar-h">Search results</h2>
+      {% for userList in users %}
+      <div class="main-mini-box mini-search-box">
+         {% if hashtag_post_user == "Anonymous" %}
+         <div class="mini-box">
+            <a href="#" class="overlay-link" data-id={{ userList.id }}></a>
+            <div class="follower-img">
+               <img src="{% static 'assets/images/avatars/incognitoAvatar/incognitoAvatar_360x360.png' %}" alt="Anonymous">
+            </div>
+            <div class="txt-box">
+               <h3 class="heading mini-box-h"> {{ hashtag_post_user }}</h3>
+            </div>
+         </div>
+         {% else %}
+         <div class="mini-box">
+            <a href="{% url 'users:profile_name' userList.user_hash %}" class="overlay-link" data-id={{ userList.id }}></a>
+            <div class="follower-img">
+               {% if userList.photo_url %}
+               <img src="{{ userList.photo_url }}" alt="Profile Picture">
+               {% else %}
+               <img src="{{ userList.profile.photo_url }}" alt="Profile Picture">
+               {% endif %}
+            </div>
+            <div class="txt-box">
+               <h3 class="heading mini-box-h"> {{userList.username}} </h3>
+            </div>
+         </div>
+         {% endif %}
+         {% if hashtag_post_user == "Anonymous" %}
+         {% elif user.user_hash != userList.username %}
+         {% endif %}
+      </div>
+      {% endfor %}
+      <h4 class="custom-more"><a href="#">More...</a></h4>
+   </div>
+</div>
+

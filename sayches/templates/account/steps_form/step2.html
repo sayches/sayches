@@ -1,0 +1,23 @@
+
+
+{% load static %}
+{% load widget_tweaks %}
+<div id="step-2">
+   <div class="custom-step-content">
+      <div class="step-heading-box">
+         <h2 class="parag step-heading">
+            Welcome to the Sea!
+         </h2>
+      </div>
+      <div class="profile-img-box">
+         <div class="profile-container">
+            <img alt="Profile Picture" class="profile-image" id="Avtar-image" src="{{ request.user.profile.photo_url }}" onclick="document.getElementById('image').click()">
+         </div>
+         <input type="file" accept="image/png, image/jpeg" id="image" name="image"
+            onchange="preview_image(event)" class="d-none">
+         {% render_field steps_form.image class="custom-upload" id="image-upload" name="image-upload" type="file" placeholder="Photo" %}
+         <h2 class="user-name text-center">{{request.user.user_hash}}</h2>
+      </div>
+   </div>
+</div>
+

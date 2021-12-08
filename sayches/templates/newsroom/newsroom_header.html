@@ -1,0 +1,25 @@
+
+
+{% load static %}
+<header>
+   <div class="custom-nav landing newsroom">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="nav-box">
+                  <div class="logo-box">
+                     <a href="{% url 'subsections:home' %}">
+                     <img src="{% static 'assets/images/saychesLogo/sayches_271x271.svg' %}" alt="Sayches Logo" class="img-fluid">
+                     </a>
+                     {% if show_beta_icon %}
+                     <span class="beta-icon">BETA</span>
+                     {% endif %}
+                  </div>
+                  {% include "newsroom/search.html" %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</header>
+
