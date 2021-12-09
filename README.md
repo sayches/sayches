@@ -1,3 +1,7 @@
+<div align="center">
+        <img src="https://user-images.githubusercontent.com/61336552/145426931-9b431526-e7db-4fe7-ac97-b2d9e117c056.png" alt="drawing" width="400px"/>
+</div>
+
 # Sayches 🐠
 
 Sayches is an anonymous social media platform that champions the free flow of information by taking anti-surveillance measures and resisting censorship.
