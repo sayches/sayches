@@ -111,7 +111,7 @@ def newsroom(request):
 def first_post(request):
     user = request.user
     if user.first_post == False:
-        if PostsTimestamp.objects.filter(user=user).count() == 1:
+        if PostsTimestamp.objects.filter(user=user).count() >= 1:
             message = "First post 👏\nYou should keep doing that! 😉"
             SaychesMessage.objects.create(message=message).user.set([request.user])
             user.first_post = True

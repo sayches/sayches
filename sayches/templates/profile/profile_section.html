@@ -16,7 +16,7 @@
          {{user_verification_form.verification.value}}
          </small>
          {% if user.disposable %}<small class="Disposable validation">Disposable</small>{% else %}
-         {% if not profile.photo or user.first_login or user.first_post or user.profile_age == '0 days' %}<small class="Virgin validation">Virgin</small>{% endif %} 
+         {% if not user.lost_virginity %}<small class="Virgin validation">Virgin</small>{% endif %} 
          {% endif %} 
          <div class="profile-icons row">
             {% if user.warrant_canary %}
