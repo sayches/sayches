@@ -21,8 +21,9 @@ def resize_image(image):
         if imageTemproary.mode in ("RGBA", "P"):
             imageTemproary = imageTemproary.convert("RGB")
         outputIoStream = BytesIO()
-        imageTemproaryResized = imageTemproary.resize((300, 300))
-        imageTemproaryResized.save(outputIoStream, format='JPEG', quality=70)
+        # imageTemproaryResized = imageTemproary.resize((300, 300))
+        # imageTemproaryResized.save(outputIoStream, format='JPEG', quality=70)
+        imageTemproary.save(outputIoStream, format='JPEG', quality=50)
         outputIoStream.seek(0)
         resized_image = InMemoryUploadedFile(outputIoStream, 'ImageField',
                                              "%s.jpg" % image.name.split('.')[0], 'image/jpeg',
