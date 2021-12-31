@@ -37,7 +37,12 @@
    </div>
 </div>
 <div class="post-body">
-   <p class="parag post-comment" dir="auto">{{ comment.content }} <a href="javascript:void(0)" class="tertiary-blue f-s-11 pa-5" onclick="replyUser('{{ comment.user.user_hash }}')">Reply</a>{% if comment.user == user %}<a href="#" class="delete-click" id="{{ comment.id }}"><span class="f-s-11 primary-red">Delete</span></a>{% endif %}
+   <p class="parag post-comment" dir="auto">{{ comment.content }}
+      {% if request.user.is_authenticated %}
+      <a href="javascript:void(0)" class="tertiary-blue f-s-11 pa-5" onclick="replyUser('{{ comment.user.user_hash }}')">Reply</a>{% if comment.user == user %}
+      <a href="#" class="delete-click" id="{{ comment.id }}"><span class="f-s-11 primary-red">Delete</span></a>
+      {% endif %}
+      {% endif %}
    </p>
 </div>
 {% endfor %}
