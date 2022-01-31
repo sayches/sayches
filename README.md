@@ -20,7 +20,7 @@ Anonymous Pub 👻 Direct Messages 💬 Feed 📰 Flair 🏷️ Hashtag #️⃣ 
 * Report issues in the [issue tracker](https://github.com/Sayches/Sayches/issues)
 * Create a [Pull Request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
 
-## 🔗 Requirements
+## 🔗 Tech Stack
 
 * Backend: [Python 3](https://www.python.org/download/releases/3.0/)
 * Backend Framework: [Django](https://docs.djangoproject.com/)
@@ -56,6 +56,11 @@ Anonymous Pub 👻 Direct Messages 💬 Feed 📰 Flair 🏷️ Hashtag #️⃣ 
 ```
 make build
 ```
+
+> On production:
+> ```
+> sudo docker-compose -f production.yml up --build -d
+> ```
 
 3. Deploy the project:
 ```
