@@ -1010,14 +1010,6 @@
     width: 13px;
     height: 13px;
   }
-  .after-comment .post-header,
-  .after-comment .post-body,
-  .after-comment .post-footer {
-    padding-left: 30px;
-  }
-  .postForm-box.after-comment {
-    padding-left: 30px;
-  }
   .edit-post-popup.main-popup {
     padding: 30px 0;
   }

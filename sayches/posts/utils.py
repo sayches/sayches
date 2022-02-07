@@ -531,25 +531,6 @@ def get_comment_hashtags(comment):
     return None
 
 
-def prevent_comment_hashtag_repetition(comment):
-    comment_text = comment
-    words_list = comment.split()
-    hashtags_list = [word for word in words_list if word[0] == '#']
-    mentions_list = [word for word in words_list if word[0] == '@']
-
-    for hashtag in hashtags_list:
-        hashtag = Hashtag.objects.filter(implicit_name=hashtag).first()
-        hashtag_decode = "/h/" + str(hashtag).replace('#', '%23', 1)
-        comment_text = convert_to_anchor_tag(comment_text, hashtag_decode, hashtag)
-
-    for mention in mentions_list:
-        mention = Mentions.objects.filter(implicit_name=mention).first()
-        user_url = "/u/" + str(mention).replace('@', '%40', 1)
-        comment_text = convert_to_anchor_tag(comment_text, user_url, mention)
-
-    return comment_text
-
-
 def prevent_hashtag_repetition(post):
     post_text = post.text
     if post.post_option == "normal":

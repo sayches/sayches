@@ -198,22 +198,7 @@ function emptyState(){
 }
 
 function customCall(){
-  $('.comm-box').click(function(){
 
-      var element = $(this);
-      var element_id = element.attr('comm-post-id');
-
-      $.ajax({
-          url: $('.post_read_view').attr("href"),
-          type: 'POST',
-          data: { id: element_id } ,
-          success: function(){
-              customCommEffect();
-      }});
-      function customCommEffect(){
-          $('.post-box[post-id='+element_id+']').removeClass('custom-unread');
-      }
-  });
 
         $('.main-box > .post-box').click(function(){
 
@@ -302,31 +287,6 @@ function customCall(){
         }
     }
 
-
-
-        $(".ReplyForm").submit(function(event){
-        event.preventDefault();
-        var Form = $(this);
-        var Form_id = Form.find('.custom-id-post').val();
-        var form_p =Form.find('.reply-textarea').val();
-        var form_txt = form_p.trim();
-        var element_count = $('.comm-box[comm-post-id='+Form_id+'] .box-p .num-comment').text();
-
-        $.ajax({
-            url: $('.create_comment_view').attr("href"),
-            type: 'POST',
-            data: { id: Form_id , text: form_txt, action: 'post'} ,
-            success: function(data){
-                getComment(data);
-                customReply();
-                customCall();
-        }});
-        function customReply(){
-            Form.find('.reply-textarea').val('');
-            Form.find('.post-btn').removeClass('focus-btn').attr('disabled', true);
-            $('.comm-box[comm-post-id='+Form_id+'] .box-p .num-comment').html(parseInt(element_count) + 1);
-        }
-    });
 
     $('.li-unpinned').unbind('click').bind('click' , (function(){
         var post_li = $(this);
@@ -606,7 +566,6 @@ function loadReactions(data){
         var single_post = structureDetailsPost(data[i]);
         $(".main-post-box").empty();
         $(single_post).appendTo(".main-post-box");
-        getComment(data);
     });
 
 }
@@ -615,64 +574,6 @@ function getDetailsPost(data){
     $.each(data, function (i, f) {
         var single_post = structureDetailsPost(data[i]);
         $(single_post).appendTo(".main-post-box");
-    });
-}
-
-function getComment(data){
-    $.each(data, function(i, f) {
-        var single_comment =
-            '<div class="post-box after-comment" post-id ="'+data[i].id+'">' +
-                '<div class="post-header">'+
-                    '<div class="first-box"> ' +
-                        '<div class="user-img">'+
-                            '<a href="#"><img src="'+data[i].user_img+'"></a>'+
-                        '</div> ' +
-                        '<div class="user-name-box">'+
-                            '<h4 class="heading name-h"><a href="#">'+data[i].name+'</a></h4>'+
-                            '<p class="reply-mention">Replying to ';
-                                if(data[i].post_type == 'anonymous'){
-                                        single_comment +=
-                                        '<span><a href="#">'+data.user_nickname+'</a></span>';
-                                    }else{
-
-                                        single_comment +=
-                                        '<span><a href="/u/'+data[i].user_name+'">'+data[i].user_post_name+'</a></span>'+
-                           '<div class="post-popup">'+
-                            '<div class="popup-header">'+
-                                '<div class="first-box">'+
-                                    '<div class="user-img">'+
-                                        '<a href="'+data[i].user_page+'">'+
-                                            '<img src="'+data[i].user_img+'">'+
-                                        '</a>'+
-                                    '</div>'+
-                                    '<div class="user-name-box">'+
-                                        '<a href="'+data[i].user_page+'">'+
-                                            '<h4 class="heading name-h">'+data[i].name+'</h4>'+
-                                            '<p class="parag profile-p">'+data[i].user_name+'</p>'+
-                                        '</a>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                            '<div class="follower-box">'+
-                            '</div>'+
-                            '<p class="description-pop heading">'+data[i].bio+'</p>'+
-
-                        '</div>'+
-                    '</div>';
-                                    }
-                                single_comment +=
-                            '</p>'+
-                        '</div>'+
-                '</div>'+
-                    '<div class="post-body">'+
-                        '<p class="parag post-p" dir="auto">'+(data[i].post_p)+'';
-                            single_comment +=
-                        '</p>'+
-                    '</div>'+
-                '</div>'+
-            '</div>';
-
-        $(single_comment).appendTo('.comment-box[data-id="post_'+data[i].post_id+'"]');
     });
 }
 
