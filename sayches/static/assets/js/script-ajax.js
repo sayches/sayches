@@ -131,16 +131,16 @@ function structurePost(data) {
                             
                             else{
                                 if(data.user_reaction === 'guest'){
-                                 single_post += '<p class="box-p parag mr-2"><i class="ri-thumb-down-line primary-colour"></i>' + data.reaction_number +'</p> <p class="box-p parag addreaction-box"> <span class="txt-like"> Eggs</span></p>';
+                                 single_post += '<p class="box-p parag mr-2"><i class="ri-thumb-down-line primary-colour"></i>' + data.reaction_number +'</p> <p class="box-p parag addreaction-box"></p>';
 
 
                         }
                                 else if (data.user_reaction != null) {
-                                    single_post += '<p class="box-p parag mr-2">' + data.reaction_number + data.user_reaction;
+                                    single_post += '<p class="box-p parag mr-2">' + data.user_reaction + '&nbsp' + data.reaction_number;
 
                                 }
                                 else {
-                                    single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Eggs</span></p>';
+                                    single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'</p>';
                                       }
                             }
                             single_post +=
@@ -280,7 +280,7 @@ function customCall(){
                 $('.main-react[like-post-id='+element_id+']').find('.heart-box').prepend('<i class="ri-heart-line"></i>');
                 $('.main-react[like-post-id='+element_id+']').find('.heart-box .box-p .txt-like').html('Reaction');
             } else{
-                $('.main-react[like-post-id=' + element_id + ']').find('.heart-box').prepend('<p class="box-p parag">' + (parseInt(reaction_count) + 1) + new_reaction_status);
+                $('.main-react[like-post-id=' + element_id + ']').find('.heart-box').prepend('<p class="box-p parag">' + new_reaction_status + '&nbsp' + (parseInt(reaction_count) + 1));
 
                 $('.main-react[like-post-id=' + element_id + ']').find('.heart-box').find(".addreaction-box").remove();
             }
@@ -543,11 +543,11 @@ function structureDetailsPost(data){
 
                                     }
                                     else if (data.user_reaction != null) {
-                                        single_post += '<p class="box-p parag">' + data.reaction_number + data.user_reaction;
+                                        single_post += '<p class="box-p parag">' + data.user_reaction + '&nbsp' + data.reaction_number;
 
                                     }
                                     else {
-                                        single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Eggs</span></p>';
+                                        single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'</p>';
                                      }
                                 }
                                 single_post +=

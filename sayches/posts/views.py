@@ -231,7 +231,7 @@ def post_like(request):
                             '🥚': '🥚',
                         }
                         create_action(sender=request.user, receiver=post.user,
-                                      verb="reacted to your post {}".format(emojis[obj.reaction_name]), text=None,
+                                      verb="egged your post {}".format(emojis[obj.reaction_name]), text=None,
                                       target=post)
                 else:
                     Likes.objects.filter(user=user, post=post).delete()
