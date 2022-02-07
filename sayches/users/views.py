@@ -182,7 +182,6 @@ def export_my_data(request, username):
             "notification_sender_obj": notification_sender_obj,
             "notification_receiver_obj": notification_receiver_obj,
             "post_timestamp_obj": post_timestamp_obj,
-            "comment_timestamp_obj": comment_timestamp_obj,
             "hashtag_obj": hashtag_obj,
             "mention_obj": mention_obj,
             "reaction_obj": reaction_obj,
