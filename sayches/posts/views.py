@@ -23,7 +23,7 @@ from users.utils import create_action, get_mention_tags, get_comment_mention
 from config.choices import FLAIR_CHOICES
 from config.settings.base import SET_INTERVAL_ALLOW, BASE_URL
 from .forms import SearchPost
-from .models import Post, Comment, CommentsTimestamp, Likes, Hashtag, ReportPost, PostsTimestamp
+from .models import Post, Likes, Hashtag, ReportPost, PostsTimestamp
 from .utils import get_hashtags, get_mentions, posts_to_json, comments_to_json, single_post_to_json, \
     prevent_comment_hashtag_repetition, \
     single_comment_to_json, get_comment_hashtags, send_notifications_to_user_bell_list
@@ -97,42 +97,8 @@ def post_detail(request, id):
         json_object = single_post_to_json(user, post)
         data.append(json_object)
         return JsonResponse(data, safe=False)
-    return render(request, "feed/post/comment_content.html", context)
+    return render(request, "feed/post/post.html", context)
 
-
-@require_GET
-def comments_detail_for_detail_post(request, id):
-    user = request.user if request.user.is_authenticated else None
-    template_name = "feed/post/comment.html"
-    if request.GET.get('inner-section'):
-        template_name = 'feed/post/comment_section.html'
-    post = Post.objects.filter(id=id).first()
-    context = {'post': post}
-    if request.is_ajax():
-        data = Comment.objects.filter(post=post).order_by('-id')
-    else:
-        return HttpResponseBadRequest()
-    paginator = Paginator(data, 10)
-    page_number = request.GET.get('page', 1)
-    try:
-        page_data = paginator.page(page_number)
-        data = page_data.object_list
-    except EmptyPage:
-        data = []
-
-    context['comments'] = data
-    context['is_search_user_profile'] = False
-    if user:
-        check_over_all_block = BlacklistUser.objects.filter(Q(user=request.user),
-                                                            Q(on_post=True) | Q(on_login=True) | Q(
-                                                                on_message=True)).first()
-        if check_over_all_block:
-            context['is_search_user_profile'] = True
-
-    for comment in context['comments']:
-        setattr(comment, 'content', prevent_comment_hashtag_repetition(comment.text))
-
-    return render(request, template_name, context)
 
 
 def format_posts(request, user, posts):
@@ -268,49 +234,6 @@ def rate_limitor_for_post(request, user):
     else:
         request.session['rate_limiter_post'] = False
         return True
-
-
-@login_required
-@require_POST
-def create_comment(request, id):
-    if request.is_ajax():
-        user = request.user
-        comment_list = []
-        if request.POST:
-            text = request.POST.get("text")
-            post_id = id
-            post = get_object_or_404(Post, id=post_id)
-            count = 1
-
-            current_time = timezone.now()
-            time_interval = current_time - timedelta(minutes=SET_INTERVAL_ALLOW)
-
-            no_of_post_in_interval = Comment.objects.filter(created_at__range=(time_interval, current_time),
-                                                            user=user).order_by('-id').count()
-            if no_of_post_in_interval < 10:
-                request.session['rate_limiter_comment'] = False
-                cleaned_text = replace_profanity_words(text)
-                comment = Comment.objects.create(post=post, user=user, text=cleaned_text, created_at=current_time)
-                comment.save()
-                CommentsTimestamp.objects.create(user=request.user, post_id=comment.post_id, comment_id=comment.id,
-                                                 comment_timestamp=comment.created_at).save()
-                post.post_followers.add(user)
-                if not request.user == post.user:
-                    create_action(
-                        sender=request.user, receiver=post.user, verb="commented on your post ",
-                        text=comment.text, target=post, count=count
-                    )
-                get_mention_tags(comment.text, sender=user, target=post)
-                get_comment_mention(comment)
-                get_comment_hashtags(comment)
-                json_object = single_comment_to_json(user, post, comment)
-                comment_list.append(json_object)
-            else:
-                request.session['rate_limiter_comment'] = True
-
-        data = comment_list
-        return JsonResponse(data, safe=False)
-    return HttpResponseBadRequest()
 
 
 @login_required

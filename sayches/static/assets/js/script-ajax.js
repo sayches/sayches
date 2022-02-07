@@ -67,6 +67,9 @@ function structurePost(data) {
                     '<div class="sec-box">'+
                         '<p class="view-box parag">'+'<i class="ri-eye-fill"></i>'+data.post_count+'</p>'+
                         '<p class="parag custom-time">'+data.remaining_time+' hours'+'<i class="ri-timer-fill"></i>'+'</p>'+
+
+                        '<p class="parag custom-time" comm-post-id="'+data.id+'" data-attr = "post_'+data.id+'">'+ '<a href= url target="_blank" >'.replace('url', url )+ '<i class="ri-external-link-fill"></i>'+ '</a>'+ '</p>'+
+                        
                         '<ul class="details-drop">'+
                             '<li class="parag li-delete open-popup" pop-attr="delete-popup">delete</li>';
                             if (data.login_user === data.user_name && (data.post_option === 'normal')){
@@ -144,13 +147,7 @@ function structurePost(data) {
                             '</div>'+
                                 '</div>'+
                     '</div>'+
-                    '<div class="box comm-box" comm-post-id="'+data.id+'" data-attr = "post_'+data.id+'">'+
 
-                        '<a href= url >'.replace('url', url )+
-                            '<i class="ri-chat-3-line primary-colour"></i>'+
-                            '<p class="box-p parag"><span class="num-comment">'+data.comment_number+'</span> Comments</p>'+
-                        '</a>'+
-                    '</div>'+
                 '</div>'+
             '</div>'+
         '</div>';
@@ -598,7 +595,6 @@ function structureDetailsPost(data){
                             '</div>'+
                         '</div>'+
 
-                    '</div><div id="comment-section" class="comment-box"></div>'+
                 '</div>'+
             '</div>';
         return single_post;

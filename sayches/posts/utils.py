@@ -661,7 +661,6 @@ def posts_to_json(request, user, posts):
             "bio": escape(post.user.profile.bio),
             "reaction_number": reaction_number,
             "reaction_status": "action",
-            "comment_number": short_number(post.comments.all().count()),
             "total_posts": total_posts
         }
 
@@ -723,7 +722,6 @@ def single_post_to_json(user, post):
     json_object["user_nickname"] = escape(post.user.get_alias_display())
     json_object["user_name"] = escape(post.user.user_hash)
     json_object["user_page"] = reverse(profile_name_variable, args=[post.user.user_hash])
-    json_object["comment_number"] = post.comments.all().count()
     json_object["flag"] = flag
     json_object["do_status"] = do_status
     json_object["bio"] = escape(post.user.profile.bio)
@@ -775,7 +773,6 @@ def comments_to_json(user, posts):
                     "hashtag_link": reverse(search_hash_variable, args=[str(hashtag)]),
                 } for hashtag in hashtags],
                 "reaction_number": 20,
-                "comment_number": 20,
                 "bio": comment.user.profile.bio,
             }
             comment_list.append(json_object)
@@ -805,7 +802,6 @@ def single_comment_to_json(user, post, comment):
         "date": "now",
         "post_p": urlize(prevent_comment_hashtag_repetition(comment.text)),
         "reaction_number": 20,
-        "comment_number": 20,
         "bio": comment.user.profile.bio,
     }
 
