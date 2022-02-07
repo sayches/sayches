@@ -1,6 +1,4 @@
-var clapIcon = '👏';
 var eggIcon = '🥚';
-var boostIcon = '🆙';
 
 function structurePost(data) {
     var url = "/p/1".replace(/1/, data.id);
@@ -119,28 +117,18 @@ function structurePost(data) {
 
                         }
 
-    single_post += '<div title="Why only like, when you can react?" class="reaction-box">' +
-                              '<div data-react='+clapIcon+' class="box-reaction">'+
-                                '<span>Clap(' + data.clap_number+')</span>'+
-                                clapIcon +
-                            '</div>'+
+    single_post += 
                              '<div title="Egging is a well-known form of protest." data-react='+eggIcon+' class="box-reaction">'+
-                             '<span>Egg(' + data.egg_number +')</span>'+
-                                eggIcon +
-                            '</div>'+
-                            '<div data-react='+boostIcon+' class="box-reaction">'+
-                    '<span>Boost(' + data.boost_number +')</span>'+
-                                boostIcon+
-                            '</div>'+
-                        '</div>'+
                         '<div data-react="like" class="box heart-box">';
-                            if( data.reaction_status == clapIcon || data.reaction_status == eggIcon || data.reaction_status == boostIcon){
+                            if( data.reaction_status == eggIcon ){
                                 single_post += data.reaction_status+
-                                '<p class="box-p parag"> <span class="txt-like">Reactions('+data.reaction_status+')</span></p>';
+                                '<p class="box-p parag"> <span class="txt-like">Eggs('+data.reaction_status+')</span></p>';
+                                
                             }
+                            
                             else{
                                 if(data.user_reaction === 'guest'){
-                                 single_post += '<p class="box-p parag mr-2"><i class="ri-heart-line primary-colour"></i>' + data.reaction_number +'</p> <p class="box-p parag addreaction-box"> <span class="txt-like"> Reactions</span></p>';
+                                 single_post += '<p class="box-p parag mr-2"><i class="ri-thumb-down-line primary-colour"></i>' + data.reaction_number +'</p> <p class="box-p parag addreaction-box"> <span class="txt-like"> Eggs</span></p>';
 
 
                         }
@@ -149,10 +137,11 @@ function structurePost(data) {
 
                                 }
                                 else {
-                                    single_post += '<i class="ri-heart-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Reactions</span></p>';
+                                    single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Eggs</span></p>';
                                       }
                             }
                             single_post +=
+                            '</div>'+
                                 '</div>'+
                     '</div>'+
                     '<div class="box comm-box" comm-post-id="'+data.id+'" data-attr = "post_'+data.id+'">'+
@@ -582,24 +571,14 @@ function structureDetailsPost(data){
                                 single_post += '<div class="main-react" reaction_status="' + data.reaction_status + '"  reaction-count="' + data.reaction_number + '"  like-post-id="' + data.id + '"  do_status="' + data.do_status + '">';
 
                                 }
-    single_post +=  '<div title="Why only like, when you can react?" class="reaction-box">' +
-                                '<div data-react='+clapIcon+' class="box-reaction">'+
-                                '<span>Clap(' + data.clap_number+')</span>'+
-                                    clapIcon+
-                                '</div>'+
+    single_post +=  
                                 '<div title="Egging is a well-known form of protest." data-react='+eggIcon+' class="box-reaction">'+
-                                '<span>Egg(' + data.egg_number +')</span>'+
-                                    eggIcon+
-                                '</div>'+
-                                '<div data-react='+boostIcon+' class="box-reaction">'+
-                                '<span>Boost(' + data.boost_number +')</span>'+
-                                    boostIcon+
-                                '</div>'+
-                            '</div>'+
+
                             '<div data-react="like" class="box heart-box">';
-                                if( data.reaction_status == clapIcon || data.reaction_status == eggIcon || data.reaction_status == boostIcon){
+                                if( data.reaction_status == eggIcon ){
                                     single_post += data.reaction_status+
-                                    '<p class="box-p parag"> <span class="txt-like">Reactions('+data.reaction_status+')</span></p>';
+                                    '<p class="box-p parag"> <span class="txt-like">Eggs('+data.reaction_status+')</span></p>';
+                                    
                                 }
                                 else{
                                     if(data.user_reaction === 'guest'){
@@ -611,10 +590,11 @@ function structureDetailsPost(data){
 
                                     }
                                     else {
-                                        single_post += '<i class="ri-heart-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Reactions</span></p>';
+                                        single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Eggs</span></p>';
                                      }
                                 }
                                 single_post +=
+                                '</div>'+
                             '</div>'+
                         '</div>'+
 

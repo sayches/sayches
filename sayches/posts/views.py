@@ -330,8 +330,6 @@ def post_like(request):
                     if not request.user == post.user:
                         emojis = {
                             '🥚': '🥚',
-                            '👏': '👏',
-                            '🆙': '🆙',
                         }
                         create_action(sender=request.user, receiver=post.user,
                                       verb="reacted to your post {}".format(emojis[obj.reaction_name]), text=None,

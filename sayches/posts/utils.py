@@ -823,20 +823,14 @@ def send_notifications_to_user_bell_list(user, post):
 
 
 def get_post_reaction_count(post_reactions):
-    reaction_list = post_reactions.filter(reaction_name__in=["👏", "🥚", "🆙"]).values(
+    reaction_list = post_reactions.filter(reaction_name__in=["🥚"]).values(
         'reaction_name').annotate(total=Count('id')).order_by('reaction_name')
     reaction_count = {
-        "clap_number": 0,
         "egg_number": 0,
-        "boost_number": 0,
     }
     for reaction_dic in reaction_list:
-        if reaction_dic.get("reaction_name") == "clap":
-            reaction_count.update({"clap_number": reaction_dic.get("total")})
         if reaction_dic.get("reaction_name") == "🥚":
             reaction_count.update({"egg_number": reaction_dic.get("total")})
-        if reaction_dic.get("reaction_name") == "boost":
-            reaction_count.update({"boost_number": reaction_dic.get("total")})
 
     return reaction_count
 
