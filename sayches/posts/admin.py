@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from sayches.utils.export_csv import ExportCsvMixin
-from .models import Post, Hashtag, CommentsTimestamp, ReportPost, Statistics, Likes, LinkValidation, Comment, \
+from .models import Post, Hashtag, ReportPost, Statistics, Likes, LinkValidation, \
     PostsTimestamp, BlacklistWords
 
 
@@ -12,13 +12,6 @@ class BlacklistWordsAdmin(admin.ModelAdmin):
     list_filter = ['is_emoji', 'created_at']
     date_hierarchy = 'created_at'
     search_fields = ('word',)
-
-
-@admin.register(CommentsTimestamp)
-class CommentsTimestampAdmin(admin.ModelAdmin):
-    list_display = ['user', 'post_id', 'comment_id', 'comment_timestamp']
-    readonly_fields = ['user', 'post_id', 'comment_id', 'comment_timestamp']
-    date_hierarchy = 'created_at'
 
 
 class StatisticsAdmin(admin.ModelAdmin, ExportCsvMixin):
@@ -143,19 +136,6 @@ class HashtagAdmin(admin.ModelAdmin, ExportCsvMixin):
 class LinkValidationAdmin(admin.ModelAdmin):
     list_display = ('url', 'type')
     date_hierarchy = 'created_at'
-
-
-class CommentAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_per_page = 15
-    list_display = ('id', 'created_at', 'post', 'user', 'text')
-    readonly_fields = ['post', 'user', 'text']
-    list_filter = ['created_at']
-    actions = ["export_as_csv"]
-    date_hierarchy = 'created_at'
-
-
-admin.site.register(Comment, CommentAdmin)
-
 
 class ReportPostAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_per_page = 15

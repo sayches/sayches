@@ -1,6 +1,4 @@
-var clapIcon = '👏';
 var eggIcon = '🥚';
-var boostIcon = '🆙';
 
 function structurePost(data) {
     var url = "/p/1".replace(/1/, data.id);
@@ -69,6 +67,9 @@ function structurePost(data) {
                     '<div class="sec-box">'+
                         '<p class="view-box parag">'+'<i class="ri-eye-fill"></i>'+data.post_count+'</p>'+
                         '<p class="parag custom-time">'+data.remaining_time+' hours'+'<i class="ri-timer-fill"></i>'+'</p>'+
+
+                        '<p class="parag custom-time" comm-post-id="'+data.id+'" data-attr = "post_'+data.id+'">'+ '<a href= url target="_blank" >'.replace('url', url )+ '<i class="ri-external-link-fill"></i>'+ '</a>'+ '</p>'+
+                        
                         '<ul class="details-drop">'+
                             '<li class="parag li-delete open-popup" pop-attr="delete-popup">delete</li>';
                             if (data.login_user === data.user_name && (data.post_option === 'normal')){
@@ -119,28 +120,18 @@ function structurePost(data) {
 
                         }
 
-    single_post += '<div title="Why only like, when you can react?" class="reaction-box">' +
-                              '<div data-react='+clapIcon+' class="box-reaction">'+
-                                '<span>Clap(' + data.clap_number+')</span>'+
-                                clapIcon +
-                            '</div>'+
+    single_post += 
                              '<div title="Egging is a well-known form of protest." data-react='+eggIcon+' class="box-reaction">'+
-                             '<span>Egg(' + data.egg_number +')</span>'+
-                                eggIcon +
-                            '</div>'+
-                            '<div data-react='+boostIcon+' class="box-reaction">'+
-                    '<span>Boost(' + data.boost_number +')</span>'+
-                                boostIcon+
-                            '</div>'+
-                        '</div>'+
                         '<div data-react="like" class="box heart-box">';
-                            if( data.reaction_status == clapIcon || data.reaction_status == eggIcon || data.reaction_status == boostIcon){
+                            if( data.reaction_status == eggIcon ){
                                 single_post += data.reaction_status+
-                                '<p class="box-p parag"> <span class="txt-like">Reactions('+data.reaction_status+')</span></p>';
+                                '<p class="box-p parag"> <span class="txt-like">Eggs('+data.reaction_status+')</span></p>';
+                                
                             }
+                            
                             else{
                                 if(data.user_reaction === 'guest'){
-                                 single_post += '<p class="box-p parag mr-2"><i class="ri-heart-line primary-colour"></i>' + data.reaction_number +'</p> <p class="box-p parag addreaction-box"> <span class="txt-like"> Reactions</span></p>';
+                                 single_post += '<p class="box-p parag mr-2"><i class="ri-thumb-down-line primary-colour"></i>' + data.reaction_number +'</p> <p class="box-p parag addreaction-box"> <span class="txt-like"> Eggs</span></p>';
 
 
                         }
@@ -149,19 +140,14 @@ function structurePost(data) {
 
                                 }
                                 else {
-                                    single_post += '<i class="ri-heart-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Reactions</span></p>';
+                                    single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Eggs</span></p>';
                                       }
                             }
                             single_post +=
+                            '</div>'+
                                 '</div>'+
                     '</div>'+
-                    '<div class="box comm-box" comm-post-id="'+data.id+'" data-attr = "post_'+data.id+'">'+
 
-                        '<a href= url >'.replace('url', url )+
-                            '<i class="ri-chat-3-line primary-colour"></i>'+
-                            '<p class="box-p parag"><span class="num-comment">'+data.comment_number+'</span> Comments</p>'+
-                        '</a>'+
-                    '</div>'+
                 '</div>'+
             '</div>'+
         '</div>';
@@ -212,22 +198,7 @@ function emptyState(){
 }
 
 function customCall(){
-  $('.comm-box').click(function(){
 
-      var element = $(this);
-      var element_id = element.attr('comm-post-id');
-
-      $.ajax({
-          url: $('.post_read_view').attr("href"),
-          type: 'POST',
-          data: { id: element_id } ,
-          success: function(){
-              customCommEffect();
-      }});
-      function customCommEffect(){
-          $('.post-box[post-id='+element_id+']').removeClass('custom-unread');
-      }
-  });
 
         $('.main-box > .post-box').click(function(){
 
@@ -316,31 +287,6 @@ function customCall(){
         }
     }
 
-
-
-        $(".ReplyForm").submit(function(event){
-        event.preventDefault();
-        var Form = $(this);
-        var Form_id = Form.find('.custom-id-post').val();
-        var form_p =Form.find('.reply-textarea').val();
-        var form_txt = form_p.trim();
-        var element_count = $('.comm-box[comm-post-id='+Form_id+'] .box-p .num-comment').text();
-
-        $.ajax({
-            url: $('.create_comment_view').attr("href"),
-            type: 'POST',
-            data: { id: Form_id , text: form_txt, action: 'post'} ,
-            success: function(data){
-                getComment(data);
-                customReply();
-                customCall();
-        }});
-        function customReply(){
-            Form.find('.reply-textarea').val('');
-            Form.find('.post-btn').removeClass('focus-btn').attr('disabled', true);
-            $('.comm-box[comm-post-id='+Form_id+'] .box-p .num-comment').html(parseInt(element_count) + 1);
-        }
-    });
 
     $('.li-unpinned').unbind('click').bind('click' , (function(){
         var post_li = $(this);
@@ -582,24 +528,14 @@ function structureDetailsPost(data){
                                 single_post += '<div class="main-react" reaction_status="' + data.reaction_status + '"  reaction-count="' + data.reaction_number + '"  like-post-id="' + data.id + '"  do_status="' + data.do_status + '">';
 
                                 }
-    single_post +=  '<div title="Why only like, when you can react?" class="reaction-box">' +
-                                '<div data-react='+clapIcon+' class="box-reaction">'+
-                                '<span>Clap(' + data.clap_number+')</span>'+
-                                    clapIcon+
-                                '</div>'+
+    single_post +=  
                                 '<div title="Egging is a well-known form of protest." data-react='+eggIcon+' class="box-reaction">'+
-                                '<span>Egg(' + data.egg_number +')</span>'+
-                                    eggIcon+
-                                '</div>'+
-                                '<div data-react='+boostIcon+' class="box-reaction">'+
-                                '<span>Boost(' + data.boost_number +')</span>'+
-                                    boostIcon+
-                                '</div>'+
-                            '</div>'+
+
                             '<div data-react="like" class="box heart-box">';
-                                if( data.reaction_status == clapIcon || data.reaction_status == eggIcon || data.reaction_status == boostIcon){
+                                if( data.reaction_status == eggIcon ){
                                     single_post += data.reaction_status+
-                                    '<p class="box-p parag"> <span class="txt-like">Reactions('+data.reaction_status+')</span></p>';
+                                    '<p class="box-p parag"> <span class="txt-like">Eggs('+data.reaction_status+')</span></p>';
+                                    
                                 }
                                 else{
                                     if(data.user_reaction === 'guest'){
@@ -611,14 +547,14 @@ function structureDetailsPost(data){
 
                                     }
                                     else {
-                                        single_post += '<i class="ri-heart-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Reactions</span></p>';
+                                        single_post += '<i class="ri-thumb-down-line primary-colour"></i><p class="box-p parag addreaction-box mr-2">'+data.reaction_number+'<span class="txt-like"> Eggs</span></p>';
                                      }
                                 }
                                 single_post +=
+                                '</div>'+
                             '</div>'+
                         '</div>'+
 
-                    '</div><div id="comment-section" class="comment-box"></div>'+
                 '</div>'+
             '</div>';
         return single_post;
@@ -630,7 +566,6 @@ function loadReactions(data){
         var single_post = structureDetailsPost(data[i]);
         $(".main-post-box").empty();
         $(single_post).appendTo(".main-post-box");
-        getComment(data);
     });
 
 }
@@ -639,64 +574,6 @@ function getDetailsPost(data){
     $.each(data, function (i, f) {
         var single_post = structureDetailsPost(data[i]);
         $(single_post).appendTo(".main-post-box");
-    });
-}
-
-function getComment(data){
-    $.each(data, function(i, f) {
-        var single_comment =
-            '<div class="post-box after-comment" post-id ="'+data[i].id+'">' +
-                '<div class="post-header">'+
-                    '<div class="first-box"> ' +
-                        '<div class="user-img">'+
-                            '<a href="#"><img src="'+data[i].user_img+'"></a>'+
-                        '</div> ' +
-                        '<div class="user-name-box">'+
-                            '<h4 class="heading name-h"><a href="#">'+data[i].name+'</a></h4>'+
-                            '<p class="reply-mention">Replying to ';
-                                if(data[i].post_type == 'anonymous'){
-                                        single_comment +=
-                                        '<span><a href="#">'+data.user_nickname+'</a></span>';
-                                    }else{
-
-                                        single_comment +=
-                                        '<span><a href="/u/'+data[i].user_name+'">'+data[i].user_post_name+'</a></span>'+
-                           '<div class="post-popup">'+
-                            '<div class="popup-header">'+
-                                '<div class="first-box">'+
-                                    '<div class="user-img">'+
-                                        '<a href="'+data[i].user_page+'">'+
-                                            '<img src="'+data[i].user_img+'">'+
-                                        '</a>'+
-                                    '</div>'+
-                                    '<div class="user-name-box">'+
-                                        '<a href="'+data[i].user_page+'">'+
-                                            '<h4 class="heading name-h">'+data[i].name+'</h4>'+
-                                            '<p class="parag profile-p">'+data[i].user_name+'</p>'+
-                                        '</a>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                            '<div class="follower-box">'+
-                            '</div>'+
-                            '<p class="description-pop heading">'+data[i].bio+'</p>'+
-
-                        '</div>'+
-                    '</div>';
-                                    }
-                                single_comment +=
-                            '</p>'+
-                        '</div>'+
-                '</div>'+
-                    '<div class="post-body">'+
-                        '<p class="parag post-p" dir="auto">'+(data[i].post_p)+'';
-                            single_comment +=
-                        '</p>'+
-                    '</div>'+
-                '</div>'+
-            '</div>';
-
-        $(single_comment).appendTo('.comment-box[data-id="post_'+data[i].post_id+'"]');
     });
 }
 

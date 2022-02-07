@@ -19,9 +19,8 @@ from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.generic import TemplateView
 from message.models import Chat
-from posts.forms import CommentCreation
 from posts.models import Post, Hashtag
-from posts.models import PostsTimestamp, CommentsTimestamp, Mentions, Likes, ReportPost
+from posts.models import PostsTimestamp, Mentions, Likes, ReportPost
 from posts.utils import posts_to_json, get_parsed_meta_url, replace_profanity_words
 from rest_framework.authtoken.models import Token
 from subsections.forms import flair_form_public
@@ -66,16 +65,12 @@ def profile_detail(request, id):
     sort_type = request.GET.get('sortby', None)
 
     if request.user == profile.user:
-        if sort_type == "comments":
-            posts = Post.objects.filter(user=user).order_by('-pinned_post', '-comments')
-        elif sort_type == "oldest":
+        if sort_type == "oldest":
             posts = Post.objects.filter(user=user).order_by('-pinned_post', 'created_at')
         else:
             posts = Post.objects.filter(user=user).order_by('-pinned_post', '-created_at')
     else:
-        if sort_type == "comments":
-            posts = Post.objects.filter(user=user).order_by('-comments')
-        elif sort_type == "oldest":
+        if sort_type == "oldest":
             posts = Post.objects.filter(user=user).order_by('created_at')
         else:
             posts = Post.objects.filter(user=user).order_by('-created_at')
@@ -83,7 +78,6 @@ def profile_detail(request, id):
     for post in posts:
         post.created_at = timezone.localtime(post.created_at)
         post.save()
-    comment_form = CommentCreation()
     hashtags = Hashtag.objects.all()[:3]
     if request.is_ajax():
         data = format_post_with_paginator(request, user, posts)
@@ -95,7 +89,6 @@ def profile_detail(request, id):
         'profile': profile,
         "user_follow": user_follow,
         'user': user, 'posts': posts,
-        'comment_form': comment_form,
         'hashtags': hashtags,
         "form": form,
     }
@@ -168,7 +161,6 @@ def export_my_data(request, username):
         notification_sender_obj = Activity.objects.filter(sender=request.user).count()
         notification_receiver_obj = Activity.objects.filter(receiver=request.user).count()
         post_timestamp_obj = PostsTimestamp.objects.filter(user=request.user).count()
-        comment_timestamp_obj = CommentsTimestamp.objects.filter(user=request.user).count()
         hashtag_obj = Hashtag.objects.filter(author=request.user).count()
         mention_obj = Mentions.objects.filter(posts__user=request.user).count()
         mention_obj = Mentions.objects.filter(posts__user=request.user).count()
@@ -233,7 +225,6 @@ def profile_detail_name(request, username):
     last_post_time = last_post_timestamp(user)
 
     posts = Post.valid.filter(user=user)
-    comment_form = CommentCreation()
     hashtags = Hashtag.objects.all()
     if request.is_ajax():
         data = posts_to_json(request, user, posts)
@@ -285,7 +276,7 @@ def profile_detail_name(request, username):
         "is_message_block": is_message_block,
         'profile': user.profile, "user_following": user_following, "user_followers": user_followers,
         "other_user_followers": other_user_followers, "other_user_following": other_user_following,
-        "following_request_user": following_request_user, 'user': user, 'posts': posts, 'comment_form': comment_form,
+        "following_request_user": following_request_user, 'user': user, 'posts': posts,
         'hashtags': hashtags, 'form': form, "belled": belled,
         'today_ping': today_ping,
         'user_verification_form': user_verification_form,
@@ -389,7 +380,7 @@ def profile_update(request):
         'user_verification_form': user_verification_form,
         'disable_messages': profile.disable_messages,
         'disable_notifications': profile.disable_notifications,
-        'disable_ping': profile.disable_ping, 'disable_comments': profile.disable_comments,
+        'disable_ping': profile.disable_ping,
         'is_block_user': is_block_user,
         'ads': ads,
         'ads_history': ads_history,

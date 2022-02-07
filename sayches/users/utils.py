@@ -53,20 +53,6 @@ def get_mention_tags(text, sender, target):
     return None
 
 
-def get_comment_mention(comment):
-    comment_text = comment.text
-    words = comment_text.split()
-    mentions_list = [word for word in words if word[0] == '@']
-    if mentions_list:
-        for i in mentions_list:
-            mention = Mentions.objects.filter(implicit_name=i).first()
-            if mention:
-                comment.mentioncomments.add(mention)
-            else:
-                mention = Mentions.objects.create(explicit_name=i)
-                comment.mentioncomments.add(mention)
-
-
 def user_stataticstic(total_users='', actiavte_user_count='', inactiavte_user_count="", verifyed_user="",
                       deleted_user=""):
     try:

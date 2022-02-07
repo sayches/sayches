@@ -1739,78 +1739,6 @@ select:-webkit-autofill {
   width: 100% !important;
 }
 
-.after-comment {
-  position: relative;
-}
-
-.after-comment::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 1px;
-  background-color: rgba(36, 41, 46, 0.2);
-}
-
-.after-comment:last-of-type::after {
-  display: none;
-}
-
-.after-comment .post-header,
-.after-comment .post-body,
-.after-comment .post-footer {
-  padding-left: 40px;
-}
-
-.after-comment .post-body .post-p {
-  font-size: 13px;
-}
-
-.after-comment .post-header .first-box:hover .post-popup {
-  top: 44px;
-}
-
-.after-comment .user-img img {
-  width: 35px;
-  height: 35px;
-}
-
-.after-comment .name-h {
-  font-size: 13px;
-}
-
-.postForm-box.after-comment {
-  padding-left: 40px;
-}
-
-.reply-form.postForm-box .postForm .reply-mention {
-  margin-top: 0;
-  margin-bottom: 4px;
-}
-
-.reply-form.postForm-box .postForm textarea {
-  font-size: 12px;
-  height: 60px;
-}
-
-.reply-form.postForm-box .postForm textarea::placeholder {
-  font-size: 12px;
-  color: rgba(36, 41, 46, 0.35);
-}
-
-.reply-form.postForm-box .postForm .replay-img {
-  display: none;
-}
-
-.reply-form.postForm-box .postForm .img-upload {
-  cursor: pointer;
-  color: rgba(36, 41, 46, 0.3);
-  font-size: 18px;
-  margin-left: 15px;
-}
-
 .overlay-box {
   position: fixed;
   top: 0;
@@ -4676,13 +4604,6 @@ a.custom-link.post-short-link {
   padding-right: 3px;
 }
 
-.post-comment{
-  font-size: 13px;
-  line-height: 19px;
-  text-align: left;
-  word-break: break-all;
-}
-
 p.parag.post-p {
   line-height: 20px !important;
 }
@@ -4748,10 +4669,6 @@ top:50;
 
 p.parag.follow-p.follower-p {
   width: fit-content;
-}
-
-p.parag.post-comment a {
-  color: #1A9AFD;
 }
 
 #media-image-image {

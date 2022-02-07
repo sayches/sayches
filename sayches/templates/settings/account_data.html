@@ -40,9 +40,6 @@
     {% if user_obj.profile.disable_notifications  %}
     <p>Disable Notifications: {{ user_obj.profile.disable_notifications }}</p>
     {% endif %}
-    {% if user_obj.profile.disable_comments %}
-    <p>Disable Comments: {{ user_obj.profile.disable_comments }}</p>
-    {% endif %}
     {% if user_obj.profile.disable_messages %}
     <p>Disable Messages: {{ user_obj.profile.disable_messages }}</p>
     {% endif %}
@@ -77,9 +74,6 @@
     {% endif %}
     {% if post_timestamp_obj %}
     <p>Published Posts: {{post_timestamp_obj}}</p>
-    {% endif %}
-    {% if comment_timestamp_obj %}
-    <p>Published Comments: {{comment_timestamp_obj}}</p>
     {% endif %}
     {% if hashtag_obj %}
     <p>Created Hashtags: {{hashtag_obj}}</p>

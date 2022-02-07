@@ -531,25 +531,6 @@ def get_comment_hashtags(comment):
     return None
 
 
-def prevent_comment_hashtag_repetition(comment):
-    comment_text = comment
-    words_list = comment.split()
-    hashtags_list = [word for word in words_list if word[0] == '#']
-    mentions_list = [word for word in words_list if word[0] == '@']
-
-    for hashtag in hashtags_list:
-        hashtag = Hashtag.objects.filter(implicit_name=hashtag).first()
-        hashtag_decode = "/h/" + str(hashtag).replace('#', '%23', 1)
-        comment_text = convert_to_anchor_tag(comment_text, hashtag_decode, hashtag)
-
-    for mention in mentions_list:
-        mention = Mentions.objects.filter(implicit_name=mention).first()
-        user_url = "/u/" + str(mention).replace('@', '%40', 1)
-        comment_text = convert_to_anchor_tag(comment_text, user_url, mention)
-
-    return comment_text
-
-
 def prevent_hashtag_repetition(post):
     post_text = post.text
     if post.post_option == "normal":
@@ -661,7 +642,6 @@ def posts_to_json(request, user, posts):
             "bio": escape(post.user.profile.bio),
             "reaction_number": reaction_number,
             "reaction_status": "action",
-            "comment_number": short_number(post.comments.all().count()),
             "total_posts": total_posts
         }
 
@@ -723,7 +703,6 @@ def single_post_to_json(user, post):
     json_object["user_nickname"] = escape(post.user.get_alias_display())
     json_object["user_name"] = escape(post.user.user_hash)
     json_object["user_page"] = reverse(profile_name_variable, args=[post.user.user_hash])
-    json_object["comment_number"] = post.comments.all().count()
     json_object["flag"] = flag
     json_object["do_status"] = do_status
     json_object["bio"] = escape(post.user.profile.bio)
@@ -745,77 +724,6 @@ def single_post_to_json(user, post):
 
     return json_object
 
-
-def comments_to_json(user, posts):
-    comment_list = []
-    for post in posts:
-        post_user = post.user.user_hash
-        comments = post.comments.all()
-        for comment in comments:
-            hashtags_query = Hashtag.objects.filter(comments__in=[comment])
-            hashtags = [hashtag.explicit_name for hashtag in hashtags_query]
-
-            image_url = comment.user.profile.photo_url
-
-            name = comment.user.name
-            if not name:
-                name = comment.user.user_hash
-
-            json_object = {
-                "id": comment.id,
-                "post_id": post.id,
-                "user_img": image_url,
-                "name": name,
-                "user_name": comment.user.user_hash,
-                "user_post_name": post_user,
-                "date": "now",
-                "post_p": urlize(prevent_comment_hashtag_repetition(comment.text)),
-                "hashtags": [{
-                    "hashtag_name": hashtag,
-                    "hashtag_link": reverse(search_hash_variable, args=[str(hashtag)]),
-                } for hashtag in hashtags],
-                "reaction_number": 20,
-                "comment_number": 20,
-                "bio": comment.user.profile.bio,
-            }
-            comment_list.append(json_object)
-
-    return comment_list
-
-
-def single_comment_to_json(user, post, comment):
-    hashtags_query = Hashtag.objects.filter(comments__in=[comment])
-    hashtags = [hashtag.explicit_name for hashtag in hashtags_query]
-
-    user_image_url = comment.user.profile.photo_url
-
-    if comment.user.name == "":
-        name = comment.user.user_hash
-    else:
-        name = comment.user.name
-
-    comment_id = comment.id
-    json_object = {
-        "id": comment_id,
-        "post_id": post.id,
-        "user_img": user_image_url,
-        "name": name,
-        "user_name": comment.user.user_hash,
-        "user_post_name": post.user.user_hash,
-        "date": "now",
-        "post_p": urlize(prevent_comment_hashtag_repetition(comment.text)),
-        "reaction_number": 20,
-        "comment_number": 20,
-        "bio": comment.user.profile.bio,
-    }
-
-    json_object['hashtags'] = [{
-        "hashtag_name": hashtag,
-        "hashtag_link": reverse(search_hash_variable, args=[str(hashtag)]),
-    } for hashtag in hashtags]
-    return json_object
-
-
 def send_notifications_to_user_bell_list(user, post):
     user_bell_list = user.ring_from.all()
     for ring in user_bell_list:
@@ -823,20 +731,14 @@ def send_notifications_to_user_bell_list(user, post):
 
 
 def get_post_reaction_count(post_reactions):
-    reaction_list = post_reactions.filter(reaction_name__in=["👏", "🥚", "🆙"]).values(
+    reaction_list = post_reactions.filter(reaction_name__in=["🥚"]).values(
         'reaction_name').annotate(total=Count('id')).order_by('reaction_name')
     reaction_count = {
-        "clap_number": 0,
         "egg_number": 0,
-        "boost_number": 0,
     }
     for reaction_dic in reaction_list:
-        if reaction_dic.get("reaction_name") == "clap":
-            reaction_count.update({"clap_number": reaction_dic.get("total")})
         if reaction_dic.get("reaction_name") == "🥚":
             reaction_count.update({"egg_number": reaction_dic.get("total")})
-        if reaction_dic.get("reaction_name") == "boost":
-            reaction_count.update({"boost_number": reaction_dic.get("total")})
 
     return reaction_count
 

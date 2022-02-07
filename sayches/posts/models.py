@@ -74,46 +74,6 @@ class PostsTimestamp(BaseModel):
     class Meta:
         verbose_name_plural = "Posts Timestamp"
 
-
-class Comment(BaseModel):
-    post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE, null=True)
-    text = models.TextField()
-
-    class Meta:
-        ordering = ('-created_at',)
-
-    def get_hashtags(self):
-        return Hashtag.objects.filter(comments__in=[self])
-
-    def get_user_image(self):
-        image_url = self.user.profile.photo_url
-        return image_url
-
-    def get_user_name(self):
-        if self.user.name == "":
-            name = self.user.user_hash
-        else:
-            name = self.user.name
-        return name
-
-    def __str__(self):
-        return self.text
-
-
-class CommentsTimestamp(BaseModel):
-    user = models.ForeignKey(User, on_delete=SET_NULL, null=True)
-    post_id = models.CharField(max_length=10, null=True, blank=True)
-    comment_id = models.CharField(max_length=10, null=True, blank=True)
-    comment_timestamp = models.DateTimeField(null=True, blank=True)
-
-    def __str__(self):
-        return self.post_id
-
-    class Meta:
-        verbose_name_plural = "Comments Timestamp"
-
-
 class Hashtag(BaseModel):
     CLEAN = 0
     PROPAGANDA = 1
@@ -124,7 +84,6 @@ class Hashtag(BaseModel):
 
     posts = models.ManyToManyField(Post, related_name="hashtags")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    comments = models.ManyToManyField(Comment, related_name="chashtags", blank=True)
     # to used just for render the original text
     explicit_name = models.CharField(max_length=255, blank=True)
     # transform the original text to caseless string to use it in qs
@@ -145,7 +104,6 @@ class Hashtag(BaseModel):
 
 class Mentions(BaseModel):
     posts = models.ManyToManyField(Post, related_name="mentions")
-    comments = models.ManyToManyField(Comment, related_name="mentioncomments", blank=True)
     # to used just for render the original text
     explicit_name = models.CharField(max_length=255, blank=True)
     # transform the original text to caseless string to use it in qs
