@@ -87,11 +87,11 @@ admin.site.register(CannedResponse)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'photo', 'bio', 'pgp_fingerprint', 'btc_address', 'website',
-        'disable_notifications', 'disable_comments', 'disable_messages', 'disable_ping',)
+        'disable_notifications', 'disable_messages', 'disable_ping',)
     search_fields = ('bio', 'pgp_fingerprint', 'btc_address', 'website')
     readonly_fields = [
         'user', 'bio', 'pgp_fingerprint', 'btc_address', 'website',
-        'disable_notifications', 'disable_comments', 'disable_messages', 'disable_ping', 'photo'
+        'disable_notifications', 'disable_messages', 'disable_ping', 'photo'
     ]
     date_hierarchy = 'created_at'
 

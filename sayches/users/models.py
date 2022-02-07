@@ -204,7 +204,6 @@ class Profile(BaseModel):
     btc_address = models.CharField(max_length=42, null=True, blank=True)
     website = models.URLField(null=True, blank=True, max_length=70)
     disable_notifications = models.BooleanField(default=False)
-    disable_comments = models.BooleanField(default=False)
     disable_messages = models.BooleanField(default=False)
     disable_ping = models.BooleanField(default=False)
 

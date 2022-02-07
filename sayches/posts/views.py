@@ -18,15 +18,13 @@ from posts.utils import statistics_post, get_parsed_meta_url, replace_profanity_
 from subsections.models import Ads
 from users.models import BlacklistUser, FromSayches
 from users.models import User
-from users.utils import create_action, get_mention_tags, get_comment_mention
+from users.utils import create_action, get_mention_tags
 
 from config.choices import FLAIR_CHOICES
 from config.settings.base import SET_INTERVAL_ALLOW, BASE_URL
 from .forms import SearchPost
 from .models import Post, Likes, Hashtag, ReportPost, PostsTimestamp
-from .utils import get_hashtags, get_mentions, posts_to_json, comments_to_json, single_post_to_json, \
-    prevent_comment_hashtag_repetition, \
-    single_comment_to_json, get_comment_hashtags, send_notifications_to_user_bell_list
+from .utils import get_hashtags, get_mentions, posts_to_json, single_post_to_json, send_notifications_to_user_bell_list
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -106,8 +104,6 @@ def format_posts(request, user, posts):
 
     if sort_type == 'oldest':
         posts = sorted(posts, key=lambda p: p.created_at)
-    elif sort_type == 'comments':
-        posts = sorted(posts, key=lambda p: p.comments.count(), reverse=True)
     else:
         posts = sorted(posts, key=lambda p: p.created_at, reverse=True)
     data = posts_to_json(request, user, posts)
@@ -161,26 +157,6 @@ def post_formated_data(request, last_post_created_at):
     if not last_post_created_at:
         return JsonResponse({}, safe=False)
     return last_post_created_at
-
-
-@require_GET
-def comments_data_for_home_posts(request):
-    if request.is_ajax():
-        user = request.user
-        posts = Post.valid.all()
-        data = comments_to_json(user, posts)
-        paginator = Paginator(data, 10)
-        page_number = request.GET.get('page', 1)
-        try:
-            page_data = paginator.page(page_number)
-            data = page_data.object_list
-        except EmptyPage:
-            data = []
-
-        return JsonResponse(data, safe=False)
-    else:
-        return HttpResponseBadRequest()
-
 
 @login_required
 @require_POST

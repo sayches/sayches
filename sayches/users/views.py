@@ -65,16 +65,12 @@ def profile_detail(request, id):
     sort_type = request.GET.get('sortby', None)
 
     if request.user == profile.user:
-        if sort_type == "comments":
-            posts = Post.objects.filter(user=user).order_by('-pinned_post', '-comments')
-        elif sort_type == "oldest":
+        if sort_type == "oldest":
             posts = Post.objects.filter(user=user).order_by('-pinned_post', 'created_at')
         else:
             posts = Post.objects.filter(user=user).order_by('-pinned_post', '-created_at')
     else:
-        if sort_type == "comments":
-            posts = Post.objects.filter(user=user).order_by('-comments')
-        elif sort_type == "oldest":
+        if sort_type == "oldest":
             posts = Post.objects.filter(user=user).order_by('created_at')
         else:
             posts = Post.objects.filter(user=user).order_by('-created_at')
@@ -280,7 +276,7 @@ def profile_detail_name(request, username):
         "is_message_block": is_message_block,
         'profile': user.profile, "user_following": user_following, "user_followers": user_followers,
         "other_user_followers": other_user_followers, "other_user_following": other_user_following,
-        "following_request_user": following_request_user, 'user': user, 'posts': posts, 'comment_form': comment_form,
+        "following_request_user": following_request_user, 'user': user, 'posts': posts,
         'hashtags': hashtags, 'form': form, "belled": belled,
         'today_ping': today_ping,
         'user_verification_form': user_verification_form,
@@ -384,7 +380,7 @@ def profile_update(request):
         'user_verification_form': user_verification_form,
         'disable_messages': profile.disable_messages,
         'disable_notifications': profile.disable_notifications,
-        'disable_ping': profile.disable_ping, 'disable_comments': profile.disable_comments,
+        'disable_ping': profile.disable_ping,
         'is_block_user': is_block_user,
         'ads': ads,
         'ads_history': ads_history,
