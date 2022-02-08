@@ -99,7 +99,7 @@ function structurePost(data) {
                         '<p class="parag post-p" dir="auto">'+data.post_p+'</p>';
                         if(data.post_media != 'null'){
                             single_post +=
-                            '<a class="link-container width-unset h-unset" arget="_blank" href="'+data.post_media+'"><img class="rounded mx-auto d-block" src="'+data.post_media+'" alt="Download" /></a>';
+                            '<a class="link-container width-unset h-unset" target="_blank" href="'+data.post_media+'"><img class="rounded mx-auto d-block" src="'+data.post_media+'" alt="Download" /></a>';
                         }
                     }
 
@@ -508,7 +508,7 @@ function structureDetailsPost(data){
                                 '<p class="parag post-p" dir="auto">'+data.post_p+'</p>';
                             if(data.post_media != 'null'){
                                 single_post +=
-                                '<a class="link-container width-unset h-unset" arget="_blank" href="'+data.post_media+'"><img class="rounded mx-auto d-block" src="'+data.post_media+'" alt="Download" /></a>';
+                                '<a class="link-container width-unset h-unset" target="_blank" href="'+data.post_media+'"><img class="rounded mx-auto d-block" src="'+data.post_media+'" alt="Download" /></a>';
                             }
                         }
 
