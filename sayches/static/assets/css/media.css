@@ -1035,9 +1035,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  .profile-box .details-box .box {
-    margin-bottom: 21px;
-  }
   .follow-p {
     font-size: 12px;
   }
