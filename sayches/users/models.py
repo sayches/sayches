@@ -206,7 +206,6 @@ class Profile(BaseModel):
     disable_notifications = models.BooleanField(default=False, null=True)
     disable_messages = models.BooleanField(default=False, null=True)
     disable_ping = models.BooleanField(default=False, null=True)
-    disable_comments = models.BooleanField(null=True)
 
     def __str__(self):
         return self.user.username
