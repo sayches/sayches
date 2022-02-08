@@ -203,9 +203,10 @@ class Profile(BaseModel):
     pgp_fingerprint = models.CharField(max_length=49, null=True, blank=True)
     btc_address = models.CharField(max_length=42, null=True, blank=True)
     website = models.URLField(null=True, blank=True, max_length=70)
-    disable_notifications = models.BooleanField(default=False)
-    disable_messages = models.BooleanField(default=False)
-    disable_ping = models.BooleanField(default=False)
+    disable_notifications = models.BooleanField(default=False, null=True)
+    disable_messages = models.BooleanField(default=False, null=True)
+    disable_ping = models.BooleanField(default=False, null=True)
+    disable_comments = models.BooleanField(null=True)
 
     def __str__(self):
         return self.user.username
