@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from sayches.utils.export_csv import ExportCsvMixin
-from .models import Post, Hashtag, ReportPost, Statistics, Likes, LinkValidation, \
+from .models import Post, Hashtag, ReportPost, Likes, LinkValidation, \
     PostsTimestamp, BlacklistWords
 
 
@@ -12,23 +12,6 @@ class BlacklistWordsAdmin(admin.ModelAdmin):
     list_filter = ['is_emoji', 'created_at']
     date_hierarchy = 'created_at'
     search_fields = ('word',)
-
-
-class StatisticsAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_per_page = 15
-    list_display = (
-        'id', 'date', 'total_posts', 'total_hashtags', 'total_mentions', 'total_messages', 'total_anonymous',
-        'total_reports')
-    list_filter = ['created_at', 'modified_at', 'date', 'total_posts', 'total_hashtags', 'total_mentions',
-                   'total_messages', 'total_anonymous', 'total_reports']
-    actions = ["export_as_csv"]
-    date_hierarchy = 'date'
-    readonly_fields = ["modified_at", "date", "total_posts", "total_hashtags", "total_mentions", "total_messages",
-                       "total_anonymous", "total_reports"]
-
-
-admin.site.register(Statistics, StatisticsAdmin)
-
 
 @admin.register(PostsTimestamp)
 class PostsTimestampAdmin(admin.ModelAdmin):

@@ -23,49 +23,10 @@ from users.utils import create_action
 
 from sayches.utils.resize_image import check_image_exists
 from .models import Likes, Hashtag, Mentions, LinkValidation, \
-    ReportPost, Statistics, BlacklistWords
+    ReportPost, BlacklistWords
 
 search_hash_variable = 'posts:search_hash'
 profile_name_variable = 'users:profile_name'
-
-
-def statistics_post(post="", report="", hashtag="", mention="", message='', anonymous_post=""):
-    creation_date = localtime(now()).date()
-    check_statistic = Statistics.objects.filter(date=creation_date).first()
-    try:
-        if check_statistic:
-            if post:
-                check_statistic.total_posts = post
-            if report:
-                check_statistic.total_reports = report
-            if hashtag:
-                check_statistic.total_hashtags = hashtag
-            if mention:
-                check_statistic.total_mentions = mention
-            if message:
-                check_statistic.total_messages = message
-            if anonymous_post:
-                check_statistic.total_anonymous = anonymous_post
-            check_statistic.save()
-
-        else:
-            if post:
-                create_statistic = Statistics(total_posts=post)
-            if report:
-                create_statistic = Statistics(total_reports=report)
-            if hashtag:
-                create_statistic = Statistics(total_hashtags=hashtag)
-            if mention:
-                create_statistic = Statistics(total_mentions=mention)
-            if message:
-                create_statistic = Statistics(total_messages=message)
-            if anonymous_post:
-                create_statistic = Statistics(total_anonymous=anonymous_post)
-            create_statistic.save()
-    except:
-        pass
-
-    return True
 
 
 # Configuration for urlize() function.
@@ -489,8 +450,6 @@ def get_hashtags(post):
                 hashtag.author = post.user
                 hashtag.save()
             post.hashtags.add(hashtag)
-    total_hashtag_count = Hashtag.objects.all().count()
-    statistics_post(hashtag=total_hashtag_count)
     return None
 
 
@@ -508,9 +467,6 @@ def get_mentions(post):
             if not mention:
                 mention = Mentions.objects.create(explicit_name=i)
             post.mentions.add(mention)
-    total_maintain_count = Mentions.objects.all().count()
-    statistics_post(mention=total_maintain_count)
-
     return None
 
 

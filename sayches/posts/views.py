@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
-from posts.utils import statistics_post, get_parsed_meta_url, replace_profanity_words
+from posts.utils import get_parsed_meta_url, replace_profanity_words
 from subsections.models import Ads
 from users.models import BlacklistUser, FromSayches
 from users.models import User
@@ -43,9 +43,6 @@ def report_post(request):
         report_post.post_text = post.text
         report_post.post_url = post_url
         report_post.save()
-        total_report_count = ReportPost.objects.count()
-
-        statistics_post(report=total_report_count)
         admin_email_body = 'Hey Admin, There is a report on a post.'
         send_mail('Sayches | Post Reported', admin_email_body, settings.DEFAULT_FROM_EMAIL,
                   [settings.DEFAULT_FROM_EMAIL])
@@ -193,9 +190,6 @@ def create_post_entry(user, flair, post_option, text, media=None):
     user_post_timestamp = PostsTimestamp.objects.create(user=user, post_id=post.id)
     user_post_timestamp.post_timestamp = timezone.localtime(post.created_at)
     user_post_timestamp.save()
-    total_post_count = Post.objects.count()
-    statistics_post(post=total_post_count)
-
     return post
 
 

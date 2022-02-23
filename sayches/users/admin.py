@@ -7,8 +7,7 @@ from users.forms import UserChangeForm, UserCreationForm
 from users.models import LoggedInUser, PreUser
 
 from sayches.utils.export_csv import ExportCsvMixin
-from .models import Activity, BlacklistUser, SendEmail, DeletedUser, \
-    UserStatistics, UserRSA, CannedResponse
+from .models import Activity, BlacklistUser, SendEmail, DeletedUser, UserRSA, CannedResponse
 from .models import Profile, ReportUser, UserVerification, FromSayches
 
 admin.site.unregister(IntervalSchedule)
@@ -155,20 +154,6 @@ class SendEmailAdmin(admin.ModelAdmin, ExportCsvMixin):
 
 
 admin.site.register(DeletedUser, DeletedUserAdmin)
-
-
-class UserStatisticsAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_per_page = 15
-    list_display = ('id', 'date', 'total_users', 'total_active_users', 'total_inactive_users', 'total_verified_users',
-                    "total_deleted_user")
-    actions = ["export_as_csv"]
-    list_filter = ['date', 'total_users', 'total_active_users', 'total_inactive_users', 'total_verified_users',
-                   'total_deleted_user']
-    date_hierarchy = 'date'
-
-
-admin.site.register(UserStatistics, UserStatisticsAdmin)
-
 
 class BlacklistUserAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_per_page = 15

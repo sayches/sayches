@@ -197,20 +197,6 @@ class ReportPost(BaseModel):
         verbose_name_plural = "Reported Posts"
 
 
-class Statistics(BaseModel):
-    modified_at = models.DateTimeField(auto_now=True)
-    date = models.DateField(default=timezone.now)
-    total_posts = models.IntegerField(default=0)
-    total_hashtags = models.IntegerField(default=0)
-    total_mentions = models.IntegerField(default=0)
-    total_messages = models.IntegerField(default=0)
-    total_anonymous = models.IntegerField(default=0)
-    total_reports = models.IntegerField(default=0)
-
-    class Meta:
-        verbose_name_plural = "Statistics"
-
-
 class LinkValidation(BaseModel):
     adult_content_website = "1"
     verified_website = "2"

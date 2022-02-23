@@ -1,7 +1,6 @@
 from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.html import escape
-from posts.utils import statistics_post
 
 from .crypto import MessagingRSA
 from .models import Chat, Message
@@ -39,8 +38,7 @@ def add_message_to_chat(chat, author, message, mate_user, request):
     )
     msg.created_at = timezone.localtime(msg.created_at)
     msg.save()
-    total_message_count = Message.objects.all().count()
-    statistics_post(message=total_message_count)
+
 
 
 def create_chat(user, mate_user):
