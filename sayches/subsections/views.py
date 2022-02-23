@@ -22,7 +22,7 @@ from posts.utils import get_parsed_meta_url
 from subsections.models import Ads, PAYMENT_METHOD
 from users.models import BlacklistUser, FromSayches
 from users.models import User
-
+from ads.models import CreateAds
 from .forms import flair_form_public, AdsStepOneForm, AdsStepTwoForm, AdsStepFourVoucherForm, HelpForm
 from .models import Doc, News
 
@@ -144,47 +144,64 @@ def article(request, slug):
 def home(request):
     form = flair_form_public(request.POST)
     posts = Post.objects.all()
-    if not request.user.is_authenticated:
-        return redirect(reverse('login'))
-    else:
+
+    if request.user.is_authenticated:
         random_user_list = User.objects.filter(
-            country=request.user.country).exclude(user_hash=request.user.user_hash).exclude(is_superuser=True).order_by(
+            country=request.user.country
+            ).exclude(user_hash=request.user.user_hash
+            ).exclude(is_superuser=True).order_by(
             '?')[:3]
-        hashtags = Hashtag.objects.all()[:3]
+    else:
+        random_user_list = User.objects.exclude(is_superuser=True).order_by('?')[:3]
+    hashtags = Hashtag.objects.all()[:3]
+
+    if request.user.is_authenticated:
         ad = targeted_ads(request)
-        try:
-            Ads.ad_impressions(ad)
-        except:
-            pass
+    else:
+        ad = CreateAds.objects.order_by('?').first()
+    try:
+        Ads.ad_impressions(ad)
+    except:
+        pass
 
+    if request.user.is_authenticated:
         is_block_post = BlacklistUser.objects.filter(user=request.user, on_post=True).exists()
+    else:
+        is_block_post = None
 
+    if request.user.is_authenticated:
         is_search_user_profile = BlacklistUser.objects.filter(Q(user=request.user),
-                                                              Q(on_post=True) | Q(on_login=True) | Q(
-                                                                  on_message=True)).exists()
+                                                                Q(on_post=True) | Q(on_login=True) | Q(
+                                                                    on_message=True)).exists()
+    else:
+        is_search_user_profile = None
 
-        all_blocked_user = BlacklistUser.objects.filter(on_login=True).distinct()
 
+    all_blocked_user = BlacklistUser.objects.filter(on_login=True).distinct()
+
+    if request.user.is_authenticated:
         first_post(request)
         lost_virginity(request)
+    else:
+        pass
 
-        try:
-            ad_slug = Ads.objects.get(slug=ad.ad_id)
-        except:
-            ad_slug = None
+    try:
+        ad_slug = Ads.objects.get(slug=ad.ad_id)
+    except:
+        ad_slug = None
 
-        context = {
-            "ad": ad,
-            "is_search_user_profile": is_search_user_profile,
-            "users": random_user_list,
-            "all_blocked_user": all_blocked_user,
-            "hashtags": hashtags,
-            "posts": posts,
-            "form": form,
-            "ad_slug": ad_slug,
-            "is_block_post": is_block_post}
+    context = {
+        "ad": ad,
+        "is_search_user_profile": is_search_user_profile,
+        "users": random_user_list,
+        "all_blocked_user": all_blocked_user,
+        "hashtags": hashtags,
+        "posts": posts,
+        "form": form,
+        "ad_slug": ad_slug,
+        "is_block_post": is_block_post}
 
-        return render(request, 'feed/feed.html', context)
+    return render(request, 'feed/feed.html', context)
 
 
 @require_GET

@@ -2,70 +2,70 @@
 
 {% load static %}
 <div class="col-lg-4">
-   <div class="custom-sidebar">
-      <div class="main-box sidebar-box">
-         <h2 class="font-weight-bold f-s-17">WHAT IS HAPPENING?</h2>
-         {% for hashtag in hashtags %}
-         <div class="mini-box custom-blue">
-            <a href="{% url 'posts:search_hash' hashtag.explicit_name %}" class="overlay-link"></a>
-            <div class="trend-img">
-               <i class="ri-hashtag font-weight-bold"></i>
-            </div>
-            <div class="txt-box">
-               <h3 class="heading mini-box-h text-truncate-200"><span class="minibox-explicitname">{{ hashtag.explicit_name }} </span><br><span class="minibox-explicitcounter">{% if hashtag.hashtag_counter > 100 %} Hullabaloo {% else %} Nothingburger{% endif %}</span></h3>
-            </div>
-         </div>
-         {% empty %}
-         <div class="mini-box custom-blue">
-            <a href="#" class="overlay-link"></a>
-            <div class="trend-img">
-               <i class="ri-hashtag font-weight-bold"></i>
-            </div>
-            <div class="txt-box">
-               <h3 class="heading mini-box-h">No Trends Yet</h3>
-            </div>
-         </div>
-         {% endfor %}
+  <div class="custom-sidebar">
+    <div class="main-box sidebar-box">
+      <h2 class="font-weight-bold f-s-17">WHAT IS HAPPENING?</h2>
+      {% for hashtag in hashtags %}
+      <div class="mini-box custom-blue">
+        <a href="{% url 'posts:search_hash' hashtag.explicit_name %}" class="overlay-link"></a>
+        <div class="trend-img">
+          <i class="ri-hashtag font-weight-bold"></i>
+        </div>
+        <div class="txt-box">
+          <h3 class="heading mini-box-h text-truncate-200"><span class="minibox-explicitname">{{ hashtag.explicit_name }} </span><br><span class="minibox-explicitcounter">{% if hashtag.hashtag_counter > 100 %} Hullabaloo {% else %} Nothingburger{% endif %}</span></h3>
+        </div>
       </div>
-      {% if request.user.is_authenticated %}
-      <div class="main-box sidebar-box">
-         <h2 class="font-weight-bold f-s-17">SUGGESTIONS FOR YOU</h2>
-         {% for oneuser in users %}
-         <div class="mini-box custom-blue">
-            <a href="{% url 'users:profile_name' oneuser.user_hash %}" class="overlay-link"></a>
-            <div class="follower-img">
-               <img src="{{ oneuser.profile.photo_url }}" alt="Profile Picture">
-            </div>
-            <div class="txt-box">
-               <h3 class="heading mini-box-h text-truncate-150"> {{ oneuser.get_name_or_username|escapejs }} </h3>
-            </div>
-         </div>
-         {% endfor %}
+      {% empty %}
+      <div class="mini-box custom-blue">
+        <a href="#" class="overlay-link"></a>
+        <div class="trend-img">
+          <i class="ri-hashtag font-weight-bold"></i>
+        </div>
+        <div class="txt-box">
+          <h3 class="heading mini-box-h">No Trends Yet</h3>
+        </div>
       </div>
-      <div class="main-box sidebar-box">
-         <h2 class="font-weight-bold f-s-17">FLYER</h2>
-         <div class="advertisement-box">
-            {% if ad.image %}
-            <a href="{{ad.link}}" target="_blank"><img onclick="addClick('{{ ad_slug }}')" src="{{ad.image.url}}" class="img-fluid" alt="Advertisement"></a>
-            {% else %}
-            <a href="#"><img alt="Advertisement" src="{% static 'assets/images/blanks/373x256.png' %}" class="img-fluid"></a>
-            {% endif %}
-         </div>
+      {% endfor %}
+    </div>
+    <div class="main-box sidebar-box">
+      <h2 class="font-weight-bold f-s-17">SUGGESTIONS FOR YOU</h2>
+      {% for oneuser in users %}
+      <div class="mini-box custom-blue">
+        <a href="{% url 'users:profile_name' oneuser.user_hash %}" class="overlay-link"></a>
+        <div class="follower-img">
+          <img src="{{ oneuser.profile.photo_url }}" alt="Profile Picture">
+        </div>
+        <div class="txt-box">
+          <h3 class="heading mini-box-h text-truncate-150"> {{ oneuser.get_name_or_username|escapejs }} </h3>
+        </div>
       </div>
-      <div class="main-box sidebar-box">
-         <h2 class="font-weight-bold f-s-17">SITEMAP</h2>
-         <ul class="sidebar-ul">
-            <li class="sidebar-li"><a class="parag" href="{% url 'subsections:docs' %}"> Docs </a></li>
-            <li class="sidebar-li"><a class="parag" href="{% url 'subsections:news' %}"> Newsroom </a></li>
-            <li class="sidebar-li"><a class="parag" href="{% url 'subsections:ads' %}"> Ads </a></li>
-            <li class="sidebar-li"><a class="parag" href="{% url 'subsections:help' %}"> Help </a></li>
-         </ul>
-         <p class="footer-p"><a href="#">SAYCHES © 2020-2022 {{ version_no }}
-            </a>
-         </p>
+      {% endfor %}
+    </div>
+    <div class="main-box sidebar-box">
+      <h2 class="font-weight-bold f-s-17">FLYER</h2>
+      <div class="advertisement-box">
+        {% if ad.image %}
+        <a href="{{ad.link}}" target="_blank"><img onclick="addClick('{{ ad_slug }}')" src="{{ad.image.url}}" class="img-fluid" alt="Advertisement"></a>
+        {% else %}
+        <a href="#"><img alt="Advertisement" src="{% static 'assets/images/blanks/373x256.png' %}" class="img-fluid"></a>
+        {% endif %}
       </div>
-   </div>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="main-box sidebar-box">
+      <h2 class="font-weight-bold f-s-17">SITEMAP</h2>
+      <ul class="sidebar-ul">
+        <li class="sidebar-li"><a class="parag" href="{% url 'subsections:docs' %}"> Docs </a></li>
+        <li class="sidebar-li"><a class="parag" href="{% url 'subsections:news' %}"> Newsroom </a></li>
+        <li class="sidebar-li"><a class="parag" href="{% url 'subsections:ads' %}"> Ads </a></li>
+        <li class="sidebar-li"><a class="parag" href="{% url 'subsections:help' %}"> Help </a></li>
+      </ul>
+      <p class="footer-p"><a href="#">SAYCHES © 2020-2022 {{ version_no }}
+        </a>
+      </p>
+    </div>
+    {% endif %}
+  </div>
 </div>
-{% endif %}
 <script src="{% static 'assets/js/ads.js' %}"></script>
 
