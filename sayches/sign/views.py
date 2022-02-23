@@ -17,7 +17,6 @@ from sudo.models import CloseRegistration
 from users.models import BlacklistUser
 from users.models import Profile
 from users.models import User
-from users.utils import user_stataticstic
 
 from .forms import UserRegistrationForm, UserLoginForm, StepsForm
 
@@ -97,15 +96,6 @@ def user_login(request):
                         request.session['encryption_token'] = cd['password']
                         request.session.modified = True
                         MessagingRSA.create_rsa(request)
-
-                        # on every login statatistic change hence code written here
-                        total_users = User.objects.count()
-                        actiavte_user_count = User.objects.filter(
-                            last_login__gte=(datetime.today() - timedelta(days=30)).date()).count()
-                        inactiavte_user_count = total_users - actiavte_user_count
-                        user_stataticstic(total_users=total_users, actiavte_user_count=actiavte_user_count,
-                                          inactiavte_user_count=inactiavte_user_count)
-
                         response = redirect(reverse('subsections:home'))
                         if user.first_login:
                             response = redirect(reverse('steps_form'))

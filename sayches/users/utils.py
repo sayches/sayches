@@ -1,6 +1,6 @@
 from django.utils.timezone import localtime, now
 from posts.models import Mentions
-from users.models import DeletedUser, User, Activity, UserStatistics
+from users.models import DeletedUser, User, Activity
 
 
 def log_deleted_user(user):
@@ -24,8 +24,6 @@ def log_deleted_user(user):
                                )
     body = f'Your account has been destroyed.'
 
-    total_deleted_user = DeletedUser.objects.count()
-    user_stataticstic(deleted_user=total_deleted_user)
 
 
 def create_action(sender, receiver, verb, text=None, target=None, count=1, activity_type="default"):
@@ -51,34 +49,3 @@ def get_mention_tags(text, sender, target):
                 action.save()
 
     return None
-
-
-def user_stataticstic(total_users='', actiavte_user_count='', inactiavte_user_count="", verifyed_user="",
-                      deleted_user=""):
-    try:
-        creation_date = localtime(now()).date()
-        check_user_stat = UserStatistics.objects.filter(date=creation_date).first()
-        if check_user_stat:
-            if verifyed_user:
-                check_user_stat.total_verified_users = verifyed_user
-            elif deleted_user:
-                check_user_stat.total_deleted_user = deleted_user
-            else:
-                check_user_stat.total_active_users = actiavte_user_count
-                check_user_stat.total_users = total_users
-                check_user_stat.total_inactive_users = inactiavte_user_count
-            check_user_stat.save()
-        else:
-            create_statatic = UserStatistics()
-            if verifyed_user:
-                create_statatic.total_verified_users = verifyed_user
-            elif deleted_user:
-                create_statatic.total_deleted_user = deleted_user
-            else:
-                create_statatic.total_active_users = actiavte_user_count
-                create_statatic.total_users = total_users
-                create_statatic.total_inactive_users = inactiavte_user_count
-            create_statatic.save()
-        return True
-    except Exception:
-        return False

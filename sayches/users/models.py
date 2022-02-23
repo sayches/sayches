@@ -360,19 +360,6 @@ class DeletedUser(BaseModel):
     class Meta:
         verbose_name_plural = "Deleted Users"
 
-
-class UserStatistics(BaseModel):
-    date = models.DateField(default=timezone.now)
-    total_users = models.IntegerField(default=0)
-    total_active_users = models.IntegerField(default=0)
-    total_inactive_users = models.IntegerField(default=0)
-    total_verified_users = models.IntegerField(default=0)
-    total_deleted_user = models.IntegerField(default=0)
-
-    class Meta:
-        verbose_name_plural = "Statistics"
-
-
 class BlacklistUser(BaseModel):
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
     on_post = models.BooleanField(default=False)
