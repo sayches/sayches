@@ -115,7 +115,7 @@ def format_posts(request, user, posts):
     return data
 
 
-# @cache_page(CACHE_TTL)
+@cache_page(CACHE_TTL)
 @require_GET
 def posts_data(request):
     if request.is_ajax():
