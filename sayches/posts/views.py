@@ -124,7 +124,7 @@ def posts_data(request):
         if request.user.is_authenticated:
             posts_obj = Post.objects.all().exclude(restrict=True)
         else:
-            posts_obj = Post.objects.all().exclude(restrict=True)[:2]
+            posts_obj = Post.objects.all().exclude(restrict=True)[:5]
         for p in posts_obj:
             posts.append(p)
         data = format_posts(request, user, posts)
