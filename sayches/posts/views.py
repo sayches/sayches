@@ -121,7 +121,11 @@ def posts_data(request):
     if request.is_ajax():
         posts = []
         user = request.user
-        posts_obj = Post.objects.all().exclude(restrict=True)[:100]
+        if request.user.is_authenticated:
+            posts_obj = Post.objects.all().exclude(restrict=True)[:100]
+        else:
+            posts_obj = Post.objects.all().exclude(restrict=True)[:10]
+
         for p in posts_obj:
             posts.append(p)
         data = format_posts(request, user, posts)
