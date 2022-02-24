@@ -394,37 +394,3 @@ class Activity(BaseModel):
     class Meta:
         ordering = ('-created_at',)
         verbose_name_plural = "Activities"
-
-
-class CannedResponse(BaseModel):
-    message = models.TextField(null=True, blank=False)
-
-    def __str__(self):
-        return self.message
-
-    class Meta:
-        ordering = ('-created_at',)
-        verbose_name_plural = "Canned Response"
-
-
-class SendEmail(BaseModel):
-    CHOICES = [(settings.DEFAULT_FROM_EMAIL, settings.DEFAULT_FROM_EMAIL)]
-
-    _from = models.CharField(blank=False, null=False, max_length=100, choices=CHOICES)
-    _to = models.EmailField(null=True, blank=False)
-    _subject = models.CharField(null=False, blank=False, max_length=250)
-    _message = models.TextField(null=False, blank=True)
-    _canned_response = models.ForeignKey(CannedResponse, null=True, blank=True, on_delete=SET_NULL)
-    _passcode = models.CharField(null=True, blank=False, max_length=20)
-
-    def save(self, *args, **kwargs):
-        if self._passcode == settings.SEND_EMAIL_PASSCODE:
-            message = self._message + str(self._canned_response)
-            send_mail(self._subject, message, self._from, [self._to])
-        else:
-            raise ValueError("Passcode Error!")
-        return super().save(*args, **kwargs)
-
-    class Meta:
-        ordering = ('-created_at',)
-        verbose_name_plural = "Send Email"

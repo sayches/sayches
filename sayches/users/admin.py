@@ -7,7 +7,7 @@ from users.forms import UserChangeForm, UserCreationForm
 from users.models import LoggedInUser, PreUser
 
 from sayches.utils.export_csv import ExportCsvMixin
-from .models import Activity, BlacklistUser, SendEmail, DeletedUser, UserRSA, CannedResponse
+from .models import Activity, BlacklistUser, DeletedUser, UserRSA
 from .models import Profile, ReportUser, UserVerification, FromSayches
 
 admin.site.unregister(IntervalSchedule)
@@ -80,7 +80,6 @@ admin.site.unregister(User)
 admin.site.register(LoggedInUser, LoggedInUserAdmin)
 admin.site.register(Session)
 admin.site.register(User, UserAdmin)
-admin.site.register(CannedResponse)
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -142,16 +141,6 @@ class DeletedUserAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_filter = ['auto_account_delete_time', 'last_activity_date', 'profile_update_time']
     actions = ["export_as_csv"]
     date_hierarchy = 'created_at'
-
-
-@admin.register(SendEmail)
-class SendEmailAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_display = ('_from', '_to', '_subject', '_message', 'created_at')
-    list_filter = ['_from', 'created_at']
-    actions = ["export_as_csv"]
-    date_hierarchy = 'created_at'
-    search_fields = ('_from', '_to', '_subject', '_message')
-
 
 admin.site.register(DeletedUser, DeletedUserAdmin)
 
