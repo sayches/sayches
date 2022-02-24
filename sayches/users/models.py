@@ -327,16 +327,6 @@ class ReportUser(BaseModel):
     class Meta:
         verbose_name_plural = "Reported Users"
 
-
-class PreUser(BaseModel):
-    name = models.CharField(max_length=100, null=True)
-    email = models.EmailField(max_length=100, null=True)
-    is_added_by_admin = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name_plural = "Pre Users"
-
-
 class DeletedUser(BaseModel):
     user_hash = models.CharField(max_length=15, null=True, blank=False)
     country = CountryField(null=True, blank=False, blank_label='(Select Location)')

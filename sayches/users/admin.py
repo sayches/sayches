@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.sessions.models import Session
 from django_celery_beat.models import (PeriodicTask, CrontabSchedule, ClockedSchedule, IntervalSchedule, SolarSchedule)
 from users.forms import UserChangeForm, UserCreationForm
-from users.models import LoggedInUser, PreUser
+from users.models import LoggedInUser
 
 from sayches.utils.export_csv import ExportCsvMixin
 from .models import Activity, BlacklistUser, DeletedUser, UserRSA
@@ -121,14 +121,6 @@ class ReportPostAdmin(admin.ModelAdmin, ExportCsvMixin):
 
 
 admin.site.register(ReportUser, ReportPostAdmin)
-
-
-@admin.register(PreUser)
-class PreUserAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_display = ('id', 'name', 'email', 'is_added_by_admin')
-    actions = ["export_as_csv"]
-    date_hierarchy = 'created_at'
-
 
 class DeletedUserAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_per_page = 15
