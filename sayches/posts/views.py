@@ -319,7 +319,6 @@ def search(request):
     return render(request, 'feed/search/search.html', context)
 
 
-@login_required
 @require_http_methods(["GET", "POST"])
 def searchhashtag(request, hashtag):
     user = request.user
@@ -345,7 +344,10 @@ def searchhashtag(request, hashtag):
             data = format_posts(request, user, posts)
             return JsonResponse(data, safe=False)
 
-    check_black_list = BlacklistUser.objects.filter(user=request.user, on_post=True).first()
+    try: 
+        check_black_list = BlacklistUser.objects.filter(user=request.user, on_post=True).first()
+    except:
+        check_black_list = None
     is_block_post = False
     if check_black_list:
         is_block_post = True
@@ -382,7 +384,6 @@ def get_hashtag_writer(hashtag):
         return None, None, None
 
 
-@login_required
 @require_GET
 def flair_posts(request, flair):
     posts = None
