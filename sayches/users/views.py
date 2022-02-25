@@ -119,8 +119,10 @@ def last_post_timestamp(user):
 
 
 def directory(request):
-    user = User.objects.filter(first_login=True
-    ).exclude(is_superuser=True)
+    user = User.objects.exclude(lost_virginity=False
+    ).exclude(first_post=False
+    ).exclude(is_superuser=True
+    ).exclude(disposable=True)
     
     paginator = Paginator(user, 20)
     page_number = request.GET.get('p', 1)
