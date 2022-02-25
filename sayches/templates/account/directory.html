@@ -19,9 +19,9 @@
          </div>
          <div class="row d-flex justify-content-center">
             {% for u in user %}
-            <a href="{% url 'users:profile_name' u.user %}">
-            <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="{{ u.user }}">
-            <img class="profile-picure" src="{{ u.user.profile.photo_url }}" alt="Profile Picture" />
+            <a href="{% url 'users:profile_name' u.user_hash %}">
+            <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="{{ u.user_hash }}">
+            <img class="profile-picure" src="{{ u.profile.photo_url }}" alt="Profile Picture" />
             </button>
             </a>
             {% endfor %}
