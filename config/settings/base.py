@@ -161,7 +161,7 @@ MIDDLEWARE = [
     "users.middleware.OneSessionPerUserMiddleware",
 ]
 
-OTP_TOTP_ISSUER = 'Sayches Ltd.'
+OTP_TOTP_ISSUER = 'Sayches'
  
 SET_INTERVAL_ALLOW = 60 # IN MIN
 
