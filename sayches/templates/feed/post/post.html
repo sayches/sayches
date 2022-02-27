@@ -12,8 +12,8 @@
 <meta property="og:image" content="{{ post.media.url }}" />
 <meta name="twitter:image" content="{{ post.media.url }}" />
 {% else %}
-<meta property="og:image" content="{% if post.user.profile.photo_url %}{{ post.user.profile.photo_url }}{% else %}{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}{% endif %}" />
-<meta name="twitter:image" content="{% if post.user.profile.photo_url %}{{ post.user.profile.photo_url }}{% else %}{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}{% endif %}" />
+<meta property="og:image" content="{{ post.user.profile.photo_url }}" />
+<meta name="twitter:image" content="{{ post.user.profile.photo_url }}" />
 {% endif %}
 
 {% endblock %}
