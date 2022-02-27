@@ -5,11 +5,13 @@
 {% block othermeta %}
 <meta name="description" content="{{ post.text }}" />
 <meta property="og:title" content="{{ post.user.user_hash }} on Sayches" />
-{% if post.media.url %}<meta property="og:image" content="{{ post.media.url }}" />{% endif %}
 <meta property="og:description" content="{{ post.text }}" />
 <meta name="twitter:title" content="{{ post.user.user_hash }} on Sayches">
 <meta name="twitter:description" content="{{ post.text }}" />
-{% if post.media.url %}<meta name="twitter:image" content="{{ post.media.url }}" />{% endif %}
+{% if post.media %}
+<meta property="og:image" content="{{ post.media.url }}" />
+<meta name="twitter:image" content="{{ post.media.url }}" />
+{% endif %}
 {% endblock %}
 {% block title %}{{ post.user.user_hash }} on Sayches {% endblock %}
 {% block content %}
