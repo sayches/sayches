@@ -8,9 +8,9 @@
 {% block othermeta %}
 <meta property="og:title" content='Sayches / {{ user.name }} ({{ profile.user.username }})' />
 <meta name="twitter:title" content='Sayches / {{ user.name }} ({{ profile.user.username }})'>
-{% if user.profile.bio %}<meta name="description" content="{% if user.profile.bio }}{{ user.profile.bio }}{% endif %}" />{% endif %}
-{% if user.profile.bio %}<meta property="og:description" content="{% if user.profile.bio }}{{ user.profile.bio }}{% endif %}" />{% endif %}
-{% if user.profile.bio %}<meta name="twitter:description" content="{% if user.profile.bio }}{{ user.profile.bio }}{% endif %}" />{% endif %}
+{% if user.profile.bio %}<meta name="description" content="{% if user.profile.bio %}{{ user.profile.bio }}{% endif %}" />{% endif %}
+{% if user.profile.bio %}<meta property="og:description" content="{% if user.profile.bio %}{{ user.profile.bio }}{% endif %}" />{% endif %}
+{% if user.profile.bio %}<meta name="twitter:description" content="{% if user.profile.bio %}{{ user.profile.bio }}{% endif %}" />{% endif %}
 {% endblock %}
 {% block title %}Sayches / {{ user.name }} ({{ profile.user.username }}){% endblock %}
 {% block content %}
