@@ -3,8 +3,13 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block othermeta %}
+<meta name="description" content="{{ post.text }}" />
 <meta property="og:title" content="Sayches / {{ post.user.user_hash }} on Sayches" />
+<meta property="og:image" content="{{ post.media.url }}" />
+<meta property="og:description" content="{{ post.text }}" />
 <meta name="twitter:title" content="Sayches / {{ post.user.user_hash }} on Sayches">
+<meta name="twitter:description" content="{{ post.text }}" />
+<meta name="twitter:image" content="{{ post.media.url }}" />
 {% endblock %}
 {% block title %}Sayches / {{ post.user.user_hash }} on Sayches {% endblock %}
 {% block content %}
