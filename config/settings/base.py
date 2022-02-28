@@ -261,12 +261,6 @@ APPEND_SLASH = False
 
 django.utils.encoding.python_2_unicode_compatible = python_2_unicode_compatible
 
-YOUR_HCAPTCHA_SECRET_KEY = env('YOUR_HCAPTCHA_SECRET_KEY')
-
-VERIFY_URL = env('VERIFY_URL')
-
-YOUR_HCAPTCHA_SITE_KEY = env('YOUR_HCAPTCHA_SITE_KEY')
-
 REST_FRAMEWORK = {
 'DEFAULT_PERMISSION_CLASSES': (
     'rest_framework.permissions.IsAdminUser',

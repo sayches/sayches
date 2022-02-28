@@ -9,7 +9,6 @@ ALLOWED_HOSTS = [
     '.35.178.121.64', # Elastic IP of the EC2
     '.sayches.com',
     'sayches-static.s3.amazonaws.com', # S3 Bucket
-    'hcaptcha.com', # hCaptcha
     ".d7cwfqpm9607r.cloudfront.net", # CloudFront
     "api.coinbase.com",
     ]
@@ -29,7 +28,6 @@ CORS_ORIGIN_WHITELIST = [
     'https://cdn.sayches.com',
     'http://cdn.sayches.com',
     'https://sayches-static.s3.amazonaws.com', # S3 Bucket
-    'https://hcaptcha.com', # hCaptcha
     "https://d7cwfqpm9607r.cloudfront.net", # CloudFront
     "https://api.coinbase.com",
 ]

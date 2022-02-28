@@ -28,40 +28,29 @@ def signup(request):
     error = ''
     success = ''
     flag = "false"
-    hcaptcha_sitekey = settings.YOUR_HCAPTCHA_SITE_KEY
     if request.method == 'POST':
-        your_captcha_response = request.POST.get('h-captcha-response')
         user_form = UserRegistrationForm(request.POST)
 
-        hcapcha_validation = {
-            'secret': settings.YOUR_HCAPTCHA_SECRET_KEY,
-            'response': your_captcha_response
-        }
-        r = requests.post(settings.VERIFY_URL, data=hcapcha_validation)
-        hcapcha_result = r.json()
-
-        if hcapcha_result['success']:
-            if user_form.is_valid():
-                cd = user_form.cleaned_data
-                new_user = user_form.save(commit=False)
-                new_user.username = cd['user_hash']
-                new_user.set_password(cd['password'])
-                new_user.first_login = True
-                new_user.is_active = True
-                if cd['disposable']:
-                    new_user.disposable = True
-                    new_user.auto_account_delete_time = 0
-                new_user.save()
-                Profile.objects.create(user=new_user)
-                return redirect(reverse('login'), {'new_user': new_user})
-            else:
-                flag = "true"
+        if user_form.is_valid():
+            cd = user_form.cleaned_data
+            new_user = user_form.save(commit=False)
+            new_user.username = cd['user_hash']
+            new_user.set_password(cd['password'])
+            new_user.first_login = True
+            new_user.is_active = True
+            if cd['disposable']:
+                new_user.disposable = True
+                new_user.auto_account_delete_time = 0
+            new_user.save()
+            Profile.objects.create(user=new_user)
+            return redirect(reverse('login'), {'new_user': new_user})
+        else:
+            flag = "true"
     else:
         user_form = UserRegistrationForm()
 
     sayches_customization = CloseRegistration.objects.filter(close_registration=True).first()
     return render(request, 'account/signup.html', {'user_form': user_form,
-                                                   'hcaptcha_sitekey': hcaptcha_sitekey,
                                                    'flag': flag,
                                                    'sayches_customization': sayches_customization,
                                                    'messages': {'error': error, 'sucesss': success}})

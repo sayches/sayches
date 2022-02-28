@@ -42,6 +42,7 @@
                   <div class="form-group">
                      <div class="input-box custom-user custom-error">
                         {% render_field user_form.user_hash placeholder="Pick a username" id="reg-name" name="reg-name" class="custom-input custom-at" %}
+                        <p class="parag custom-forget"><a href="#" id="generate_username" class="margin-right-feeling-lucky">I'm Feeling Lucky</a></p>
                      </div>
                   </div>
                   {% else %}
@@ -66,11 +67,6 @@
                         {% render_field user_form.password placeholder="Master Password" id="reg-pass" name="reg-pass" class="p-custom-input custom-input" %}
                         <p class="parag custom-forget"><a href="#" id="generate_password">Challenge Password</a></p>
                         <i toggle="#reg-pass" class="toggle-password ri-eye-fill"></i>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="input-box">
-                        <div class="h-captcha" name=hcaptcha data-sitekey='{{ hcaptcha_sitekey }}'></div>
                      </div>
                   </div>
                   {% endif %}
@@ -153,7 +149,6 @@
 </div>
 {% endblock content %}
 {% block js %}
-<script src="{% static 'lib/js/hcaptcha_api.js' %}" async defer></script>
 <script src="{% static 'assets/js/login-signup.js' %}"></script>
 {% endblock %}
 
