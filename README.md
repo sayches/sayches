@@ -39,7 +39,7 @@ Anonymous Pub 👻 Direct Messages 💬 Feed 📰 Flair 🏷️ Hashtag #️⃣ 
 
 | Email Delivery Service | Storage Service | Relational Database Service | Challenge Response | Bitcoin Exchange Rate & Wallet
 | --- | --- | --- | --- | --- |
-| [Amazon SES](https://aws.amazon.com/ses/) | [Amazon S3](https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-python-example_code-s3.html) | [Amazon RDS](https://aws.amazon.com/rds/) | [hCaptcha](https://python.plainenglish.io/how-to-add-hcaptcha-to-your-django-crispy-form-and-be-more-privacy-conscious-273e7f39bbfd) | [Coinbase](https://developers.coinbase.com/api/v2?python#get-exchange-rates)
+| [Amazon SES](https://aws.amazon.com/ses/) | [Amazon S3](https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-python-example_code-s3.html) | [Amazon RDS](https://aws.amazon.com/rds/) | [Coinbase](https://developers.coinbase.com/api/v2?python#get-exchange-rates)
 
 ## 🐳 Docker Images
 

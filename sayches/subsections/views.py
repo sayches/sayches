@@ -47,41 +47,31 @@ def single_docs(request, slug):
 @require_http_methods(["GET", "POST"])
 def help(request):
     help_form = HelpForm(initial={"user": request.user})
-    hcaptcha_sitekey = settings.YOUR_HCAPTCHA_SITE_KEY
     message = ''
     if request.method == "POST":
         email = request.POST.get('email')
-        your_captcha_response = request.POST.get('h-captcha-response')
         help_form = HelpForm(request.POST, initial={'user': request.user})
-        hcapcha_validation = {
-            'secret': settings.YOUR_HCAPTCHA_SECRET_KEY,
-            'response': your_captcha_response
-        }
-        r = requests.post(settings.VERIFY_URL, data=hcapcha_validation)
-        hcapcha_result = r.json()
-        if hcapcha_result['success']:
-            if help_form.is_valid():
-                new_report = help_form.save(commit=False)
-                new_report.reference_number = str(uuid.uuid4())[:12].upper()
-                new_report.save()
-                message = 'We will get back to you soon.'
-                admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
-                send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                          [settings.DEFAULT_FROM_EMAIL])
+        if help_form.is_valid():
+            new_report = help_form.save(commit=False)
+            new_report.reference_number = str(uuid.uuid4())[:12].upper()
+            new_report.save()
+            message = 'We will get back to you soon.'
+            admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
+            send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
+                        [settings.DEFAULT_FROM_EMAIL])
 
-                render_body = 'We have received your inquiry and will get back to you soon.'
-                if request.user.is_authenticated:
-                    FromSayches.from_sayches(title='Sayches | Help #{0}'.format(new_report.reference_number),
-                                             message=render_body, to=request.user)
-                else:
-                    send_mail('Sayches | Help #{0}'.format(new_report.reference_number), render_body,
-                              settings.DEFAULT_FROM_EMAIL, [email])
+            render_body = 'We have received your inquiry and will get back to you soon.'
+            if request.user.is_authenticated:
+                FromSayches.from_sayches(title='Sayches | Help #{0}'.format(new_report.reference_number),
+                                            message=render_body, to=request.user)
+            else:
+                send_mail('Sayches | Help #{0}'.format(new_report.reference_number), render_body,
+                            settings.DEFAULT_FROM_EMAIL, [email])
 
             help_form = HelpForm(initial={"user": request.user, "message": message})
     return render(request, 'help/help.html', context={
         'message': message,
         "help_form": help_form,
-        'hcaptcha_sitekey': hcaptcha_sitekey,
     })
 
 
