@@ -37,9 +37,9 @@ Anonymous Pub 👻 Direct Messages 💬 Feed 📰 Flair 🏷️ Hashtag #️⃣ 
 
 ## 📍 Thid-Party APIs
 
-Storage Service | Relational Database Service | Bitcoin Exchange Rate & Wallet
-| --- | --- | --- |
-| [Amazon S3](https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-python-example_code-s3.html) | [Amazon RDS](https://aws.amazon.com/rds/) | [Coinbase](https://developers.coinbase.com/api/v2?python#get-exchange-rates)
+| Email Delivery Service | Storage Service | Relational Database Service | Bitcoin Exchange Rate & Wallet
+| --- | --- | --- | --- |
+| [Amazon SES](https://aws.amazon.com/ses/) | [Amazon S3](https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-python-example_code-s3.html) | [Amazon RDS](https://aws.amazon.com/rds/) | [Coinbase](https://developers.coinbase.com/api/v2?python#get-exchange-rates)
 
 ## 🐳 Docker Images
 

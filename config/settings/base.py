@@ -214,6 +214,8 @@ SECURE_BROWSER_XSS_FILTER = True
 
 X_FRAME_OPTIONS = "DENY"
 
+EMAIL_TIMEOUT = 5
+
 FRONTEND_URL = "sayches.com"
 
 LOGGING = {
@@ -235,6 +237,8 @@ LOGGING = {
     "root": {"level": "INFO", "handlers": ["console"]},
 }
 
+DEFAULT_FROM_EMAIL = "info@sayches.com"
+
 BASE_URL ="https://sayches.com"
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
@@ -242,6 +246,8 @@ ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 
 FRONTEND_HOST = BASE_URL
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX =("Sayches | ")
 
 current_site = BASE_URL
 
@@ -268,6 +274,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+SEND_EMAIL_PASSCODE = env('SEND_EMAIL_PASSCODE')
 
 COUNTRIES_OVERRIDE = {
     'IL': None,
