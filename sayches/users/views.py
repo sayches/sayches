@@ -451,12 +451,12 @@ def report_user(request):
                                  flagging_reason=reason)
         report_post.save()
         admin_email_body = 'Hey Admin, There is a report on an account.'
-        send_mail('Sayches | User Reported', admin_email_body, settings.DEFAULT_FROM_EMAIL,
+        send_mail('User Reported', admin_email_body, settings.DEFAULT_FROM_EMAIL,
                   [settings.DEFAULT_FROM_EMAIL])
 
         render_body = render_to_string('profile/report_user_email.html',
                                        {'username': user.username, 'reason': reason})
-        FromSayches.from_sayches(title='Sayches | Complaint regarding your account / {0}'.format(user.username),
+        FromSayches.from_sayches(title='Complaint regarding your account / {0}'.format(user.username),
                                  message=render_body, to=user)
     return HttpResponseRedirect(url)
 

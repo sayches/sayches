@@ -63,6 +63,8 @@ class NewsAdmin(admin.ModelAdmin, ExportCsvMixin):
 class HelpAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_display = ["id", 'username', 'what_i_did', 'what_i_expected_to_happen', 'what_actually_happened',
                     'anything_else', 'status']
+    readonly_fields = ('username', 'what_i_did', 'what_i_expected_to_happen', 'what_actually_happened',
+                    'anything_else', 'reference_number',)
     actions = ["export_as_csv"]
     date_hierarchy = 'created_at'
     search_fields = (

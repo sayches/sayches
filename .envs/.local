@@ -26,8 +26,6 @@ ADMIN_PATH=admin/
 
 CELERY_BROKER_URL=redis://sayches-redis:6379
 
-SEND_EMAIL_PASSCODE=send-this-email
-
 COINBASE_API_KEY=
 
 COINBASE_API_SECRET=

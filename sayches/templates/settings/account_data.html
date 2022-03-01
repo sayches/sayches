@@ -97,7 +97,6 @@
     <p>Number of Help Tickets: {{help_obj.count}}</p>
     {% endif %}
     {% for h in help_obj %}
-    <p>Help Request Email: {{h.email}}</p>
     <p>Help Request Message: {{h.what_i_did}}. {{h.what_i_expected_to_happen}}. {{h.what_actually_happened}}. {{h.anything_else}}.</p>
     <p>Help Reference Number: {{h.reference_number}}</p>
     {% endfor %}

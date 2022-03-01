@@ -218,25 +218,6 @@ EMAIL_TIMEOUT = 5
 
 FRONTEND_URL = "sayches.com"
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
-        }
-    },
-    "handlers": {
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        }
-    },
-    "root": {"level": "INFO", "handlers": ["console"]},
-}
-
 DEFAULT_FROM_EMAIL = "info@sayches.com"
 
 BASE_URL ="https://sayches.com"
@@ -274,8 +255,6 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-SEND_EMAIL_PASSCODE = env('SEND_EMAIL_PASSCODE')
 
 COUNTRIES_OVERRIDE = {
     'IL': None,

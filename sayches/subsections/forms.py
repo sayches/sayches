@@ -96,7 +96,6 @@ class AdsStepFourVoucherForm(forms.Form):
 
 class HelpForm(forms.ModelForm):
     username = forms.CharField(max_length=50, required=False, label='Your username')
-    email = forms.EmailField(max_length=100, required=True, label='Your email address')
     what_i_did = forms.CharField(max_length=50, required=False, label='This is what I DID')
     what_i_expected_to_happen = forms.CharField(label='This is what I EXPECTED to happen', required=False)
     what_actually_happened = forms.CharField(label='This is what ACTUALLY happened', required=True)
@@ -107,7 +106,6 @@ class HelpForm(forms.ModelForm):
         model = Help
         fields = [
             'username',
-            'email',
             'what_i_did',
             'what_i_expected_to_happen',
             'what_actually_happened',
@@ -121,9 +119,8 @@ class HelpForm(forms.ModelForm):
         if initial:
             user = initial.get('user')
             if user:
-                if user.is_authenticated:
-                    self.fields["username"].widget.attrs["value"] = user.username
-                    self.fields["username"].widget.attrs["readonly"] = 'readonly'
+                self.fields["username"].widget.attrs["value"] = user.username
+                self.fields["username"].widget.attrs["readonly"] = 'readonly'
             message = initial.get("message")
             if message:
                 for field, value in self.fields.items():
