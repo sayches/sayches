@@ -3,7 +3,6 @@ import uuid
 from ads.models import AdsPricing, AdsOwners, CreateAds, Vouchers
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
-from django.core.mail import send_mail
 from django.db import models
 from django.db.models.deletion import SET_NULL
 from django.utils.translation import ugettext_lazy as _
@@ -109,18 +108,18 @@ class Ads(BaseModel):
         if self.send_email and not kwargs.get('impressions'):
             if self.status == "1":
                 open_body = 'Your ad ({0}) has been approved.'.format(self.slug)
-                FromSayches.from_sayches(title='Sayches | Ad #{0}'.format(self.slug), message=open_body, to=self.user)
+                FromSayches.from_sayches(title='Ad #{0}'.format(self.slug), message=open_body, to=self.user)
             if self.status == "2":
                 open_body = 'Your ad ({0}) has been rejected. This type of business is not permitted to advertise on Sayches Ads.'.format(
                     self.slug)
-                FromSayches.from_sayches(title='Sayches | Ad #{0}'.format(self.slug), message=open_body, to=self.user)
+                FromSayches.from_sayches(title='Ad #{0}'.format(self.slug), message=open_body, to=self.user)
             if self.status == "4":
                 open_body = 'Your ad ({0}) has been suspended. Your ad is against the Sayches ToS and has been disabled.'.format(
                     self.slug)
-                FromSayches.from_sayches(title='Sayches | Ad #{0}'.format(self.slug), message=open_body, to=self.user)
+                FromSayches.from_sayches(title='Ad #{0}'.format(self.slug), message=open_body, to=self.user)
             if self.status == "5":
                 open_body = 'Your ad ({0}) has automatically expired.'.format(self.slug)
-                FromSayches.from_sayches(title='Sayches | Ad #{0}'.format(self.slug), message=open_body, to=self.user)
+                FromSayches.from_sayches(title='Ad #{0}'.format(self.slug), message=open_body, to=self.user)
         return super().save(*args, **kwargs)
 
     @classmethod
@@ -151,7 +150,6 @@ class Help(BaseModel):
         ('4', 'Closed')
     )
     username = models.CharField(max_length=25, null=True, blank=True)
-    email = models.EmailField(max_length=150, null=False, blank=False)
     what_i_did = models.TextField(max_length=600, null=True, blank=True)
     what_i_expected_to_happen = models.TextField(max_length=600, null=True, blank=True)
     what_actually_happened = models.TextField(max_length=600, null=True, blank=True)
@@ -167,24 +165,22 @@ class Help(BaseModel):
             get_username = None
 
         if self.status == "3":
-            body = 'Your ticket is marked as resolved. If you still need assistance, please reply to this email.'
+            body = 'Your ticket is marked as resolved. If you still need assistance, please open a new ticket.'
             if get_username != None:
-                FromSayches.from_sayches(title='Sayches | Help #{0}'.format(self.reference_number), message=body,
+                FromSayches.from_sayches(title='Help #{0}'.format(self.reference_number), message=body,
                                          to=get_username)
-            send_mail('Sayches | Help #{0}'.format(self.reference_number), body, settings.DEFAULT_FROM_EMAIL,
-                      [self.email])
+
 
         elif self.status == "4":
-            body = 'Your ticket is marked as closed. If you still need assistance, please reply to this email.'
+            body = 'Your ticket is marked as closed. If you still need assistance, please open a new ticket.'
             if get_username != None:
-                FromSayches.from_sayches(title='Sayches | Help #{0}'.format(self.reference_number), message=body,
+                FromSayches.from_sayches(title='Help #{0}'.format(self.reference_number), message=body,
                                          to=get_username)
-            send_mail('Sayches | Help #{0}'.format(self.reference_number), body, settings.DEFAULT_FROM_EMAIL,
-                      [self.email])
+
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.email
+        return self.username
 
 
 class Doc(BaseModel):

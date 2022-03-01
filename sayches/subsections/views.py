@@ -8,7 +8,6 @@ from ads.views import targeted_ads, voucher_discount, ad_period, validate_vouche
 from coinbase.wallet.client import Client
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -43,30 +42,23 @@ def single_docs(request, slug):
     context = {'single_doc': single_doc, 'other_docs': doc}
     return render(request, 'docs/docs.html', context)
 
-
+@login_required
 @require_http_methods(["GET", "POST"])
 def help(request):
     help_form = HelpForm(initial={"user": request.user})
     message = ''
     if request.method == "POST":
-        email = request.POST.get('email')
         help_form = HelpForm(request.POST, initial={'user': request.user})
         if help_form.is_valid():
             new_report = help_form.save(commit=False)
             new_report.reference_number = str(uuid.uuid4())[:12].upper()
             new_report.save()
             message = 'We will get back to you soon.'
-            admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
-            send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                        [settings.DEFAULT_FROM_EMAIL])
 
             render_body = 'We have received your inquiry and will get back to you soon.'
             if request.user.is_authenticated:
-                FromSayches.from_sayches(title='Sayches | Help #{0}'.format(new_report.reference_number),
+                FromSayches.from_sayches(title='Help #{0}'.format(new_report.reference_number),
                                             message=render_body, to=request.user)
-            else:
-                send_mail('Sayches | Help #{0}'.format(new_report.reference_number), render_body,
-                            settings.DEFAULT_FROM_EMAIL, [email])
 
             help_form = HelpForm(initial={"user": request.user, "message": message})
     return render(request, 'help/help.html', context={
@@ -321,7 +313,7 @@ def ads_step_four(request, ads_slug):
             ads.amount_due = ads.ad_price
         ads.save()
         body = 'Your ad has been received, you do not need to do anything now, you can follow the status of your ad in Settings > Ads History. The advertisement will be reviewed by the Sayches team as soon as possible to verify your business and that the advertisement complies with the terms and conditions.'
-        FromSayches.from_sayches(title='Sayches | Ad Status: Pending', message=body, to=ads.user)
+        FromSayches.from_sayches(title='Ad Status: Pending', message=body, to=ads.user)
         return redirect(reverse('users:profile_update'))
 
     elif request.method == 'GET':

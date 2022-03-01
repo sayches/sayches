@@ -52,7 +52,7 @@ class FromSaychesAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
     form = UserChangeForm
-    search_fields = ('name', 'user_hash', 'email', 'notes')
+    search_fields = ('name', 'user_hash', 'notes')
     add_form = UserCreationForm
     fieldsets = (("User", {"fields":
                                ("user_hash", "country", "profile_update_time",

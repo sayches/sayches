@@ -41,8 +41,6 @@ MEDIA_ROOT = str(APPS_DIR / "media")
 
 MEDIA_URL = "/media/"
 
-EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
-
 DATABASES = {"default": env.db("DATABASE_URL")}
 
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
@@ -67,7 +65,3 @@ INSTALLED_APPS += [
     ]
 
 CELERY_TASK_EAGER_PROPAGATES = True
-
-EMAIL_HOST = "localhost"
-
-EMAIL_PORT = 1025

@@ -6,25 +6,17 @@
    <p class="form-title text-justify">Let us know how we can help. Please fill in the information below and click on "File a report". We will direct your query to the appropriate representative in your region who will contact you as soon as possible.</p>
    <form action="{% url 'subsections:help' %}"  method="post">
       {% csrf_token %}
+
       <div class="row">
          <div class="col-md-6">
             <div class="form-group">
                <label class="first" for="FormControlInput1">{{ help_form.username.label }} </label>
-               <p class="hint">Username of the account you are reporting</p>
                {% render_field help_form.username  class="form-control" id="FormControlInput1"  %}
             </div>
          </div>
-      </div>
-      <div class="row">
          <div class="col-md-6">
             <div class="form-group">
-               <label for="FormControlInput1">{{ help_form.email.label }} </label>
-               {% render_field help_form.email  class="form-control" id="FormControlInput1"  %}
-            </div>
-         </div>
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="FormControlInput1">{{ help_form.what_i_did.label }} <span>(optional)</span></label>
+               <label class="first" for="FormControlInput1">{{ help_form.what_i_did.label }} <span>(optional)</span></label>
                {% render_field help_form.what_i_did  class="form-control" id="FormControlInput1"  %}
             </div>
          </div>
@@ -52,16 +44,14 @@
          </div>
       </div>
       <div class="d-flex">
-         <input class="submit {% if message %} disabled-button {% endif %}" type="submit" value="File a report" {% if message %}disabled{% endif %}>
+         <input class="width-100 primary-button {% if message %} disabled-button {% endif %}" type="submit" value="File a report" {% if message %}disabled{% endif %}>
          {% if message %}
-         <p class="primary-green f-s-13 m-38 font-weight-bold">{{ message }}</p>
+         <p class="primary-green f-s-13 m-5 font-weight-bold">{{ message }}</p>
          {% endif %}
       </div>
    </form>
    <div class="help-footer-text text-justify">
       Please note that any communication via this form is not encrypted and classified as general.
-      If you would like to share case information and sensitve matters ensuring your privacy is protected,
-      email us at <span>legal@sayches.com</span>.
    </div>
 </div>
 
