@@ -1,6 +1,6 @@
 import re
 import uuid
-
+from django.core.mail import send_mail
 import environ
 import requests
 from ads.models import AdsPricing
@@ -54,7 +54,9 @@ def help(request):
             new_report.reference_number = str(uuid.uuid4())[:12].upper()
             new_report.save()
             message = 'We will get back to you soon.'
-
+            admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
+            send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
+                        [settings.DEFAULT_FROM_EMAIL])
             render_body = 'We have received your inquiry and will get back to you soon.'
             if request.user.is_authenticated:
                 FromSayches.from_sayches(title='Help #{0}'.format(new_report.reference_number),
