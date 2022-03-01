@@ -256,8 +256,6 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-SEND_EMAIL_PASSCODE = env('SEND_EMAIL_PASSCODE')
-
 COUNTRIES_OVERRIDE = {
     'IL': None,
     'SA': ('Arabia'),
