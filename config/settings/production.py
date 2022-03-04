@@ -135,3 +135,5 @@ INSTALLED_APPS += [
     'django.contrib.sitemaps'
     ]  
 
+
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
