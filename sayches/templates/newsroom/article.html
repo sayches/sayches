@@ -9,13 +9,13 @@
       <meta name="theme-color" content="#F7941D">
       <meta name="description" content="{{ meta_tag_desp }}" />
       <meta property="og:title" content="Sayches / {{ news.article_title}}" />
-      <meta property="og:image" content="{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}" />
+      <meta property="og:image" content="{% if news.article_image %}{{news.article_image.url}}{% else %}{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}{% endif %}" />
       <meta property="og:description" content="{{ meta_tag_desp }}" />
       <meta property="og:site_name" content="Sayches" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content="Sayches / {{ news.article_title}}">
       <meta name="twitter:description" content="{{ meta_tag_desp }}" />
-      <meta name="twitter:image" content="{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}" />
+      <meta name="twitter:image" content="{% if news.article_image %}{{news.article_image.url}}{% else %}{% static 'assets/images/saychesLogo/sayches_3545x3545.png' %}{% endif %}" />
       <link rel="stylesheet" href="{% static 'lib/css/4.0.0-bootstrap.min.css' %}">
       <link href="{% static 'lib/css/fontface.css' %}" rel="stylesheet">
       <link rel="stylesheet" href="{% static 'lib/webfonts/remixicon/remixicon.css' %}">
