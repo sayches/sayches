@@ -218,7 +218,7 @@ EMAIL_TIMEOUT = 5
 
 FRONTEND_URL = "sayches.com"
 
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+DEFAULT_FROM_EMAIL = "info@sayches.com"
 
 BASE_URL ="https://sayches.com"
 
