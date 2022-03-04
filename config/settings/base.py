@@ -218,6 +218,8 @@ EMAIL_TIMEOUT = 5
 
 FRONTEND_URL = "sayches.com"
 
+DEFAULT_FROM_EMAIL = "info@sayches.com"
+
 BASE_URL ="https://sayches.com"
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)

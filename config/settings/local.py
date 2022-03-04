@@ -71,5 +71,3 @@ CELERY_TASK_EAGER_PROPAGATES = True
 EMAIL_HOST = "localhost"
 
 EMAIL_PORT = 1025
-
-DEFAULT_FROM_EMAIL = "noreply@sayches.com"
