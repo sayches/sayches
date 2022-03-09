@@ -1734,11 +1734,6 @@ select:-webkit-autofill {
   animation: translateLeft .1s ease-in-out forwards;
 }
 
-.comment-box {
-  border-top: 1px solid rgba(36, 41, 46, 0.2);
-  width: 100% !important;
-}
-
 .overlay-box {
   position: fixed;
   top: 0;

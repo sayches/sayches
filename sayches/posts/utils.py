@@ -469,24 +469,6 @@ def get_mentions(post):
             post.mentions.add(mention)
     return None
 
-
-def get_comment_hashtags(comment):
-    comment_text = comment.text
-    words = comment_text.split()
-    hashtags_list = [word for word in words if word[0] == '#']
-    if hashtags_list:
-        for i in hashtags_list:
-            hashtag = Hashtag.objects.filter(implicit_name=i).first()
-            if hashtag:
-                hashtag.save()
-            else:
-                hashtag = Hashtag.objects.create(explicit_name=i, author=comment.user)
-
-            hashtag.hashtag_counter += 1
-            comment.chashtags.add(hashtag)
-    return None
-
-
 def prevent_hashtag_repetition(post):
     post_text = post.text
     if post.post_option == "normal":

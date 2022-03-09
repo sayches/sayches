@@ -410,21 +410,6 @@ def delete_post(request):
     post_to_be_deleted.delete()
     return redirect('subsections:home')
 
-
-@login_required
-@require_POST
-def delete_comment(request):
-    if request.is_ajax():
-        comment_id = request.POST.get('comment_id')
-        comment_to_be_deleted = get_object_or_404(Comment, id=comment_id)
-        if request.user != comment_to_be_deleted.user:
-            data = {'status': 'You are not authorized to delete this comment'}
-            return JsonResponse(data)
-        comment_to_be_deleted.delete()
-        return JsonResponse({'status': 'Success'})
-    return HttpResponseBadRequest()
-
-
 @login_required
 @require_POST
 def pin_post(request):
