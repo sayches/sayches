@@ -190,10 +190,6 @@ def home(request):
 
 @require_GET
 def remove_alert(request):
-    if 'rate_limiter_comment' in request.session:
-        if request.session['rate_limiter_comment'] == True:
-            request.session['rate_limiter_comment'] = False
-
     if 'rate_limiter_post' in request.session:
         if request.session['rate_limiter_post'] == True:
             request.session['rate_limiter_post'] = False

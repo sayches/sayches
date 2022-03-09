@@ -1,11 +1,9 @@
 
 
 {% load static %}
-{%if request.session.rate_limiter_post == True or request.session.rate_limiter_comment == True %}
+{%if request.session.rate_limiter_post == True %}
 <div class="alert primary-red secondary-b-red f-s-14 pa-5 text-center mb-0">
-   <strong>Alert!</strong> You have been rate limited from
-   {% if request.session.rate_limiter_post  == True %} posting {% endif %}
-   {% if request.session.rate_limiter_comment  == True %} commenting {% endif %}
+   <strong>Alert!</strong> Consecutive posting is NOT allowed. Please try again in an hour
    <a class="float-right" href="{% url 'subsections:remove_alert' %}"><img src="{% static 'assets/images/icons/svgIcons/close_100x100.svg' %}" alt="Close" class="custom-ex"></a>
 </div>
 {%endif%}

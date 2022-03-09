@@ -3075,24 +3075,9 @@ select:-webkit-autofill {
   color: #FFFFFF;
 }
 
-.custom-Announcement {
-  background-color: #FFD33D;
-  color: #24292E;
-}
-
 .custom-Whistleblowing {
   background-color:#24292E;
   color: #FAFBFC !important;
-}
-
-.custom-Official {
-  background-color: #28A745;
-  color: #FAFBFC;
-}
-
-.custom-Question {
-  background-color: #396DA8;
-  color: #FAFBFC;
 }
 
 .custom-SOS {
@@ -4309,12 +4294,8 @@ li {
   font-size: 14px;
 }
 
-.custom-News a,
-.custom-Official a,
 .custom-Whistleblowing a,
-.custom-SOS a,
-.custom-Secret a,
-.custom-Question a
+.custom-SOS a
 {
   color: #FAFBFC !important;
 }

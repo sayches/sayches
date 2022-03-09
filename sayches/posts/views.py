@@ -202,7 +202,7 @@ def rate_limitor_for_post(request, user):
     time_interval = current_time - timedelta(minutes=SET_INTERVAL_ALLOW)
     check_interval = Post.objects.filter(user=user, created_at__range=(time_interval, current_time)).count()
 
-    if check_interval >= 10:
+    if check_interval >= 1:
         request.session['rate_limiter_post'] = True
         return False
     else:
