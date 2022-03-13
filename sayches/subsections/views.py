@@ -164,8 +164,11 @@ def home(request):
     all_blocked_user = BlacklistUser.objects.filter(on_login=True).distinct()
 
     if request.user.is_authenticated:
-        first_post(request)
-        lost_virginity(request)
+        try:
+            first_post(request)
+            lost_virginity(request)
+        except:
+            pass
     else:
         pass
 

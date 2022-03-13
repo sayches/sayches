@@ -21,8 +21,7 @@
         <div class="sort-by" id="current-sort-type"></div>
         {% endif %}
         {% if not is_block_post %}
-        <div class="main-post-box {% if not request.user.is_authenticated %}animation-content{% endif %}">
-        </div>
+        <div class="main-post-box {% if not request.user.is_authenticated %}animation-content{% endif %}"></div>
         {% else %}
         {% include "base/suspended.html" %}
         {% endif %}
