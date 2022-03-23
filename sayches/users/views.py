@@ -6,7 +6,6 @@ from ads.models import AdsOwners
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponseBadRequest
@@ -350,8 +349,8 @@ def profile_update(request):
         user_verification_form = UserVerificationForm(data=request.POST, initial={"user": user})
         if user_verification_form.is_valid():
             user_verification_form.save()
-            send_mail('New verification request', "There is a verification request.", settings.DEFAULT_FROM_EMAIL,
-                      [settings.DEFAULT_FROM_EMAIL])
+            FromSayches.from_sayches(title='New verification request', message='There is a verification request.',
+                                        to=User.objects.filter(is_superuser=True)[1])
         else:
             user_verification_form = UserVerificationForm(initial={"user": user})
     user_verification = UserVerification.objects.filter(user=request.user).exists()
@@ -451,9 +450,8 @@ def report_user(request):
                                  flagging_reason=reason)
         report_post.save()
         admin_email_body = 'Hey Admin, There is a report on an account.'
-        send_mail('User Reported', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                  [settings.DEFAULT_FROM_EMAIL])
-
+        FromSayches.from_sayches(title='User Reported', message=admin_email_body,
+                                    to=User.objects.filter(is_superuser=True)[1])
         render_body = render_to_string('profile/report_user_email.html',
                                        {'username': user.username, 'reason': reason})
         FromSayches.from_sayches(title='Complaint regarding your account / {0}'.format(user.username),

@@ -1,6 +1,5 @@
 import re
 import uuid
-from django.core.mail import send_mail
 import environ
 import requests
 from ads.models import AdsPricing
@@ -60,8 +59,10 @@ def help(request):
                 new_report.save()
                 message = 'We will get back to you soon.'
                 admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
-                send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                            [settings.DEFAULT_FROM_EMAIL])
+
+                FromSayches.from_sayches(title='New Ticket Opened', message=admin_email_body,
+                                            to=User.objects.filter(is_superuser=True)[1])
+
                 render_body = 'We have received your inquiry and will get back to you soon.'
                 if request.user.is_authenticated:
                     FromSayches.from_sayches(title='Help #{0}'.format(new_report.reference_number),
@@ -327,8 +328,8 @@ def ads_step_four(request, ads_slug):
         body = 'Your ad has been received, you do not need to do anything now, you can follow the status of your ad in Settings > Ads History. The advertisement will be reviewed by the Sayches team as soon as possible to verify your business and that the advertisement complies with the terms and conditions.'
         FromSayches.from_sayches(title='Ad Status: Pending', message=body, to=ads.user)
         admin_email_body = 'Hey Admin, There is a new ad request.'
-        send_mail('Ad Request', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                  [settings.DEFAULT_FROM_EMAIL])
+        FromSayches.from_sayches(title='Ad Request', message=admin_email_body,
+                                    to=User.objects.filter(is_superuser=True)[1])
         return redirect(reverse('users:profile_update'))
 
     elif request.method == 'GET':

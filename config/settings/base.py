@@ -154,7 +154,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "users.middleware.UpdateLastActivityMiddleware",
     'users.middleware.TimezoneMiddleware',
@@ -214,11 +213,7 @@ SECURE_BROWSER_XSS_FILTER = True
 
 X_FRAME_OPTIONS = "DENY"
 
-EMAIL_TIMEOUT = 5
-
 FRONTEND_URL = "sayches.com"
-
-DEFAULT_FROM_EMAIL = "info@sayches.com"
 
 BASE_URL ="https://sayches.com"
 
@@ -227,8 +222,6 @@ ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 
 FRONTEND_HOST = BASE_URL
-
-ACCOUNT_EMAIL_SUBJECT_PREFIX =("Sayches | ")
 
 current_site = BASE_URL
 
