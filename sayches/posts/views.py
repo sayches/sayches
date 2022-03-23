@@ -4,7 +4,6 @@ from ads.models import CreateAds
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponseBadRequest
@@ -44,8 +43,8 @@ def report_post(request):
         report_post.post_url = post_url
         report_post.save()
         admin_email_body = 'Hey Admin, There is a report on a post.'
-        send_mail('Post Reported', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                  [settings.DEFAULT_FROM_EMAIL])
+        FromSayches.from_sayches(title='Post Reported', message=admin_email_body,
+                                    to=User.objects.filter(is_superuser=True).all())
         render_body = render_to_string('feed/post/report_post_email.html',
                                        {'username': post.user.username, 'post_id': postid, 'post_url': post_url,
                                         'post_text': post.text, 'domain': BASE_URL})
