@@ -350,7 +350,7 @@ def profile_update(request):
         if user_verification_form.is_valid():
             user_verification_form.save()
             FromSayches.from_sayches(title='New verification request', message='There is a verification request.',
-                                        to=User.objects.filter(is_superuser=True)[1])
+                                        to=User.objects.filter(is_superuser=True).last())
         else:
             user_verification_form = UserVerificationForm(initial={"user": user})
     user_verification = UserVerification.objects.filter(user=request.user).exists()
@@ -451,7 +451,7 @@ def report_user(request):
         report_post.save()
         admin_email_body = 'Hey Admin, There is a report on an account.'
         FromSayches.from_sayches(title='User Reported', message=admin_email_body,
-                                    to=User.objects.filter(is_superuser=True)[1])
+                                    to=User.objects.filter(is_superuser=True).last())
         render_body = render_to_string('profile/report_user_email.html',
                                        {'username': user.username, 'reason': reason})
         FromSayches.from_sayches(title='Complaint regarding your account / {0}'.format(user.username),

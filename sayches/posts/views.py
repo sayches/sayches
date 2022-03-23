@@ -44,7 +44,7 @@ def report_post(request):
         report_post.save()
         admin_email_body = 'Hey Admin, There is a report on a post.'
         FromSayches.from_sayches(title='Post Reported', message=admin_email_body,
-                                    to=User.objects.filter(is_superuser=True)[1])
+                                    to=User.objects.filter(is_superuser=True).last())
         render_body = render_to_string('feed/post/report_post_email.html',
                                        {'username': post.user.username, 'post_id': postid, 'post_url': post_url,
                                         'post_text': post.text, 'domain': BASE_URL})
