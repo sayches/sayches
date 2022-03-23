@@ -4,7 +4,7 @@
 
 ## 🐠 Sayches
 
-Sayches is an anonymous platform designed to protect, defend, empower public-interest journalism and champion the free flow of information by taking anti-surveillance measures.
+Sayches is an anonymous platform designed to protect, defend, empower public-interest journalism and champion the free flow of information.
 
 ## 📺 Screenshots
 
