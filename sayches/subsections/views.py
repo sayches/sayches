@@ -18,7 +18,7 @@ from message.models import SaychesMessage
 from posts.models import Post, Hashtag
 from posts.models import PostsTimestamp
 from posts.utils import get_parsed_meta_url
-from subsections.models import Ads, PAYMENT_METHOD
+from subsections.models import Ads, PAYMENT_METHOD, Help
 from users.models import BlacklistUser, FromSayches
 from users.models import User
 from ads.models import CreateAds
@@ -46,26 +46,33 @@ def single_docs(request, slug):
 @require_http_methods(["GET", "POST"])
 def help(request):
     help_form = HelpForm(initial={"user": request.user})
+    pending_help = Help.objects.filter(username=request.user).filter(status=1)
+    open_help = Help.objects.filter(username=request.user).filter(status=2)
     message = ''
     if request.method == "POST":
-        help_form = HelpForm(request.POST, initial={'user': request.user})
-        if help_form.is_valid():
-            new_report = help_form.save(commit=False)
-            new_report.reference_number = str(uuid.uuid4())[:12].upper()
-            new_report.save()
-            message = 'We will get back to you soon.'
-            admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
-            send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
-                        [settings.DEFAULT_FROM_EMAIL])
-            render_body = 'We have received your inquiry and will get back to you soon.'
-            if request.user.is_authenticated:
-                FromSayches.from_sayches(title='Help #{0}'.format(new_report.reference_number),
-                                            message=render_body, to=request.user)
+        if pending_help or open_help:
+            return redirect(reverse('subsections:help'))
+        else:
+            help_form = HelpForm(request.POST, initial={'user': request.user})
+            if help_form.is_valid():
+                new_report = help_form.save(commit=False)
+                new_report.reference_number = str(uuid.uuid4())[:12].upper()
+                new_report.save()
+                message = 'We will get back to you soon.'
+                admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
+                send_mail('Sayches | New Ticket Opened', admin_email_body, settings.DEFAULT_FROM_EMAIL,
+                            [settings.DEFAULT_FROM_EMAIL])
+                render_body = 'We have received your inquiry and will get back to you soon.'
+                if request.user.is_authenticated:
+                    FromSayches.from_sayches(title='Help #{0}'.format(new_report.reference_number),
+                                                message=render_body, to=request.user)
 
-            help_form = HelpForm(initial={"user": request.user, "message": message})
+                help_form = HelpForm(initial={"user": request.user, "message": message})
     return render(request, 'help/help.html', context={
         'message': message,
-        "help_form": help_form,
+        'help_form': help_form,
+        'pending_help': pending_help,
+        'open_help': open_help,
     })
 
 
@@ -207,13 +214,17 @@ def ads_step_one(request):
         return redirect(reverse('subsections:home'))
     else:
         form = AdsStepOneForm(initial={'user': request.user})
+        pending_ads = Ads.objects.filter(user=request.user).filter(status=3)
         if request.method == 'POST':
             form = AdsStepOneForm(request.POST, initial={'user': request.user})
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.user = request.user
-                obj.save()
-                return redirect(reverse('subsections:ads-step-two', kwargs={"ads_slug": obj.slug}))
+            if pending_ads:
+                return redirect(reverse('subsections:ads'))
+            else:
+                if form.is_valid():
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.save()
+                    return redirect(reverse('subsections:ads-step-two', kwargs={"ads_slug": obj.slug}))
         context = {"form": form, }
     return render(request, 'ads/form/step_one.html/', context)
 

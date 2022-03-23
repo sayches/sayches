@@ -44,9 +44,12 @@
          </div>
       </div>
       <div class="d-flex">
-         <input class="width-100 primary-button {% if message %} disabled-button {% endif %}" type="submit" value="File a report" {% if message %}disabled{% endif %}>
+         <input class="width-100 primary-button {% if message or pending_help or open_help %} disabled-button {% endif %}" type="submit" value="File a report" {% if message or pending_help or open_help%}disabled{% endif %}>
          {% if message %}
          <p class="primary-green f-s-13 m-5 font-weight-bold">{{ message }}</p>
+         {% endif %}
+         {% if pending_help or open_help %}
+         <p class="primary-red f-s-13 m-5 font-weight-bold">There is already {% if pending_help %}a pending {% else %} an open{% endif %} inquiry.</p>
          {% endif %}
       </div>
    </form>
