@@ -61,7 +61,7 @@ def help(request):
                 admin_email_body = 'Hey Admin, A new ticket has been opened by a user.'
 
                 FromSayches.from_sayches(title='New Ticket Opened', message=admin_email_body,
-                                            to=User.objects.filter(is_superuser=True).all())
+                                            to=User.objects.filter(is_superuser=True)[1])
 
                 render_body = 'We have received your inquiry and will get back to you soon.'
                 if request.user.is_authenticated:
@@ -329,7 +329,7 @@ def ads_step_four(request, ads_slug):
         FromSayches.from_sayches(title='Ad Status: Pending', message=body, to=ads.user)
         admin_email_body = 'Hey Admin, There is a new ad request.'
         FromSayches.from_sayches(title='Ad Request', message=admin_email_body,
-                                    to=User.objects.filter(is_superuser=True).all())
+                                    to=User.objects.filter(is_superuser=True)[1])
         return redirect(reverse('users:profile_update'))
 
     elif request.method == 'GET':
