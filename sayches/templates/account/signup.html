@@ -32,7 +32,7 @@
                </div>
                {% endif %}
                {% endif %}
-               <h2 class="f-s-18 font-weight-bold">Engage today - content won't be there tomorrow!</h2>
+               <h2 class="f-s-18 font-weight-bold">Signup</h2>
                <form action='{% url "signup" %}' novalidate method="post">
                   {% csrf_token %}
                   <div class="form-group">
@@ -41,14 +41,14 @@
                   {% if user_form.user_hash.errors %}
                   <div class="form-group">
                      <div class="input-box custom-user custom-error">
-                        {% render_field user_form.user_hash placeholder="Pick a username" id="reg-name" name="reg-name" class="custom-input custom-at" %}
+                        {% render_field user_form.user_hash placeholder="Pick a Username" id="reg-name" name="reg-name" class="custom-input custom-at" %}
                         <p class="parag custom-forget"><a href="#" id="generate_username" class="margin-right-feeling-lucky">I'm Feeling Lucky</a></p>
                      </div>
                   </div>
                   {% else %}
                   <div class="form-group">
                      <div class="input-box custom-user ">
-                        {% render_field user_form.user_hash placeholder="Pick a username" id="reg-name" name="reg-name" class="p-custom-input custom-input custom-at remove-space" %}
+                        {% render_field user_form.user_hash placeholder="Pick a Username" id="reg-name" name="reg-name" class="p-custom-input custom-input custom-at remove-space" %}
                         <p class="parag custom-forget"><a href="#" id="generate_username" class="margin-right-feeling-lucky">I'm Feeling Lucky</a></p>
                      </div>
                   </div>
