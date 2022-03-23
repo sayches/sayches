@@ -4,7 +4,7 @@
 
 ## 🐠 Sayches
 
-Sayches is an anonymous social media platform that champions the free flow of information by taking anti-surveillance measures and resisting censorship.
+Sayches is an anonymous platform designed to protect, defend, empower public-interest journalism and champion the free flow of information by taking anti-surveillance measures.
 
 ## 📺 Screenshots
 
@@ -13,7 +13,7 @@ Sayches is an anonymous social media platform that champions the free flow of in
 | ![Screenshot](/.github/media/Feed.png) | ![Screenshot](/.github/media/Profile.png) | ![Screenshot](/.github/media/DMs.png) |
 
 ## 🚀 Key Features
-Anonymous Pub 👻 Direct Messages 💬 Feed 📰 Flair 🏷️ Hashtag #️⃣ Mention 🤏 Pin 📌 Ping 👋 Pop ✍️ Profile 🆔 QR 📱 Reactions ❤️ Trends 📈 Warrant Canary 🛡️ Watch 👁️
+Anonymous Pub 👻 Direct Messages 💬 Feed 📰 Flair 🏷️ Hashtag #️⃣ Mention 🤏 Pin 📌 Ping 👋 Blow ✍️ Profile 🆔 QR 📱 Egg 🥚 Trends 📈 Warrant Canary 🛡️ Watch 👁️
 
 ## 👪 Contributing
 * Test the app with different devices
