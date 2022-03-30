@@ -60,7 +60,11 @@
                   <p class="primary-red">N/A</p>
                   {% endif %}
                </td>
+               {% if not ad.status == "2" %}
                <td><a href="{% url 'ads:ad-invoice' ad.slug %}">V</a></td>
+               {% else %}
+               <td><a href="#">V</a></td>
+               {% endif %}
             </tr>
             {% endfor %}
          </tbody>
