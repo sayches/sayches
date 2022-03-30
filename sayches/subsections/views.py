@@ -4,7 +4,6 @@ import environ
 import requests
 from ads.models import AdsPricing
 from ads.views import targeted_ads, voucher_discount, ad_period, validate_voucher
-from coinbase.wallet.client import Client
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage
@@ -23,6 +22,7 @@ from users.models import User
 from ads.models import CreateAds
 from .forms import flair_form_public, AdsStepOneForm, AdsStepTwoForm, AdsStepFourVoucherForm, HelpForm
 from .models import Doc, News
+from sudo.models import BitcoinAddress
 
 env = environ.Env()
 
@@ -286,15 +286,11 @@ def ads_step_three(request, ads_slug):
 
 def get_bitcoin_address():
     try:
-        client = Client(env("COINBASE_API_KEY"),
-                        env("COINBASE_API_SECRET"),
-                        api_version=env("COINBASE_API_VERSION"))
-        primary_account = client.get_primary_account()
-        bitcoin_address = primary_account.create_address()['address']
+        bitcoin_address = BitcoinAddress.objects.last()
     except:
         bitcoin_address = None
         pass
-    return bitcoin_address
+    return str(bitcoin_address)
 
 
 @login_required
@@ -302,7 +298,7 @@ def get_bitcoin_address():
 def ads_step_four(request, ads_slug):
     payment_method = PAYMENT_METHOD
 
-    exchange_response = requests.get(settings.COINBASE_EXCHANGE_RATES_API).json()
+    exchange_response = requests.get(settings.BITCOIN_EXCHANGE_RATES_API).json()
     BTC_GBP = exchange_response['data']['rates']['GBP']
 
     try:
@@ -314,6 +310,7 @@ def ads_step_four(request, ads_slug):
         bitcoin_address = get_bitcoin_address()
         ads.to_bitcoin_address = bitcoin_address
         ads.save()
+        
     else:
         bitcoin_address = ads.to_bitcoin_address
 

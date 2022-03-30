@@ -32,3 +32,13 @@ class CloseRegistration(BaseModel):
 
     class Meta:
         verbose_name_plural = "Close Registration"
+
+class BitcoinAddress(BaseModel):
+    address = models.CharField(null=True, blank=False, max_length=45, unique=True)
+    expired = models.BooleanField(default=False, null=True)
+
+    def __str__(self):
+        return self.address
+
+    class Meta:
+        verbose_name_plural = "Bitcoin Addresses"

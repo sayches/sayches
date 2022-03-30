@@ -10,7 +10,6 @@ ALLOWED_HOSTS = [
     '.sayches.com',
     'sayches-static.s3.amazonaws.com', # S3 Bucket
     ".d7cwfqpm9607r.cloudfront.net", # CloudFront
-    "api.coinbase.com",
     ]
 
 
@@ -29,7 +28,6 @@ CORS_ORIGIN_WHITELIST = [
     'http://cdn.sayches.com',
     'https://sayches-static.s3.amazonaws.com', # S3 Bucket
     "https://d7cwfqpm9607r.cloudfront.net", # CloudFront
-    "https://api.coinbase.com",
 ]
 
 DATABASES = {
