@@ -189,7 +189,7 @@ function getChatForm(mate_user_id){
   var chatForm = '<div class="message-form-box">'+
       '<form action="" class="message-form">'+
           '<div class="textarea-box" id="textarea-box" title="Be yourself in every message.">'+
-              '<textarea id="textarea-msg" name="textarea-msg" onkeyup="chatValidations(this), removeHtmlTags(this)" mate-user-id="'+ mate_user_id +'" class="textarea-msg reply-textarea textareaMsg removehtmltags"  placeholder="Start new message"></textarea>'+
+              '<textarea id="textarea-msg" name="textarea-msg" onkeyup="chatValidations(this)" mate-user-id="'+ mate_user_id +'" class="textarea-msg reply-textarea textareaMsg"  placeholder="Start new message"></textarea>'+
               '<input data-upload="msg-file" type="file" id="replay-img" class="replay-img" hidden>'+
           '</div>'+
       '</form>'+

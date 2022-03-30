@@ -16,7 +16,8 @@
             <div class="msg-sec">
                <div class="chat-list">
                   <div class="chat-search">
-                     <form method="get" >
+                     <form method="post" onsubmit="return false;">
+                        {% csrf_token %}
                         <div class="search-box">
                            <input type="text" placeholder="JUMP TO..." name="search-chat" id="search-chat" class="search-chat">
                         </div>
@@ -54,6 +55,5 @@
    var messageChatData= "{% url 'message:chat_data' %}";
 </script>
 <script src="{% static 'assets/js/inbox.js' %}"></script>
-<script src="{% static 'assets/js/remove-tags.js' %}"></script>
 {% endblock js %}
 

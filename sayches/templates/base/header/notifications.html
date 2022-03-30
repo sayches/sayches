@@ -5,7 +5,6 @@
    <li>
       <a href="{% url 'users:directory' %}"><i class="ri-spy-line primary-colour header-icon"></i></a>
    </li>
-   {% if not is_message_block and not disable_messages%}
    <li>
       <a href="{% url 'message:inbox' %}">
          <i class="ri-mail-line primary-colour header-icon"></i>
@@ -16,7 +15,7 @@
          </div>
       </a>
    </li>
-   {% endif %}
+
    <li>
       <div id="notifications_reload">
       <div class="noti-box">
