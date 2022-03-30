@@ -241,7 +241,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-COINBASE_EXCHANGE_RATES_API = 'https://api.coinbase.com/v2/exchange-rates?currency=BTC'
+BITCOIN_EXCHANGE_RATES_API = 'https://api.coinbase.com/v2/exchange-rates?currency=BTC'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 

@@ -45,4 +45,4 @@ base58
 tldextract
 pycryptodome==3.9.7
 django_compressor
-coinbase
+
