@@ -53,7 +53,7 @@ class Ads(BaseModel):
     discount = models.IntegerField(null=True, blank=True)
     amount_due = models.FloatField(null=True, blank=True)
     btc_amount_due = models.FloatField(null=True, blank=True)
-    to_bitcoin_address = models.CharField(max_length=35, null=True, blank=True)
+    to_bitcoin_address = models.CharField(max_length=45, null=True, blank=True)
     payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=10, null=True, blank=True, default="2")
     payment_date = models.DateTimeField(null=True, blank=True)
 

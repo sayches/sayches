@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CloseWebsite, VersionNumber, CloseRegistration
+from .models import CloseWebsite, VersionNumber, CloseRegistration, BitcoinAddress
 
 
 class CloseWebsiteAdmin(admin.ModelAdmin):
@@ -9,6 +9,7 @@ class CloseWebsiteAdmin(admin.ModelAdmin):
 
 admin.site.register(CloseWebsite, CloseWebsiteAdmin)
 
+admin.site.register(BitcoinAddress)
 
 class VersionNumberAdmin(admin.ModelAdmin):
     list_display = ['version_no', 'show_beta_icon', 'default', 'created_at']
