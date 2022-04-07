@@ -1,37 +1,18 @@
 version: '3'
 
-volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
-
 services:
   django: &django
+    ports:
+      - "80:5000"
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
     image: sayches_production_django
-    stdin_open: true
-    tty: true
     depends_on:
-      - postgres
-    volumes:
-      - .:/app
+      - redis
     env_file:
       - ./.envs/.production
-    ports:
-      - "80:5000"
     command: /start
-
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: sayches_production_postgres
-    volumes:
-      - production_postgres_data:/var/lib/postgresql/data
-      - production_postgres_data_backups:/backups
-    env_file:
-      - ./.envs/.production
 
   redis:
     container_name: sayches-redis
@@ -39,21 +20,15 @@ services:
 
   celeryworker:
     <<: *django
-    image: sayches_production_celeryworker
-    depends_on:
-      - redis
-      - postgres
     ports: []
+    image: sayches_production_celeryworker
     command: /start-celeryworker
 
   celerybeat:
     <<: *django
     image: sayches_production_celerybeat
-    depends_on:
-      - redis
-      - postgres
-    ports: []
     command: /start-celerybeat
+    ports: []
 
   flower:
     <<: *django
