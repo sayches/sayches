@@ -1,5 +1,9 @@
 version: '3'
 
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
 services:
   django: &django
     ports:
@@ -9,10 +13,22 @@ services:
       dockerfile: ./compose/production/django/Dockerfile
     image: sayches_production_django
     depends_on:
+      - postgres
       - redis
     env_file:
       - ./.envs/.production
     command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: sayches_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production
 
   redis:
     container_name: sayches-redis
