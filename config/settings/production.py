@@ -4,7 +4,7 @@ from corsheaders.defaults import default_headers
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = [
-    '.sayches-load-balancer-1534751360.eu-west-2.elb.amazonaws.com', # ELB DNS
+    '.sayches-load-balancer-271777887.eu-west-2.elb.amazonaws.com', # ELB DNS
     '.10.0.0.54', # VPC IP Address
     '.35.178.121.64', # Elastic IP of the EC2
     '.sayches.com',
@@ -19,7 +19,7 @@ CORS_ALLOW_HEADERS = default_headers + (
     'Access-Control-Allow-Origin',
 )
 CORS_ORIGIN_WHITELIST = [
-    'https://sayches-load-balancer-1534751360.eu-west-2.elb.amazonaws.com', # ELB DNS
+    'https://sayches-load-balancer-271777887.eu-west-2.elb.amazonaws.com', # ELB DNS
     'http://10.0.0.54', # VPC IP Address
     'http://35.178.121.64', # Elastic IP of the EC2
     'https://sayches.com',
