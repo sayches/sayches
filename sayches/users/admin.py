@@ -54,11 +54,6 @@ class UserAdmin(auth_admin.UserAdmin):
     form = UserChangeForm
     search_fields = ('name', 'user_hash', 'notes')
     add_form = UserCreationForm
-    fieldsets = (("User", {"fields":
-                               ("user_hash", "country", "profile_update_time",
-                                "warrant_canary",
-                                "first_login", "first_post", "lost_virginity", "disposable", "auto_account_delete_time",
-                                "last_activity_date", "notes", "send_email")}),)
     list_display = ["username", "name", "country", "warrant_canary", "first_post", "lost_virginity", "disposable",
                     "is_active", "is_superuser", "notes"]
     search_fields = ["name", "username"]
@@ -87,10 +82,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'user', 'photo', 'bio', 'pgp_fingerprint', 'btc_address', 'website',
         'disable_notifications', 'disable_messages', 'disable_ping',)
     search_fields = ('bio', 'pgp_fingerprint', 'btc_address', 'website')
-    readonly_fields = [
-        'user', 'bio', 'pgp_fingerprint', 'btc_address', 'website',
-        'disable_notifications', 'disable_messages', 'disable_ping', 'photo'
-    ]
+
     date_hierarchy = 'created_at'
 
 
