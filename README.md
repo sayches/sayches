@@ -37,13 +37,6 @@ Sayches is an anonymous platform designed to protect, defend, empower public-int
 * Storage Service: [Amazon S3](https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-python-example_code-s3.html)
 * Bitcoin Exchange Rate & Wallet: [Coinbase](https://developers.coinbase.com/api/v2?python#get-exchange-rates)
 
-## 🐳 Docker Images
-
-| Production ``production.yml`` | Local ``local.yml`` |
-| --- | --- |
-| Django, Redis, Celery Worker, Celery Beat, Flower  | Django, Redis, Celery Worker, Celery Beat, Flower, Postgres |
-
-
 ## 💻 Deployment
 
 1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) on the server & clone the project from GitHub.
