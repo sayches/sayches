@@ -6,19 +6,20 @@ volumes:
 
 services:
   django: &django
-    ports:
-      - "80:5000"
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
     image: sayches_production_django
+    stdin_open: true
+    tty: true
     depends_on:
       - postgres
-      - redis
     volumes:
       - .:/app
     env_file:
       - ./.envs/.production
+    ports:
+      - "80:5000"
     command: /start
 
   postgres:
