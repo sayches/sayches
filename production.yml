@@ -15,6 +15,8 @@ services:
     depends_on:
       - postgres
       - redis
+    volumes:
+      - .:/app
     env_file:
       - ./.envs/.production
     command: /start
