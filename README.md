@@ -35,7 +35,6 @@ Sayches is an anonymous platform designed to protect, defend, empower public-int
 ## 📍 Thid-Party APIs
 
 * Storage Service: [Amazon S3](https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-python-example_code-s3.html)
-* Relational Database Service: [Amazon RDS](https://aws.amazon.com/rds/)
 * Bitcoin Exchange Rate & Wallet: [Coinbase](https://developers.coinbase.com/api/v2?python#get-exchange-rates)
 
 ## 🐳 Docker Images
