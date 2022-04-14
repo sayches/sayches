@@ -54,11 +54,11 @@ class UserAdmin(auth_admin.UserAdmin):
     form = UserChangeForm
     search_fields = ('name', 'user_hash', 'notes')
     add_form = UserCreationForm
-    # fieldsets = (("User", {"fields":
-    #                            ("user_hash", "country", "profile_update_time",
-    #                             "warrant_canary",
-    #                             "first_login", "first_post", "lost_virginity", "disposable", "auto_account_delete_time",
-    #                             "last_activity_date", "notes", "send_email")}),)
+    fieldsets = (("User", {"fields":
+                               ("user_hash", "country", "profile_update_time",
+                                "warrant_canary",
+                                "first_login", "first_post", "lost_virginity", "disposable", "auto_account_delete_time",
+                                "last_activity_date", "notes", "send_email")}),)
     list_display = ["username", "name", "country", "warrant_canary", "first_post", "lost_virginity", "disposable",
                     "is_active", "is_superuser", "notes"]
     search_fields = ["name", "username"]
