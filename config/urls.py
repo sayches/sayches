@@ -81,8 +81,8 @@ urlpatterns += [
 
 DEBUG = os.environ.get('DEBUG')
 
-# if eval(DEBUG) == False:
-#     admin.site.__class__ = OTPAdminSite
+if eval(DEBUG) == False:
+    admin.site.__class__ = OTPAdminSite
 admin.site.site_header = "Administration Area"
 admin.site.site_title = "Sayches Admin Portal"
 handler404 = 'sayches.custom_views.handler404'
