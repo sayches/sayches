@@ -202,10 +202,6 @@ $(document).ready(function(){
         }
     });
 
-    $('.qr-code').click(function(){
-        $(this).parents('.notification-dropdown2').css({ display: "none" });
-    })
-
     $('.post-header .dots-post').click(function(){
         var x = $(this).parents('.post-box').attr('post-id');
         $('.unFollow-popup .btn-unFollow a , .delete-popup .btn-unFollow a , .pinned-popup .btn-unFollow a').attr('post-id' , x);

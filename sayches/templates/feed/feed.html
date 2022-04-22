@@ -3,7 +3,6 @@
 {% extends 'base/base.html' %}
 {% load tz %}
 {% load static %}
-{% load qr_code %}
 {% block title %}Sayches{% if request.user.is_authenticated %} / Feed{% endif %}{% endblock %}
 {% block othermeta %}
 <meta property="og:title" content="Sayches / Feed" />
