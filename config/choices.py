@@ -1,8 +1,7 @@
 FLAIR_CHOICES = (
     ('No Flair', 'No Flair'),
+    ('Leak', 'Leak'),
     ('SOS', 'SOS'),
-    ('Whistleblowing', 'Whistleblowing'),
-
 )
 POST_OPTIONS = (
     ('normal', 'normal'),
