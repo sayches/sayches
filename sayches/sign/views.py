@@ -97,7 +97,7 @@ def user_login(request):
                             return response
                         return response
                     else:
-                        error = 'Your account has beed suspended'
+                        error = 'Sayches suspends accounts which violate the Sayches Rules'
                         flag = "true"
                 else:
                     error = 'Disabled account'

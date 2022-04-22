@@ -233,8 +233,6 @@ def profile_detail_name(request, username):
     if check_post_black_list:
         is_block_post = True
 
-    is_login_block = BlacklistUser.objects.filter(user=user, on_login=True).first()
-
     check_message_block_list = BlacklistUser.objects.filter(user=user, on_message=True).first()
     is_message_block = False
     if check_message_block_list:
@@ -255,7 +253,6 @@ def profile_detail_name(request, username):
         'check_user_report': check_user_report,
         "is_search_user_profile": is_search_user_profile,
         "is_block_post": is_block_post,
-        "is_login_block": is_login_block,
         "is_message_block": is_message_block,
         'profile': user.profile, "user_following": user_following, "user_followers": user_followers,
         "other_user_followers": other_user_followers, "other_user_following": other_user_following,

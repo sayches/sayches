@@ -19,7 +19,7 @@
 <div class="main-sec">
    <div class="container">
       <div class="row justify-content-center">
-         {% if not is_login_block %}
+
          <div class="col-lg-8">
             {% include "profile/profile_section.html" %}
             {% if request.user == profile.user %}
@@ -36,9 +36,7 @@
             <div class="overlay-box"></div>
             {%include 'feed/popup.html'%}
          </div>
-         {% else %}
-         <p class="text-center font-weight-bold">  {{ is_login_block.suspended_message }} </p>
-         {% endif %}
+
          {% include 'profile/report.html' %}
       </div>
    </div>
