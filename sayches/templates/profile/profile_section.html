@@ -33,7 +33,7 @@
          {% if current_user %}
          <span class="parag follow-p"><span>{{ user_total_posts|short_number }}</span>BLOWS</span>
          <span class="parag follow-p"><span>{{user.profile_age}}</span>DAYS</span>
-         {% user.country %} <span class="parag follow-p"><span><img src="{{user.country%}.flag}}" alt="Country"></span>{{ user.country.name|upper}}</span>{% endif %}
+         {% if user.country %} <span class="parag follow-p"><span><img src="{{user.country.flag}}" alt="Country"></span>{{ user.country.name|upper}}</span>{% endif %}
          {% else %}
          <span class="parag follow-p"><span>{{user.profile_age}}</span>BLOWS</span>
          <span class="parag follow-p"><span>{{user.profile_age}}</span>DAYS</span>
