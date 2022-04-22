@@ -55,7 +55,7 @@ class UserAdmin(auth_admin.UserAdmin):
     search_fields = ('name', 'user_hash', 'notes')
     add_form = UserCreationForm
     fieldsets = (("User", {"fields":
-                               ("user_hash", "country", "profile_update_time",
+                               ("user_hash", "country",
                                 "warrant_canary",
                                 "first_login", "first_post", "lost_virginity", "disposable", "auto_account_delete_time",
                                 "last_activity_date", "notes", "send_email")}),)
@@ -125,12 +125,12 @@ admin.site.register(ReportUser, ReportPostAdmin)
 class DeletedUserAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_per_page = 15
     readonly_fields = ('id', 'user_hash', 'country', 'bio', 'pgp_fingerprint', 'btc_address',
-                       'website', 'warrant_canary', 'profile_update_time', 'last_activity_date', 'disposable',
+                       'website', 'warrant_canary', 'last_activity_date', 'disposable',
                        'notes', 'alias', 'lost_virginity', 'first_post', 'first_login',
                        'auto_account_delete_time', 'date_joined', 'deleted_date_time')
-    list_display = ('id', 'user_hash', 'profile_update_time', 'last_activity_date',
+    list_display = ('id', 'user_hash', 'last_activity_date',
                     'auto_account_delete_time', 'deleted_date_time')
-    list_filter = ['auto_account_delete_time', 'last_activity_date', 'profile_update_time']
+    list_filter = ['auto_account_delete_time', 'last_activity_date']
     actions = ["export_as_csv"]
     date_hierarchy = 'created_at'
 

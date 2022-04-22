@@ -7,7 +7,6 @@ app_name = "users"
 urlpatterns = [
     path('<int:id>/', views.profile_detail, name="profile"),
     path('settings', views.profile_update, name="profile_update"),
-    path('update/time', views.UpdateTimeView.as_view(), name="profile_update_time"),
     path('update/account_delete_time', views.AutoAccountDeleteTime.as_view(), name="auto_account_delete_time"),
     path('update/nick', views.UpdateNickView.as_view(), name="profile_nickname"),
     path('update/toggle', views.UpdateToggleView.as_view(), name="profile_toggles"),

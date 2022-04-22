@@ -50,12 +50,6 @@ class User(AbstractUser):
     SEVENTY_TWO_HOURS = 72
     ZERO = 0
 
-    PROFILE_CLEAN_CHOICES = (
-        (TWENTY_FOUR_HOURS, '24'),
-        (FORTY_EIGHT_HOURS, '48'),
-        (SEVENTY_TWO_HOURS, '72'),
-        (ZERO, '0')
-    )
     UNKNOWN_USER = 'Unknown'
     ANONYMOUS_USER = 'Anonymous'
     UNIDENTIFIED_USER = 'Unidentified'
@@ -86,7 +80,6 @@ class User(AbstractUser):
     first_login = models.BooleanField(default=False)
     first_post = models.BooleanField(default=False)
     lost_virginity = models.BooleanField(default=False)
-    profile_update_time = models.IntegerField(choices=PROFILE_CLEAN_CHOICES, default=ZERO)
     warrant_canary = models.BooleanField(default=True)
     alias = models.CharField(max_length=20, default=ANONYMOUS_USER, choices=ALIASES)
     notes = models.TextField(null=True, blank=True)
@@ -330,7 +323,6 @@ class DeletedUser(BaseModel):
     user_hash = models.CharField(max_length=15, null=True, blank=False)
     country = CountryField(null=True, blank=False, blank_label='(Select Location)')
     warrant_canary = models.BooleanField(default=True)
-    profile_update_time = models.IntegerField(choices=User.PROFILE_CLEAN_CHOICES, default=User.TWENTY_FOUR_HOURS)
     auto_account_delete_time = models.IntegerField(choices=User.AUTO_ACCOUNT_DELETE_CHOICES, default=User.TWELVE_MONTH)
     last_activity_date = models.DateTimeField(default=timezone.now)
     date_joined = models.DateTimeField(default=timezone.now)

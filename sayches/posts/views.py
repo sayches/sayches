@@ -398,17 +398,6 @@ def flair_posts(request, flair):
     context = {'posts': posts, 'data': data, 'flair': flair, 'flair_name': flair_name}
     return render(request, 'feed/flair/flair.html', context)
 
-
-@login_required
-@require_POST
-def delete_post(request):
-    post_id = request.POST.get('post_id')
-    post_to_be_deleted = get_object_or_404(Post, id=post_id)
-    if request.user != post_to_be_deleted.user:
-        return redirect('subsections:home')
-    post_to_be_deleted.delete()
-    return redirect('subsections:home')
-
 @login_required
 @require_POST
 def pin_post(request):
@@ -425,14 +414,3 @@ def pin_post(request):
                 other_pin_post.save()
         return JsonResponse({'pinned': new_pin_post.pinned_post})
     return HttpResponseBadRequest()
-
-
-@login_required
-@require_GET
-def delete_posts(request, id):
-    post_id = id
-    post_for_delete = get_object_or_404(Post, id=post_id)
-    if request.user != post_for_delete.user:
-        return redirect('subsections:home')
-    post_for_delete.delete()
-    return redirect('subsections:home')

@@ -9,7 +9,6 @@ def log_deleted_user(user):
     DeletedUser.objects.create(user_hash=user.user_hash,
                                warrant_canary=user.warrant_canary,
                                country=user.country,
-                               profile_update_time=user.profile_update_time,
                                auto_account_delete_time=user.auto_account_delete_time,
                                last_activity_date=user.last_activity_date, date_joined=user.date_joined,
                                bio=profile.bio, website=profile.website,

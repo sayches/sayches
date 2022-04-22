@@ -3,8 +3,45 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load tz %}
+
+
 <div class="tab-pane show" id="privacy" role="tabpanel">
-   <div class="profile-content sec-box">
+   <div class="preferences">
+      <div class="pref-item">
+         <p>Disable Messages</p>
+         <label class="switch">
+         <input class="toggles" type="checkbox" {% if disable_messages %}checked{% endif %} id="disable_messages">
+         <span class="slider round"></span>
+         </label>
+      </div>
+   
+      <div class="pref-item">
+         <p>Disable Ping</p>
+         <label class="switch">
+         <input class="toggles" type="checkbox" {% if disable_ping %}checked{% endif %} id="disable_ping">
+         <span class="slider round"></span>
+         </label>
+      </div>
+      <div class="pref-item">
+         <p>Disable Notifications</p>
+         <label class="switch">
+         <input class="toggles" type="checkbox" {% if disable_notifications %}checked{% endif %} id="disable_notifications">
+         <span class="slider round"></span>
+         </label>
+      </div>
+      <div class="pref-item">
+         <p class="float-left mr-pr-58">Your Alias</p>
+         <div></div>
+         <select  name="user_nickname" class="custom-input profile-input setting-custom-select" id="user_nickname">
+         <option value="Anonymous" {% if  user.alias == 'Anonymous' %}selected{% endif %}>Anonymous</option>
+         <option value="Nameless" {% if  user.alias == 'Nameless' %}selected{% endif %}>Nameless</option>
+         <option value="Unknown" {% if  user.alias == 'Unknown' %}selected{% endif %}>Unknown</option>
+         <option value="Unidentified" {% if  user.alias == 'Unidentified' %}selected{% endif %}>Unidentified</option>
+         </select>
+      </div>
+
+   
+
       <a class="settings-link" data-toggle="modal" data-target="#ModalCenter5">
          <div class="preferences-danger-zone">
             <p class="primary-red font-weight-bold">Danger Zone</p>

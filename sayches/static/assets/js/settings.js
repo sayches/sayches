@@ -1,13 +1,3 @@
-$('#profile_update_time').change(function () {
-  $.ajax({
-    url: profileProfileUpdateTime,
-    type: 'POST',
-    data:{'profile_update_time':this.value},
-    success: function () {
-    }
-  });
-});
-
 $('input[type=radio][name=user_nickname]').change(function () {
   $.ajax({
     url: usersProfileNickname,

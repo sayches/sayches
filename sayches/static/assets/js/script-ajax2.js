@@ -35,11 +35,6 @@ function preview_image(event) {
     reader.readAsDataURL(event.target.files[0]);
 };
 
-function DeleteAPost(event) {
-    $('#deleteMyPost').attr('href', `/delete/post/${event}`);
-    $('#ModalCenter6').modal('show');
-};
-
 function PinAPost(event) {
     $.ajax({
         url: '/pin/post',
