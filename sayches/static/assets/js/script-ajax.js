@@ -66,8 +66,6 @@ function structurePost(data) {
                     '</div>' +
                     '<div class="sec-box">'+
                         '<p class="view-box parag">'+'<i class="ri-eye-fill"></i>'+data.post_count+'</p>'+
-                        '<p class="parag custom-time">'+data.remaining_time+' hours'+'<i class="ri-timer-fill"></i>'+'</p>'+
-
                         '<p class="parag custom-time" comm-post-id="'+data.id+'" data-attr = "post_'+data.id+'">'+ '<a href= url target="_blank" >'.replace('url', url )+ '<i class="ri-external-link-fill"></i>'+ '</a>'+ '</p>'+
                         
                         '<ul class="details-drop">'+

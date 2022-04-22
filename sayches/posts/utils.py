@@ -541,7 +541,6 @@ def posts_to_json(request, user, posts):
 
         post_reactions = Likes.objects.filter(post=post)
         reaction_number = short_number(post_reactions.count())
-        total_hours = (re.days * 24) + math.floor(re.seconds / 3600)
 
         if request.user.is_authenticated:
             current_user = request.user
@@ -565,7 +564,6 @@ def posts_to_json(request, user, posts):
             "user_nickname": escape(post.user.get_alias_display()),
             "date": post.created_at.strftime("%d/%m/%Y %I:%M %p"),
             "created_at": post.created_at.isoformat(),
-            "remaining_time": total_hours,
             "post_count": post_followers,
             "post_p": urlize(prevent_hashtag_repetition(post)),
             "user_page": reverse(profile_name_variable, args=[post.user.user_hash]),
@@ -617,7 +615,6 @@ def single_post_to_json(user, post):
     post_url = "/p/" + post.id
     post_p = urlize(prevent_hashtag_repetition(post))
     reaction_number = Likes.objects.filter(post=post).count()
-    total_hours = (re.days * 24) + math.floor(re.seconds / 3600)
     check = False
     if post.media:
         check = check_image_exists(post.media)
@@ -626,7 +623,6 @@ def single_post_to_json(user, post):
     json_object['user_img'] = image_url
     json_object["name"] = escape(post.user.display_user_name())
     json_object["date"] = post.created_at.strftime("%d/%m/%Y %I:%M %p")
-    json_object["remaining_time"] = total_hours
     json_object["post_count"] = post_followers
     json_object["post_p"] = post_p
     json_object["reaction_number"] = reaction_number
