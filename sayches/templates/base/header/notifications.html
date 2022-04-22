@@ -3,9 +3,6 @@
 {% load static %}
 <ul>
    <li>
-      <a href="{% url 'subsections:help' %}"><i class="ri-question-line primary-colour header-icon"></i></a>
-   </li>
-   <li>
       <a href="{% url 'message:inbox' %}">
          <i class="ri-mail-line primary-colour header-icon"></i>
          <div class="noti-box">
@@ -137,6 +134,9 @@
             </div>
          </div>
       </div>
+   </li>
+   <li>
+      <a href="{% url 'subsections:help' %}"><i class="ri-question-line primary-colour header-icon"></i></a>
    </li>
 </ul>
 <script src="{% static 'assets/js/notifications.js' %}"></script>
