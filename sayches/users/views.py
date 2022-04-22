@@ -116,25 +116,6 @@ def last_post_timestamp(user):
         last_post_time = "ROTTING FISH 💀⚰️🎣"
     return last_post_time
 
-
-def directory(request):
-    user = User.objects.filter(lost_virginity=True).exclude(is_superuser=True)
-    
-    paginator = Paginator(user, 20)
-    page_number = request.GET.get('p', 1)
-    try:
-        page_obj = paginator.get_page(page_number)
-        page_data = paginator.page(page_number)
-        user = page_data.object_list
-    except EmptyPage:
-        page_obj = paginator.get_page(1)
-        user = []
-    context = {
-        'user': user,
-        'page_obj': page_obj,
-    }
-    return render(request, 'account/directory.html', context)
-
 @login_required
 def export_my_data(request, username):
     if request.user.username == username:

@@ -23,5 +23,4 @@ urlpatterns = [
     path("notifications/notifications_reload/", views.notifications_reload, name="notifications_reload"),
     path("export/<str:username>", views.export_my_data, name="export_my_data"),
     path('search/user', views.search_user, name='search-user'),
-    path('directory', views.directory, name='directory'),
 ]
