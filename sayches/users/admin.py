@@ -84,11 +84,11 @@ admin.site.register(User, UserAdmin)
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'photo', 'bio', 'pgp_fingerprint', 'btc_address', 'website',
+        'user', 'photo', 'bio', 'website',
         'disable_notifications', 'disable_messages', 'disable_ping',)
-    search_fields = ('bio', 'pgp_fingerprint', 'btc_address', 'website')
+    search_fields = ('bio', 'website')
     readonly_fields = [
-        'user', 'bio', 'pgp_fingerprint', 'btc_address', 'website',
+        'user', 'bio', 'website',
         'disable_notifications', 'disable_messages', 'disable_ping', 'photo'
     ]
     date_hierarchy = 'created_at'
@@ -124,7 +124,7 @@ admin.site.register(ReportUser, ReportPostAdmin)
 
 class DeletedUserAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_per_page = 15
-    readonly_fields = ('id', 'user_hash', 'country', 'bio', 'pgp_fingerprint', 'btc_address',
+    readonly_fields = ('id', 'user_hash', 'country', 'bio',
                        'website', 'warrant_canary', 'last_activity_date', 'disposable',
                        'notes', 'alias', 'lost_virginity', 'first_post', 'first_login',
                        'auto_account_delete_time', 'date_joined', 'deleted_date_time')

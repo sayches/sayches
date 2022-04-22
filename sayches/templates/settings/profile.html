@@ -45,26 +45,6 @@
             {% render_field form.website placeholder="V3 onion address 56 characters long" id="edit-website" name="edit-website" class="custom-input profile-input" %}
             {% endif %}
          </div>
-         <div class="form-group" title='{{"Mohab Gabber"|community_feature}}'>
-            <label class="font-weight-bold parag">BTC Address</label>
-            {% if form.btc_address.errors %}
-            <div class="position-relative pr-0 custom-error-2">
-               {% render_field form.btc_address placeholder="Bitcoin address" id="btc-address" name="btc-address" class="custom-input profile-input" title="This feature is developed by and within the community. By Mohab Gabber." %}
-            </div>
-            {% else %}
-            {% render_field form.btc_address placeholder="Bitcoin address" id="btc-address" name="btc-address" class="custom-input profile-input" %} 
-            {% endif %}
-         </div>
-         <div class="form-group">
-            <label class="font-weight-bold parag">PGP Fingerprint</label>
-            {% if form.pgp_fingerprint.errors %}
-            <div class="position-relative pr-0 custom-error-2">
-               {% render_field form.pgp_fingerprint placeholder="Forty-byte PGP key fingerprint" id="edit-pgp-fingerprint" name="edit-pgp-fingerprint" class="custom-input profile-input" %}
-            </div>
-            {% else %}
-            {% render_field form.pgp_fingerprint placeholder="Forty-byte PGP key fingerprint" id="edit-pgp-fingerprint" name="edit-pgp-fingerprint" class="custom-input profile-input" %}
-            {% endif %}
-         </div>
          <div class="form-group">
             <label class="font-weight-bold parag">Time Zone</label>
             {% render_field form.country class="form-control" required="true" %}

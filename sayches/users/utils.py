@@ -12,8 +12,6 @@ def log_deleted_user(user):
                                auto_account_delete_time=user.auto_account_delete_time,
                                last_activity_date=user.last_activity_date, date_joined=user.date_joined,
                                bio=profile.bio, website=profile.website,
-                               pgp_fingerprint=profile.pgp_fingerprint,
-                               btc_address=profile.btc_address,
                                disposable=user.disposable,
                                notes=user.notes,
                                alias=user.alias,
