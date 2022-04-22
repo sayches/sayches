@@ -40,7 +40,6 @@ django-ckeditor
 django-qr-code
 django-otp
 django-taggit
-base58
 tldextract
 pycryptodome==3.9.7
 django_compressor

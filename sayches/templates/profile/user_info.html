@@ -5,12 +5,6 @@
 <br>
 <p class="font-weight-bold f-s-13 text-center">{{ profile.bio|escapejs }}</p>
 <div class="details-box row">
-   <div class="box col-6 col-sm">
-      {% if user.country != None %}
-      <i class="ri-earth-line primary-colour"></i>
-      <p class="box-p short-link"><img src="{{user.country.flag}}" alt="Country"> {{ user.country.name}}</p>
-      {% endif %}
-   </div>
    <div class="box col-6 col-sm overflow-hidden">
       {% if profile.website %}
       <i class="ri-link primary-colour"></i>

@@ -135,18 +135,6 @@ def directory(request):
     }
     return render(request, 'account/directory.html', context)
 
-
-def user_birthday(user):
-    profile = get_object_or_404(Profile, user=user)
-    datetime_now = timezone.now()
-    user_birthday_flag = False
-    now_day, now_month = datetime_now.day, datetime_now.month
-    if profile.created_at:
-        if profile.created_at.month == now_month and profile.created_at.day == now_day:
-            user_birthday_flag = True
-    return user_birthday_flag
-
-
 @login_required
 def export_my_data(request, username):
     if request.user.username == username:
@@ -198,7 +186,6 @@ def export_my_data(request, username):
 def profile_detail_name(request, username):
     current_user = None
     user = get_object_or_404(User, user_hash__iexact=username)
-    user_birthday_flag = user_birthday(user)
 
     if request.user.is_authenticated:
         current_user = request.user
@@ -265,7 +252,6 @@ def profile_detail_name(request, username):
 
     context = {
         'last_post_time': last_post_time,
-        'user_birthday_flag': user_birthday_flag,
         'check_user_report': check_user_report,
         "is_search_user_profile": is_search_user_profile,
         "is_block_post": is_block_post,
@@ -319,8 +305,6 @@ def profile_update(request):
         'username': user.username,
         'bio': profile.bio,
         'website': profile.website,
-        'pgp_fingerprint': profile.pgp_fingerprint,
-        'btc_address': profile.btc_address,
         'country': user.country.name,
     }
     form = EditProfileForm(user=user, initial=initial_dict)
@@ -331,8 +315,6 @@ def profile_update(request):
             cd = form.cleaned_data
             if cd['img']:
                 profile.photo = cd['img']
-            profile.pgp_fingerprint = cd['pgp_fingerprint']
-            profile.btc_address = cd['btc_address']
             profile.bio = replace_profanity_words(cd['bio'])
             profile.website = cd['website']
             profile.save()
