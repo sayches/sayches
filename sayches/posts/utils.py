@@ -541,8 +541,6 @@ def posts_to_json(request, user, posts):
 
         post_reactions = Likes.objects.filter(post=post)
         reaction_number = short_number(post_reactions.count())
-        delete_time = (post.created_at + timedelta(hours=post.user.profile_update_time))
-        re = delete_time - dt.now(timezone.utc)
         total_hours = (re.days * 24) + math.floor(re.seconds / 3600)
 
         if request.user.is_authenticated:
@@ -619,8 +617,6 @@ def single_post_to_json(user, post):
     post_url = "/p/" + post.id
     post_p = urlize(prevent_hashtag_repetition(post))
     reaction_number = Likes.objects.filter(post=post).count()
-    delete_time = (post.created_at + timedelta(hours=post.user.profile_update_time))
-    re = delete_time - dt.now(timezone.utc)
     total_hours = (re.days * 24) + math.floor(re.seconds / 3600)
     check = False
     if post.media:

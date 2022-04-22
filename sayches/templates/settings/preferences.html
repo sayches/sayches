@@ -25,15 +25,6 @@
       </label>
    </div>
    <div class="pref-item">
-      <p class="float-left">Destruction Period</p>
-      <select  name="profile_update_time" class="custom-input profile-input setting-custom-select" id="profile_update_time">
-      <option value="0" {% if  user.profile_update_time == 0 %}selected{% endif %}>Keep my posts</option>
-      <option value="24" {% if  user.profile_update_time == 24 %}selected{% endif %}>24 Hours</option>
-      <option value="48" {% if  user.profile_update_time == 48 %}selected{% endif %}>48 Hours</option>
-      <option value="72" {% if  user.profile_update_time == 72 %}selected{% endif %}>72 Hours</option>
-      </select>
-   </div>
-   <div class="pref-item">
       <p class="float-left mr-pr-58">Your Alias</p>
       <div></div>
       <select  name="user_nickname" class="custom-input profile-input setting-custom-select" id="user_nickname">

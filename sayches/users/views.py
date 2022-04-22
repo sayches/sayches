@@ -461,20 +461,6 @@ def report_user(request):
 
 gloable_template_name = "404.html"
 
-
-class UpdateTimeView(LoginRequiredMixin, TemplateView):
-    template_name = gloable_template_name
-
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        profile_update_time = int(self.request.POST.get('profile_update_time', 24))
-        user = self.request.user
-        if user and profile_update_time in [24, 48, 72, 0]:
-            user.profile_update_time = profile_update_time
-            user.save()
-        return render(self.request, self.template_name, context=context)
-
-
 class AutoAccountDeleteTime(LoginRequiredMixin, TemplateView):
     template_name = gloable_template_name
 

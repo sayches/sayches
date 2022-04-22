@@ -14,8 +14,6 @@ urlpatterns = [
     path("post_read", views.post_read, name="post_read"),
     path("explore/", views.search, name="search"),
     path("h/<str:hashtag>", views.searchhashtag, name="search_hash"),
-    path('delete', views.delete_post, name='delete-post'),
     path('pin/post', views.pin_post, name='pin_post'),
     path('f/<str:flair>', views.flair_posts, name="flair_posts"),
-    path('delete/post/<str:id>', views.delete_posts, name='delete-posts'),
 ]

@@ -479,7 +479,6 @@ function structureDetailsPost(data){
                                                 single_post +=
                                                 '<a title="Prevent your profile from being blank after 24 hours and make sure users know your profile is active. Pinning is a great way to promote your most important posts." class="dropdown-item" onclick="PinAPost(\''+data.id+'\')" id= "text'+data.id+'" onclick="PinAPost(\''+data.id+'\')" >Pin Post</a>'
                                             }
-                                            single_post +='<a class="dropdown-item custom-curor primary-red" onclick="DeleteAPost(\'' + data.id + '\')" id= "text' + data.id + '" onclick="PinAPost(\'' + data.id + '\')" >Delete Post</a>'
                                          }
                                 single_post +=
                                 '</div>'+
