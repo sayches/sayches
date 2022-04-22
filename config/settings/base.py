@@ -102,7 +102,6 @@ THIRD_PARTY_APPS = [
     "django_countries",
     'django_celery_beat',
     "celery",
-    "qr_code",
     "django_otp",
     "django_otp.plugins.otp_totp",
     "taggit",
@@ -228,8 +227,6 @@ current_site = BASE_URL
 ACCOUNT_FORMS = {"signup": "sayches.sign.forms.UserRegistrationForm",}
 
 ACCOUNT_PRESERVE_USERNAME_CASING = False
-
-QR_CODE_CACHE_ALIAS = 'qr-code'
 
 APPEND_SLASH = False
 

@@ -382,12 +382,6 @@ def set_or_remove_bell_for_user(request, username):
 
 
 @login_required
-@require_GET
-def get_qr_code(request):
-    return render(request, 'base/header/qr_code.html')
-
-
-@login_required
 @require_POST
 def ping_user(request, username):
     if request.is_ajax():

@@ -70,7 +70,6 @@ urlpatterns += [
                    path("", include("posts.urls", namespace="posts")),
                    path("", include("ads.urls", namespace="ads")),
                    path("messages/", include("message.urls", namespace="message")),
-                   path('', include('qr_code.urls', namespace="qr_code")),
                    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
                    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
                    path("api/", include("api.urls")),

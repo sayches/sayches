@@ -37,7 +37,6 @@ virtualenv==20.0.7
 zipp==3.0.0
 django-cors-headers==3.5.0
 django-ckeditor
-django-qr-code
 django-otp
 django-taggit
 tldextract

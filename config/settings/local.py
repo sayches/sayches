@@ -22,11 +22,6 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         "LOCATION": "",
     },
-    "qr-code": {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'qr-code-cache',
-        'TIMEOUT': 3600
-    }
 }
 
 COMPRESS_STORAGE = 'compressor.storage.GzipCompressorFileStorage'
