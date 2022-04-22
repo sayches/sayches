@@ -2267,7 +2267,6 @@ select:-webkit-autofill {
 }
 
 .list-group.tap-profile {
-  min-height: 280px;
   padding: 25px 0;
   background-color: #F7F7F7;
   box-shadow: 1px 4px 8px 3px rgba(36, 41, 46, 0.08);

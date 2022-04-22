@@ -119,7 +119,7 @@ class User(AbstractUser):
 
     def user_profile_age(self):
         datetime_diff = datetime.now() - self.date_joined.replace(tzinfo=None)
-        self.profile_age = str(datetime_diff.days) + " days"
+        self.profile_age = str(datetime_diff.days)
         return self.profile_age
 
     def display_user_name(self):
