@@ -210,7 +210,7 @@ class Profile(BaseModel):
             return static('assets/images/avatars/suspended.png')
         if self.photo and hasattr(self.photo, 'url'):
             return self.photo.url
-        if self.user.user_profile_age() == '0 days':
+        if self.user.user_profile_age() == '0':
             if self.user.disposable:
                 return static('assets/images/avatars/incognitoAvatar_2_360x360.png')
             return static('assets/images/avatars/babyAvatar_360x360.png')

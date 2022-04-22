@@ -115,7 +115,7 @@ def lost_virginity(request):
     user = request.user
     if user.lost_virginity == False:
         if user.profile.photo and user.first_post and not user.first_login and User.user_profile_age(
-                request.user) > '0 days':
+                request.user) > '0':
             message = "Yay! You lost your Sayches virginity! 😊"
             SaychesMessage.objects.create(message=message).user.set([request.user])
             user.lost_virginity = True
