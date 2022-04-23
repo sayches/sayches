@@ -73,7 +73,7 @@ class Ads(BaseModel):
             create_ads, created = CreateAds.objects.get_or_create(
                 ad_id=self.slug,
             )
-            create_ads.owner_id = ads_owner.id
+            create_ads.owner = self.user.user_hash
             create_ads.headline = self.ad_headline
             create_ads.body = self.ad_body
             create_ads.location = self.ad_location
