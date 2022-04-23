@@ -3345,7 +3345,7 @@ select.form-control {
 }
 
 .docs .tab-content .body-content {
-  padding: 59px 197px 59px 83px;
+  padding: 39px 197px 59px 83px;
 }
 
 .docs .tab-content .body-content span {
@@ -4212,7 +4212,6 @@ input:checked+.slider:before {
   font-size: 18px;
   cursor: pointer;
   padding: 5px 20px;
-  margin: 10px 0px;
 }
 
 .doc_tab_active {
