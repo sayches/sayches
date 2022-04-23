@@ -29,19 +29,12 @@
 <div class="main-box profile-box">
    <div class="follow-box">
       <div class="first-box {% if current_user and request.user ==  profile.user %}d-flex{% else %}profile-block{% endif %}">
-         {% if current_user %}
          <span class="parag follow-p"><span>{{ user_total_posts|short_number }}</span>BLOWS</span>
          <span class="parag follow-p"><span>{{user.profile_age}}</span>DAYS</span>
          {% if user.country %} <span class="parag follow-p"><span><img src="{{user.country.flag}}" alt="Country"></span>{{ user.country.name|upper}}</span>{% endif %}
-         {% else %}
-         <span class="parag follow-p"><span>{{user.profile_age}}</span>BLOWS</span>
-         <span class="parag follow-p"><span>{{user.profile_age}}</span>DAYS</span>
-         {% if user.country %} <span class="parag follow-p"><span><img src="{{user.country.flag}}" alt="Country"></span>{{ user.country.name|upper}}</span>{% endif %}
-         {% endif %}
       </div>
       {% include 'profile/dropdown.html' %}
       <br>
       <p class="font-weight-bold f-s-13 text-center">{{ profile.bio|escapejs }}</p>
    </div>
 </div>
-
