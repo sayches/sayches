@@ -192,7 +192,6 @@ class Profile(BaseModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=uuid_profilepicture, null=True, blank=True)
     bio = models.CharField(max_length=150, blank=True)
-    website = models.URLField(null=True, blank=True, max_length=70)
     disable_notifications = models.BooleanField(default=False, null=True)
     disable_messages = models.BooleanField(default=False, null=True)
     disable_ping = models.BooleanField(default=False, null=True)
@@ -226,9 +225,6 @@ class Profile(BaseModel):
 
 
 class UserVerification(BaseModel):
-    CATEGORIE_TYPEE = [("New/Media", "New/Media"), ("Sports", "Sports"), ("Government/Politics", "Government/Politics"),
-                       ("Music", "Music"), ("Fashion", "Fashion"), ("Blogger/Influencer", "Blogger/Influencer"),
-                       ("Business/Brand/Organisation", "Business/Brand/Organisation"), ("Other", "Other")]
     VERIFICATION_STATUS = [("Fraudulent", "Fraudulent"), ("Bot", "Bot"), ("Official", "Official"),
                            ("Verified", "Verified")]
     APPLICATION_STATUS = [("Approved", "Approved"), ("Rejected", "Rejected"), ("Removed", "Removed")]
@@ -240,6 +236,7 @@ class UserVerification(BaseModel):
 
     def save(self, *args, **kwargs):
         if self.application_status == "Approved":
+            User.objects.filter(username=self.user).update(lost_virginity=True)
             body = "Your Sayches account was successfully verified."
             FromSayches.from_sayches(title='Your account is verified', message=body, to=self.user)
         elif self.application_status == "Rejected":
@@ -326,7 +323,6 @@ class DeletedUser(BaseModel):
     date_joined = models.DateTimeField(default=timezone.now)
     deleted_date_time = models.DateTimeField(auto_now_add=True, null=True)
     bio = models.CharField(max_length=150, blank=True, null=True)
-    website = models.URLField(null=True, blank=True)
     disposable = models.BooleanField(null=True)
     notes = models.TextField(null=True)
     alias = models.CharField(max_length=20, null=True)

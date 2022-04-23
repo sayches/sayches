@@ -22,7 +22,6 @@ class EditProfileForm(forms.Form):
         widget=forms.TextInput(attrs={'readonly': 'readonly'})
     )
     bio = forms.CharField(max_length=150, required=False)
-    website = forms.URLField(required=False)
     COUNTRY_CHOICES = tuple(countries)
     widgets = {'country': CountrySelectWidget()}
 
@@ -32,22 +31,6 @@ class EditProfileForm(forms.Form):
         if username in usernames:
             raise forms.ValidationError("This username already exist")
         return username
-
-    def clean_website(self):
-        website = self.cleaned_data['website']
-        if website:
-            split_url = website.split(".")
-            v3_address = split_url[0].split("//")
-            string_check = re.compile('[@_!#$%^&*()<>?/|}{~:]')
-            if len(v3_address) != 2:
-                raise ValidationError("Invalid Onion Address")
-            elif split_url[-1] != "onion" or string_check.search(split_url[-1]):
-                raise ValidationError("Invalid Onion Address")
-            elif len(v3_address[1]) != 56 or string_check.search(v3_address[1]) or not v3_address[1].endswith('d'):
-                raise ValidationError("Invalid Onion Address")
-            elif v3_address[0] not in ["https:", "http:"]:
-                raise ValidationError("Invalid Onion Address")
-        return website
 
 
 class UserVerificationForm(forms.ModelForm):
