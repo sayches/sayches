@@ -74,7 +74,6 @@ urlpatterns += [
                    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
                    path("api/", include("api.urls")),
                    path('auth/', obtain_auth_token),
-                   path('rich-text-upload/', include('ckeditor_uploader.urls')),
                    path('newsroom/rss/', NewsroomFeed()),
 ]
 
