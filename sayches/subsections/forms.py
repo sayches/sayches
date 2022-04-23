@@ -1,7 +1,8 @@
+from email.policy import default
 from django import forms
 from django_countries.fields import CountryField
 from posts.models import Post
-from subsections.models import Ads, AdsOwners, Help
+from subsections.models import Ads, Help
 
 from config.choices import FLAIR_CHOICES
 
@@ -19,36 +20,13 @@ class flair_form_public(forms.ModelForm):
 
 
 class AdsStepOneForm(forms.ModelForm):
-    business_name = forms.CharField(max_length=100, required=True, label='What is your business name?')
-    full_name = forms.CharField(max_length=50, required=True, label='What is your full name?')
-    job_title = forms.CharField(max_length=50, required=True, label='What is your job title?')
-    professional_email = forms.EmailField(label='What is your professional email address?', required=True)
-    business_website = forms.URLField(label='What is your business official website?', required=True)
-    business_location = CountryField(blank_label='Where do you do business?').formfield(required=False)
+    i_agree = forms.BooleanField(initial=True)
 
     class Meta:
         model = Ads
         fields = [
-            'business_name',
-            'full_name',
-            'job_title',
-            'professional_email',
-            'business_website',
-            'business_location',
+            'i_agree',
         ]
-
-    def __init__(self, *args, **kwargs):
-        super(AdsStepOneForm, self).__init__(*args, **kwargs)
-        user = kwargs.get('initial').get('user')
-        ads_owner = AdsOwners.objects.filter(user=user)
-        self.fields["business_location"].widget.attrs["required"] = True
-        if ads_owner:
-            for field, value in self.fields.items():
-                if field == 'business_location':
-                    value.widget.attrs['disabled'] = True
-                    self.fields['business_location'].initial = ads_owner[0].business_location
-                value.widget.attrs["readonly"] = "readonly"
-                value.widget.attrs["value"] = getattr(ads_owner[0], field)
 
     def clean_business_website(self, *args, **kwargs):
         from urllib.parse import urlparse

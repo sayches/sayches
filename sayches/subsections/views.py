@@ -214,10 +214,10 @@ def ads_step_one(request):
     if request.user.disposable:
         return redirect(reverse('subsections:home'))
     else:
-        form = AdsStepOneForm(initial={'user': request.user})
+        form = AdsStepOneForm()
         pending_ads = Ads.objects.filter(user=request.user).filter(status=3)
         if request.method == 'POST':
-            form = AdsStepOneForm(request.POST, initial={'user': request.user})
+            form = AdsStepOneForm(request.POST)
             if pending_ads:
                 return redirect(reverse('subsections:ads'))
             else:

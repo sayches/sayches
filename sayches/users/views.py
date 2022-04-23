@@ -2,7 +2,6 @@ import json
 from datetime import datetime
 
 from ads.models import AdminNotifications
-from ads.models import AdsOwners
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -138,7 +137,7 @@ def export_my_data(request, username):
         ad_obj = Ads.objects.filter(user=request.user).count()
         chat_obj = Chat.objects.filter(members=request.user).count()
         help_obj = Help.objects.filter(username=request.user)
-        business_obj = AdsOwners.objects.filter(user=request.user)
+        business_obj = Ads.objects.filter(user=request.user).count()
 
         context = {
             "user_obj": user_obj,

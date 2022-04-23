@@ -1,5 +1,4 @@
 import datetime
-
 from django.conf import settings
 from django.db import models
 from django.db.models.deletion import SET_NULL
@@ -10,25 +9,8 @@ from users.models import BaseModel, User
 from utils.upload_path import uuid_ad
 
 
-class AdsOwners(BaseModel):
-    user = models.OneToOneField(User, on_delete=SET_NULL, null=True, blank=True)
-    business_name = models.CharField(max_length=100, null=False, blank=True)
-    business_location = CountryField(null=True, blank=True)
-    business_website = models.URLField(max_length=200, null=True, blank=True)
-    full_name = models.CharField(max_length=50, null=False, blank=True)
-    job_title = models.CharField(max_length=50, null=True, blank=True)
-    professional_email = models.EmailField(max_length=70, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
-
-    def __str__(self):
-        return self.business_name
-
-    class Meta:
-        verbose_name_plural = "Ads Owners"
-
-
 class CreateAds(BaseModel):
-    owner = models.ForeignKey(AdsOwners, on_delete=models.SET_NULL, null=True, blank=True)
+    owner = models.CharField(max_length=15, null=True, blank=True)
     headline = models.CharField(max_length=25, null=True, blank=True)
     body = models.CharField(max_length=150, null=True, blank=True)
     location = CountryField(_('Ad Location'), null=True, blank=True)

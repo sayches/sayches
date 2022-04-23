@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import CreateAds, AdsOwners, AdminNotifications, AdsPricing, Vouchers
+from .models import CreateAds, AdminNotifications, AdsPricing, Vouchers
 
 
 @admin.register(AdsPricing)
@@ -9,16 +9,6 @@ class AdsPricingAdmin(admin.ModelAdmin):
     list_display = ["id", 'title', 'type', 'description', 'price']
     date_hierarchy = 'created_at'
     search_fields = ('title', 'type', 'description')
-
-
-class AdsOwnersAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "business_name", "business_location", "full_name", "notes"]
-    list_filter = ['business_location']
-    date_hierarchy = 'created_at'
-    search_fields = ('user', 'business_name', 'full_name', 'notes')
-
-
-admin.site.register(AdsOwners, AdsOwnersAdmin)
 
 
 class CreateAdsAdmin(admin.ModelAdmin):
