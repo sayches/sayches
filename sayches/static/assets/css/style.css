@@ -2891,19 +2891,6 @@ select:-webkit-autofill {
   font-weight: 600;
 }
 
-.sec-empty-box {
-  min-height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.sec-empty-box .box-p {
-  font-weight: 500;
-  font-size: 12px;
-}
-
 .pin-post {
   position: relative;
 }
@@ -3320,11 +3307,6 @@ select.form-control {
 .typed-cursor {
   opacity: 0;
   display: none;
-}
-
-.img-container {
-  text-align: center;
-  margin-bottom: 50px;
 }
 
 .landing-footer {
@@ -4238,10 +4220,6 @@ input:checked+.slider:before {
   border-radius: .25rem;
   font-weight: bold;
   color: #24292E;
-}
-
-.inner-content {
-  word-break: break-word;
 }
 
 .list-wrapers {
