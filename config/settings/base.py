@@ -105,9 +105,7 @@ THIRD_PARTY_APPS = [
     "django_otp",
     "django_otp.plugins.otp_totp",
     "taggit",
-    "ckeditor_uploader",
     "compressor",
-    "ckeditor",
 ]
 
 LOCAL_APPS = [
@@ -239,10 +237,6 @@ REST_FRAMEWORK = {
 }
 
 BITCOIN_EXCHANGE_RATES_API = 'https://api.coinbase.com/v2/exchange-rates?currency=BTC'
-
-CKEDITOR_UPLOAD_PATH = "uploads/"
-
-CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 

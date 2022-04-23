@@ -1,7 +1,6 @@
 import uuid
 
 from ads.models import AdsPricing, CreateAds, Vouchers
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.db import models
 from django.db.models.deletion import SET_NULL
@@ -167,7 +166,7 @@ class Help(BaseModel):
 
 class Doc(BaseModel):
     name = models.CharField(max_length=25, null=False, blank=False)
-    content = RichTextUploadingField(blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
     slug = models.CharField(max_length=50, null=False, blank=False)
 
     def __str__(self):
@@ -187,7 +186,7 @@ class News(BaseModel):
     author_name = models.CharField(max_length=100, null=True, blank=True)
     publish_date = models.DateField('date published', null=False, blank=False)
     article_title = models.CharField(max_length=250, null=False, blank=False)
-    article_content = RichTextUploadingField(blank=False, null=False)
+    article_content = models.TextField(blank=False, null=False)
     article_image = models.ImageField(upload_to=uuid_newsroom, null=True, blank=True)
     tag = models.CharField(max_length=50, choices=TAG, default="", blank=True)
     external = models.URLField(null=True, blank=True)
