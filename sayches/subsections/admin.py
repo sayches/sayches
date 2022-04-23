@@ -10,7 +10,7 @@ class AdsAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_display = ["slug", 'user', 'ad_headline', 'status', 'notes',
                     'created_at']
     readonly_fields = (
-        'ad_price', 'slug', 'payment_method', 'voucher_code', 'discount', 'amount_due', 'btc_amount_due',
+        'i_agree', 'ad_price', 'slug', 'payment_method', 'voucher_code', 'discount', 'amount_due', 'btc_amount_due',
         'to_bitcoin_address', 'user', 'ad_plan', 'impressions', 'clicks', 'created_at')
     list_filter = ('user', 'ad_start_date', 'ad_end_date', 'status', 'ad_price')
     date_hierarchy = 'created_at'
