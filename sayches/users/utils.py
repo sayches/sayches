@@ -11,7 +11,7 @@ def log_deleted_user(user):
                                country=user.country,
                                auto_account_delete_time=user.auto_account_delete_time,
                                last_activity_date=user.last_activity_date, date_joined=user.date_joined,
-                               bio=profile.bio, website=profile.website,
+                               bio=profile.bio,
                                disposable=user.disposable,
                                notes=user.notes,
                                alias=user.alias,

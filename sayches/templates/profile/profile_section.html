@@ -11,19 +11,18 @@
       <h3 class="font-weight-bold f-s-18 text-truncate-150-media">{{ user.get_name_or_username|escapejs }}</h3>
       <div class="nav-box">
          <p class="profile-p parag">{{ user.user_hash }}</p>
-         <small class="validation {{ user_verification_form.verification.value }}">
-         {{user_verification_form.verification.value}}
-         </small>
-         {% if user.disposable %}<small class="Disposable validation">Disposable</small>{% else %}
-         {% if not user.lost_virginity %}<small class="Virgin validation">Virgin</small>{% endif %} 
-         {% endif %} 
-         <div class="profile-icons row">
+            <small class="validation {{ user_verification_form.verification.value }}">
+               {{user_verification_form.verification.value}}
+               </small>
+               {% if user.disposable %}<small class="Disposable validation">Disposable</small>
+               {% else %}
+               {% if not user.lost_virginity %}<small class="Virgin validation">Virgin</small>{% endif %}
+               {% endif %} 
             {% if user.warrant_canary %}
             <button type="button" class="btn profile-btn" data-container="body" data-toggle="popover" data-placement="top"
                data-content="Sayches has not been served with a secret government subpoena to obtained access to {{ user.user_hash }} information or records. Watch very closely for the removal of this sign.">
             <img src="{% static 'assets/images/avatars/warrantCanary.svg' %}" alt="Warrant Canary" class="warrant-icon">
             </button>{% endif %}
-         </div>
       </div>
    </div>
 </div>
@@ -37,10 +36,12 @@
          {% else %}
          <span class="parag follow-p"><span>{{user.profile_age}}</span>BLOWS</span>
          <span class="parag follow-p"><span>{{user.profile_age}}</span>DAYS</span>
+         {% if user.country %} <span class="parag follow-p"><span><img src="{{user.country.flag}}" alt="Country"></span>{{ user.country.name|upper}}</span>{% endif %}
          {% endif %}
       </div>
       {% include 'profile/dropdown.html' %}
-      {% include "profile/user_info.html" %}
+      <br>
+      <p class="font-weight-bold f-s-13 text-center">{{ profile.bio|escapejs }}</p>
    </div>
 </div>
 

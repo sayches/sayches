@@ -282,7 +282,6 @@ def profile_update(request):
         'user': user,
         'username': user.username,
         'bio': profile.bio,
-        'website': profile.website,
         'country': user.country.name,
     }
     form = EditProfileForm(user=user, initial=initial_dict)
@@ -294,7 +293,6 @@ def profile_update(request):
             if cd['img']:
                 profile.photo = cd['img']
             profile.bio = replace_profanity_words(cd['bio'])
-            profile.website = cd['website']
             profile.save()
             user.name = replace_profanity_words(cd['name'])
             user.username = cd['username']
