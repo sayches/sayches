@@ -124,8 +124,6 @@ def steps_form(request):
     if user.name:
         initial_dic['name'] = user.name
 
-    if profile.website:
-        initial_dic['website'] = profile.website
     if user.country:
         initial_dic['country'] = user.country.name
 

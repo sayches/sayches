@@ -1,6 +1,5 @@
 import datetime
 
-from ads.models import AdsOwners
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
@@ -21,7 +20,7 @@ def targeted_ads(request):
 def ad_invoice(request, invoice_number):
     ads = Ads.objects.get(slug=invoice_number)
     try:
-        ads_owner = AdsOwners.objects.get(user=request.user)
+        ads_owner = Ads.objects.get(user=request.user)
     except:
         ads_owner = None
     if request.user != ads.user:

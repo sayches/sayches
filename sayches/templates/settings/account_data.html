@@ -92,14 +92,7 @@
     <p>Help Reference Number: {{h.reference_number}}</p>
     {% endfor %}
     {% if business_obj %}
-    {% for b in business_obj %}
-    <p>Business Name: {{b.business_name}}</p>
-    <p>Business Location: {{b.business_location}}</p>
-    <p>Business Website: {{b.business_website}}</p>
-    <p>Full Name: {{b.full_name}}</p>
-    <p>Job Title: {{b.job_title}}</p>
-    <p>Professional Email: {{b.professional_email}}</p>
-    {% endfor %}
+    <p>Number of Ads: {{business_obj}}</p>
     {% endif %}
     <hr />
     <p>WARNING: This export contain your data in an unencrypted format. You should not store or send the exported file over insecure channels (such as email). Delete it immediately after you are done using it.</p>

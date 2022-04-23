@@ -1,6 +1,6 @@
 import uuid
 
-from ads.models import AdsPricing, AdsOwners, CreateAds, Vouchers
+from ads.models import AdsPricing, CreateAds, Vouchers
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.db import models
@@ -11,7 +11,7 @@ from users.models import BaseModel, User, FromSayches
 from utils.upload_path import uuid_ad, uuid_newsroom
 
 PAYMENT_METHOD = (
-    ('1', 'Bitcoin'),
+    ('Bitcoin', 'Bitcoin'),
 )
 PAYMENT_STATUS = (
     ('1', 'Paid'),
@@ -30,12 +30,6 @@ class Ads(BaseModel):
         ('5', 'Auto-Expired')
     )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    business_name = models.CharField(max_length=100, null=False, blank=True)
-    business_location = CountryField(blank_label='Where do you do business?', null=True, blank=True)
-    business_website = models.URLField(max_length=200, null=True, blank=True)
-    full_name = models.CharField(max_length=50, null=False, blank=True)
-    job_title = models.CharField(max_length=50, null=True, blank=True)
-    professional_email = models.EmailField(max_length=70, null=True, blank=True)
 
     ad_headline = models.CharField(max_length=25, null=True, blank=True)
     ad_link = models.URLField(max_length=200, null=True, blank=True)
@@ -64,6 +58,8 @@ class Ads(BaseModel):
     clicks = models.ManyToManyField(User, blank=True, related_name='clicks')
     impressions = models.IntegerField(default=0)
 
+    i_agree = models.BooleanField(null=True, blank=False, default=True)
+
     def save(self, *args, **kwargs):
         if not self.slug:
             found = False
@@ -73,21 +69,7 @@ class Ads(BaseModel):
                     self.slug = slugify
                     found = True
         if self.status == "1":
-            if AdsOwners.objects.filter(
-                    user=self.user,
-            ).exists():
-                ads_owner = AdsOwners.objects.get(user=self.user)
-                pass
-            else:
-                ads_owner = AdsOwners.objects.create(
-                    user=self.user,
-                    business_name=self.business_name,
-                    business_location=self.business_location,
-                    business_website=self.business_website,
-                    full_name=self.full_name,
-                    job_title=self.job_title,
-                    professional_email=self.professional_email,
-                )
+            ads_owner = Ads.objects.get(user=self.user)
             create_ads, created = CreateAds.objects.get_or_create(
                 ad_id=self.slug,
             )

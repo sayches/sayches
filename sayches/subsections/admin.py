@@ -7,16 +7,15 @@ from .models import Doc, News, Help, Ads
 
 @admin.register(Ads)
 class AdsAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_display = ["slug", 'user', 'business_name', 'business_location', 'ad_headline', 'status', 'notes',
+    list_display = ["slug", 'user', 'ad_headline', 'status', 'notes',
                     'created_at']
     readonly_fields = (
         'ad_price', 'slug', 'payment_method', 'voucher_code', 'discount', 'amount_due', 'btc_amount_due',
         'to_bitcoin_address', 'user', 'ad_plan', 'impressions', 'clicks', 'created_at')
-    list_filter = ('user', 'business_name', 'ad_start_date', 'ad_end_date', 'status', 'ad_price')
+    list_filter = ('user', 'ad_start_date', 'ad_end_date', 'status', 'ad_price')
     date_hierarchy = 'created_at'
     search_fields = (
-        'business_name', 'business_website', 'full_name', 'job_title',
-        'professional_email', 'ad_headline', 'ad_link', 'ad_body', 'ad_location', 'ad_keywords',
+        'ad_headline', 'ad_link', 'ad_body', 'ad_location', 'ad_keywords',
         'slug', 'notes', 'status'
     )
 

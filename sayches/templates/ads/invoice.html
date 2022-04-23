@@ -38,12 +38,7 @@
                                     <table class="invoice f-s-13">
                                        <tbody>
                                           <tr>
-                                             <td>{{ads.full_name}}, {{ads.job_title}}
-                                                <br>
-                                                {{ads.business_name}}
-                                                <br>
-                                                {{ads_owner.business_location.name}}
-                                                <br>
+                                             <td>{{ads.user}}
                                                 <br>
                                                 Invoice #{{ads.slug}}
                                                 <br>
@@ -52,7 +47,7 @@
                                                 <br>
                                                 {% if ads.payment_method %} {{ads.payment_method}} {% endif %}
                                                 <br>
-                                                {% if ads.payment_method %} {{ads.payment_date}} {% endif %}
+                                                {% if ads.payment_date %} {{ads.payment_date}} {% endif %}
                                              </td>
                                           </tr>
                                           <tr>
