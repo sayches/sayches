@@ -41,7 +41,7 @@ class Ads(BaseModel):
     ad_plan = models.ForeignKey(AdsPricing, on_delete=models.SET_NULL, null=True, blank=True)
     ad_price = models.FloatField(null=True, blank=True)
 
-    payment_method = models.CharField(choices=PAYMENT_METHOD, max_length=20, null=True, blank=True, default="1")
+    payment_method = models.CharField(choices=PAYMENT_METHOD, max_length=20, null=True, blank=True, default="Bitcoin")
     voucher_code = models.ForeignKey(Vouchers, on_delete=SET_NULL, null=True, blank=True)
     discount = models.IntegerField(null=True, blank=True)
     amount_due = models.FloatField(null=True, blank=True)
