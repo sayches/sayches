@@ -20,7 +20,7 @@
 <div class="col-lg-5 col-md-9">
 <div class="form-box">
 <p class="font-weight-bold f-s-17">Are you sure you want to sign out, {{ request.user.user_hash }}?</p>
-<p class="font-weight-bold f-s-14 primary-red">You can regain access to your Sayches account only if you remember your previous Master Password.</p>
+<p class="font-weight-bold f-s-14 primary-red text-justify">You can regain access to your Sayches account only if you remember your Master Password. If you’ve already lost your Master Password, there is unfortunately no way to recover your account. You will need to start a new account.</p>
 <form method="post" action="#">
    {% csrf_token %}
    {% if redirect_field_value %}
