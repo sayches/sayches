@@ -14,7 +14,7 @@ class AdsPricingAdmin(admin.ModelAdmin):
 class CreateAdsAdmin(admin.ModelAdmin):
     list_display = ['ad_id', 'owner', 'headline', 'body', 'location', 'link', 'start_date', 'end_date']
     readonly_fields = (
-        'owner', 'headline', 'body', 'location', 'target_all_users', 'target_user_list', 'link', 'image', 'keywords',
+        'owner', 'headline', 'body', 'location', 'link', 'image', 'keywords',
         'start_date', 'end_date', 'ad_id')
     list_filter = ('owner', 'location', 'start_date', 'end_date')
     date_hierarchy = 'created_at'
