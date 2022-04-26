@@ -26,7 +26,7 @@
                                     <h2 class="font-weight-bold f-s-18">Invoice</h2>
                                     <small class="tag">{{ ads.display_payment_status }}</small>
                                     {% if ads.payment_status == "2" %}
-                                    <p class="font-weight-bold f-s-13 primary-red text-justify">
+                                    <p class="font-weight-bold f-s-13 primary-red">
                                        This is an overdue invoice. If you have paid within the last 48 hours, please ignore this notice.
                                        {% if ads.to_bitcoin_address %}Send your payment to: <code>{{ ads.to_bitcoin_address }}</code>{% endif %}
                                     </p>

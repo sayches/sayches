@@ -71,8 +71,11 @@ def validate_voucher(voucher_code, user, ad_plan):
         return False
 
     voucher = vouchers.first()
-    if voucher.end_date <= datetime.date.today():
-        vouchers.update(expired=True)
+    try:
+        if voucher.end_date <= datetime.date.today():
+            vouchers.update(expired=True)
+    except:
+        pass
 
     if voucher.is_expired or not voucher.is_valid(user, ad_plan):
         return False
