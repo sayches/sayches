@@ -232,19 +232,23 @@ class UserVerification(BaseModel):
     verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        if self.verification == "Verified" or "Official":
-            User.objects.filter(username=self.user).update(lost_virginity=True)
+        lost_virginity = User.objects.filter(username=self.user).update(lost_virginity=True)
+        if self.verification == "Official":
+            lost_virginity
             body = "Your Sayches account was successfully verified."
             FromSayches.from_sayches(title='Your account is verified', message=body, to=self.user)
         elif self.verification == "Fraudulent":
+            lost_virginity
             body = "Your account has been flagged as Fraudulent, and the visibility of your posts will be restricted."
             FromSayches.from_sayches(title='Attention', message=body,
                                      to=self.user)
         elif self.verification == "Bot":
+            lost_virginity
             body = "Your account has been flagged as Bot, and the visibility of your posts will be restricted."
             FromSayches.from_sayches(title='Attention', message=body,
                                      to=self.user)
         elif self.verification == "Out of Tune":
+            lost_virginity
             body = "Your account has been flagged as Out of Tune, and the visibility of your posts will be restricted."
             FromSayches.from_sayches(title='Attention', message=body,
                                      to=self.user)
