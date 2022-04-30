@@ -233,7 +233,7 @@ class UserVerification(BaseModel):
 
     def save(self, *args, **kwargs):
         lost_virginity = User.objects.filter(username=self.user).update(lost_virginity=True)
-        if self.verification == "Official":
+        if self.verification == "Official" or "Verified":
             lost_virginity
             body = "Your Sayches account was successfully verified."
             FromSayches.from_sayches(title='Your account is verified', message=body, to=self.user)
