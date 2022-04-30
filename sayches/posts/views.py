@@ -14,6 +14,7 @@ from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from posts.utils import get_parsed_meta_url, replace_profanity_words
+from users.models import UserVerification
 from subsections.models import Ads
 from users.models import BlacklistUser, FromSayches
 from users.models import User
@@ -189,6 +190,11 @@ def create_post_entry(user, flair, post_option, text, media=None):
     post = Post.objects.create(user=user, flair=flair, post_option=post_option, text=text, media=media)
     post.save()
     post.created_at = timezone.localtime(post.created_at)
+    verification_obj = UserVerification.objects.filter(user=user)
+    if verification_obj.filter(verification="Fraudulent"
+    ) or verification_obj.filter(verification="Bot"
+    ) or verification_obj.filter(verification="Out of Tune"):
+        post.restrict = True
     post.save()
     user_post_timestamp = PostsTimestamp.objects.create(user=user, post_id=post.id)
     user_post_timestamp.post_timestamp = timezone.localtime(post.created_at)

@@ -226,7 +226,7 @@ class Profile(BaseModel):
 
 class UserVerification(BaseModel):
     VERIFICATION_STATUS = [("Fraudulent", "Fraudulent"), ("Bot", "Bot"), ("Official", "Official"),
-                           ("Verified", "Verified")]
+                           ("Verified", "Verified"), ("Out of Tune", "Out of Tune")]
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     verification = models.CharField(choices=VERIFICATION_STATUS, max_length=100, blank=True, null=True)
     verified = models.BooleanField(default=False)
@@ -237,11 +237,15 @@ class UserVerification(BaseModel):
             body = "Your Sayches account was successfully verified."
             FromSayches.from_sayches(title='Your account is verified', message=body, to=self.user)
         elif self.verification == "Fraudulent":
-            body = "Your account has been flagged as fraudulent, and the visibility of your posts will be restricted."
+            body = "Your account has been flagged as Fraudulent, and the visibility of your posts will be restricted."
             FromSayches.from_sayches(title='Attention', message=body,
                                      to=self.user)
         elif self.verification == "Bot":
-            body = "Your account has been flagged as bot, and the visibility of your posts will be restricted."
+            body = "Your account has been flagged as Bot, and the visibility of your posts will be restricted."
+            FromSayches.from_sayches(title='Attention', message=body,
+                                     to=self.user)
+        elif self.verification == "Out of Tune":
+            body = "Your account has been flagged as Out of Tune, and the visibility of your posts will be restricted."
             FromSayches.from_sayches(title='Attention', message=body,
                                      to=self.user)
 

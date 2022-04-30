@@ -2370,6 +2370,11 @@ select:-webkit-autofill {
   border: solid 1px #24292E;
 }
 
+.Out {
+  display: unset;
+  color: #24292E;
+  border: solid 1px #24292E;
+}
 .Newsroom-Tag {
   display: unset;
   color: #24292E;

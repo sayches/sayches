@@ -223,7 +223,10 @@ def profile_detail_name(request, username):
     if request.user.is_authenticated:
         check_user_report = ReportUser.objects.filter(user_reporter=request.user, user=user).first()
 
-    verification = UserVerification.objects.filter(user=user).values_list("verification", flat=True)[0]
+    try:
+        verification = UserVerification.objects.filter(user=user).values_list("verification", flat=True)[0]
+    except:
+        verification = None
 
     context = {
         'last_post_time': last_post_time,
