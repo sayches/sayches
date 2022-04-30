@@ -227,21 +227,22 @@ class Profile(BaseModel):
 class UserVerification(BaseModel):
     VERIFICATION_STATUS = [("Fraudulent", "Fraudulent"), ("Bot", "Bot"), ("Official", "Official"),
                            ("Verified", "Verified")]
-    APPLICATION_STATUS = [("Approved", "Approved"), ("Rejected", "Rejected"), ("Removed", "Removed")]
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
-    url = models.URLField(null=True, blank=False)
     verification = models.CharField(choices=VERIFICATION_STATUS, max_length=100, blank=True, null=True)
     verified = models.BooleanField(default=False)
-    application_status = models.CharField(choices=APPLICATION_STATUS, max_length=100, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if self.application_status == "Approved":
+        if self.verification == "Verified" or "Official":
             User.objects.filter(username=self.user).update(lost_virginity=True)
             body = "Your Sayches account was successfully verified."
             FromSayches.from_sayches(title='Your account is verified', message=body, to=self.user)
-        elif self.application_status == "Rejected":
-            body = "We are unable to verify the URL you provided. As a result, your account will not receive a verification badge."
-            FromSayches.from_sayches(title='Your account does not meet the verification criteria', message=body,
+        elif self.verification == "Fraudulent":
+            body = "Your account has been flagged as fraudulent, and the visibility of your posts will be restricted."
+            FromSayches.from_sayches(title='Attention', message=body,
+                                     to=self.user)
+        elif self.verification == "Bot":
+            body = "Your account has been flagged as bot, and the visibility of your posts will be restricted."
+            FromSayches.from_sayches(title='Attention', message=body,
                                      to=self.user)
 
         return super().save(*args, **kwargs)

@@ -103,7 +103,7 @@ class UserVerificationAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_per_page = 15
     date_hierarchy = 'created_at'
     list_display = (
-        'id', 'user', 'url', 'verification', 'verified')
+        'id', 'user', 'verification', 'verified')
 
     actions = ["export_as_csv"]
 

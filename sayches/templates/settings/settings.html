@@ -30,11 +30,6 @@
                <div class="tab-pane show" id="from-sayches" role="tabpanel">
                   {%include 'settings/from_sayches.html'%}
                </div>
-               {% if user_verification_form.verified.value == False %}
-               <div class="tab-pane show" id="verification" role="tabpanel">
-                  {%include 'settings/request_verification.html'%}
-               </div>
-               {% endif %}
                {% if ads %}
                <div class="tab-pane show" id="ads" role="tabpanel">
                   {%include 'settings/ads_history.html'%}

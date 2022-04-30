@@ -32,7 +32,7 @@ from users.utils import create_action
 from users.utils import log_deleted_user
 from utils.export_csv import export_ads_history
 
-from .forms import EditProfileForm, UserVerificationForm
+from .forms import EditProfileForm
 from .models import Profile, Bell, PingPong, ReportUser, UserVerification, UserRSA
 
 profile_name_var = 'users:profile_name'
@@ -164,6 +164,7 @@ def export_my_data(request, username):
 
 @require_http_methods(["GET", "POST"])
 def profile_detail_name(request, username):
+
     current_user = None
     user = get_object_or_404(User, user_hash__iexact=username)
 
@@ -202,12 +203,6 @@ def profile_detail_name(request, username):
 
     user.user_profile_age()
 
-    if UserVerification.objects.filter(user=user).exists():
-        verification = UserVerification.objects.filter(user=user).values_list("verification", flat=True)[0]
-    else:
-        verification = None
-    user_verification_form = UserVerificationForm({"verification": verification})
-
     check_post_black_list = BlacklistUser.objects.filter(user=user, on_post=True).first()
     is_block_post = False
     if check_post_black_list:
@@ -228,6 +223,8 @@ def profile_detail_name(request, username):
     if request.user.is_authenticated:
         check_user_report = ReportUser.objects.filter(user_reporter=request.user, user=user).first()
 
+    verification = UserVerification.objects.filter(user=user).values_list("verification", flat=True)[0]
+
     context = {
         'last_post_time': last_post_time,
         'check_user_report': check_user_report,
@@ -239,11 +236,12 @@ def profile_detail_name(request, username):
         "following_request_user": following_request_user, 'user': user, 'posts': posts,
         'hashtags': hashtags, 'form': form, "belled": belled,
         'today_ping': today_ping,
-        'user_verification_form': user_verification_form,
         "current_user": current_user,
         "user_total_posts": PostsTimestamp.objects.filter(user=user).count(),
         "user_current_posts": Post.objects.filter(user=user).count(),
+        "verification": verification,
     }
+    print(verification)
 
     return render(request, 'profile/profile.html', context)
 
@@ -300,22 +298,6 @@ def profile_update(request):
         else:
             return render(request, 'settings/settings.html', locals())
 
-    # Start User Verification #
-
-    elif request.method == 'POST' and "profile_verification" in request.POST:
-        user_verification_form = UserVerificationForm(data=request.POST, initial={"user": user})
-        if user_verification_form.is_valid():
-            user_verification_form.save()
-            FromSayches.from_sayches(title='New verification request', message='There is a verification request.',
-                                        to=User.objects.filter(is_superuser=True).last())
-        else:
-            user_verification_form = UserVerificationForm(initial={"user": user})
-    user_verification = UserVerification.objects.filter(user=request.user).exists()
-    user_verification_form = UserVerificationForm(initial={"user": user})
-    verification_tag = UserVerification.objects.filter(user=user, verified=True)
-
-    # End User Verification #
-
     # Start Ads History #
 
     ads = Ads.objects.filter(user=user).order_by('-created_at')
@@ -331,7 +313,6 @@ def profile_update(request):
 
     context = {
         'user': user, 'profile': profile, 'form': form,
-        'user_verification_form': user_verification_form,
         'disable_messages': profile.disable_messages,
         'disable_notifications': profile.disable_notifications,
         'disable_ping': profile.disable_ping,
@@ -339,8 +320,6 @@ def profile_update(request):
         'ads': ads,
         'ads_history': ads_history,
         "token": token,
-        "user_verification": user_verification,
-        "verification_tag": verification_tag,
         'from_sayches_obj': from_sayches_obj,
     }
 

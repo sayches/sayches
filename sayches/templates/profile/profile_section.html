@@ -11,8 +11,8 @@
       <h3 class="font-weight-bold f-s-18 text-truncate-150-media">{{ user.get_name_or_username|escapejs }}</h3>
       <div class="nav-box">
          <p class="profile-p parag">{{ user.user_hash }}</p>
-            <small class="validation {{ user_verification_form.verification.value }}">
-               {{user_verification_form.verification.value}}
+            <small class="validation {{ verification }}">
+               {{ verification}}
                </small>
                {% if user.disposable %}<small class="Disposable validation">Disposable</small>
                {% else %}

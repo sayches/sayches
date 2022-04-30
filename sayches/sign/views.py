@@ -43,6 +43,16 @@ def signup(request):
                 new_user.auto_account_delete_time = 0
             new_user.save()
             Profile.objects.create(user=new_user)
+            user = authenticate(request, username=cd['user_hash'], password=cd['password'])
+            login(request, user)
+            token, created = Token.objects.get_or_create(user=user)
+            token_expire_handler(request)
+            request.session['encryption_token'] = cd['password']
+            request.session.modified = True
+            MessagingRSA.create_rsa(request)
+            if user.first_login:
+                response = redirect(reverse('steps_form'))
+                return response
             return redirect(reverse('login'), {'new_user': new_user})
         else:
             flag = "true"

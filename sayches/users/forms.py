@@ -6,9 +6,6 @@ from django_countries import countries
 from django_countries.widgets import CountrySelectWidget
 from users.models import User
 
-from .models import UserVerification
-
-
 class EditProfileForm(forms.Form):
 
     def __init__(self, user, *args, **kwargs):
@@ -31,24 +28,6 @@ class EditProfileForm(forms.Form):
         if username in usernames:
             raise forms.ValidationError("This username already exist")
         return username
-
-
-class UserVerificationForm(forms.ModelForm):
-    class Meta:
-        model = UserVerification
-        fields = ("user", "url", "verification", "verified")
-
-    def __init__(self, *args, **kwargs):
-        super(UserVerificationForm, self).__init__(*args, **kwargs)
-        if kwargs.get('initial'):
-            user = kwargs.get('initial').get('user')
-            user_verification = UserVerification.objects.filter(user=user)
-            if user_verification:
-                for field, value in self.fields.items():
-                    if field == 'url':
-                        value.widget.attrs['disabled'] = True
-                    value.widget.attrs["readonly"] = "readonly"
-                    value.widget.attrs["value"] = getattr(user_verification[0], field)
 
 
 from django.contrib.auth import get_user_model, forms
