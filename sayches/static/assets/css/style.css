@@ -2906,7 +2906,7 @@ select:-webkit-autofill {
   left: 0;
   width: 100%;
   box-shadow: 0px 8px 20px 1px rgba(36, 41, 46, 0.08);
-  content: 'Pinned Post';
+  content: 'Pinned';
   color: #24292E;
   font-size: 12px;
   font-family: "Poppins", sans-serif;

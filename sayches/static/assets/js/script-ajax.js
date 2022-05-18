@@ -472,10 +472,10 @@ function structureDetailsPost(data){
                                          else{
                                             if (data.is_pin_post){
                                                 single_post +=
-                                                '<a title="Prevent your profile from being blank after 24 hours and make sure users know your profile is active. Pinning is a great way to promote your most important posts." class="dropdown-item" onclick="PinAPost(\''+data.id+'\')" id= "text'+data.id+'">Unpin Post</a>'
+                                                '<a title="Pinning is a great way to promote your most important posts." class="dropdown-item" onclick="PinAPost(\''+data.id+'\')" id= "text'+data.id+'">Unpin Post</a>'
                                             }else{
                                                 single_post +=
-                                                '<a title="Prevent your profile from being blank after 24 hours and make sure users know your profile is active. Pinning is a great way to promote your most important posts." class="dropdown-item" onclick="PinAPost(\''+data.id+'\')" id= "text'+data.id+'" onclick="PinAPost(\''+data.id+'\')" >Pin Post</a>'
+                                                '<a title="Pinning is a great way to promote your most important posts." class="dropdown-item" onclick="PinAPost(\''+data.id+'\')" id= "text'+data.id+'" onclick="PinAPost(\''+data.id+'\')" >Pin Post</a>'
                                             }
                                          }
                                 single_post +=
