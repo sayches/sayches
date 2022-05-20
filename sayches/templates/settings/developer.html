@@ -7,8 +7,15 @@
       <label class="font-weight-bold parag">Authorisation Token </label>
       <input class="custom-input" disabled value="{% if token %} {{token}} {% else %} Please contact us. {% endif %}">
       <div class="text-item short-p text-justify">
-         Warning: Your API key enables access to your account. Keep your API key private. By copying and sharing the API key with other applications AT YOUR OWN RISK.
-         API documentation can be found <a href="{% url 'subsections:docs' %}api">here.</a>
+         <p>- Warning: Your API key enables access to your account. Keep your API key private. By copying and sharing the API key with other applications AT YOUR OWN RISK.</p>
+         <p>- The Sayches REST API allow you to build your own customised minimum viable Sayches clients.</p>
+         <p>
+            <b>Header:</b> <code>Authorization: Token YOUR_API_KEY_HERE</code>
+            <br>
+            <b>Endpoints:</b> <code>GET /api/post/</code>
+            <br>
+            <b>Example Request:</b> <code> curl --request GET --location 'https://sayches.com/api/post/' --header 'Authorization: Token YOUR_API_KEY_HERE' </code>
+         </p>
       </div>
    </div>
 </div>
