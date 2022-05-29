@@ -45,7 +45,7 @@ make build
 
 > On production:
 > ```
-> sudo docker-compose -f production.yml up --build -d
+> docker-compose -f production.yml up --build -d
 > ```
 
 3. Deploy the project:
@@ -68,7 +68,7 @@ docker-compose -f local.yml run django python manage.py migrate
 ```
 7. Collects the static files:
 ```
-sudo docker-compose -f local.yml run django python manage.py collectstatic
+docker-compose -f local.yml run django python manage.py collectstatic
 ```
 
 ## 📓 License
