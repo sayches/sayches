@@ -2,10 +2,6 @@
         <img src="https://user-images.githubusercontent.com/61336552/145426931-9b431526-e7db-4fe7-ac97-b2d9e117c056.png" alt="drawing" width="300px"/>
 </div>
 
-## 🐠 Sayches
-
-Sayches is an anonymous platform designed to protect, defend, empower public-interest journalism and champion the free flow of information.
-
 ## 📺 Screenshots
 
 | Feed | Profile | DMs |
