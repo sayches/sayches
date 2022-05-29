@@ -394,19 +394,6 @@ def report_user(request):
 
 gloable_template_name = "404.html"
 
-class AutoAccountDeleteTime(LoginRequiredMixin, TemplateView):
-    template_name = gloable_template_name
-
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        auto_account_delete_time = int(self.request.POST.get('auto_account_delete_time', 12))
-        user = self.request.user
-        if user and auto_account_delete_time in [0, 1, 6, 12]:
-            user.auto_account_delete_time = auto_account_delete_time
-            user.save()
-        return render(self.request, self.template_name, context=context)
-
-
 class UpdateNickView(LoginRequiredMixin, TemplateView):
     template_name = gloable_template_name
 

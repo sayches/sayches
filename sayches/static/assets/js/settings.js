@@ -39,13 +39,3 @@ $('.toggles').click(function(evt) {
   });
 
 });
-
-$('#auto_account_delete').change(function () {
-  $.ajax({
-    url: usersAutoAccountDeleteTime,
-    type: 'POST',
-    data:{'auto_account_delete_time':this.value},
-    success: function () {
-    }
-  });
-});

@@ -54,20 +54,6 @@
          data-target="#ModalCenter5">
       Forget me
       </a>
-      <div class="pref-item">
-      <p>Destroy my account if I am away for</p>
-      <select  name="user_nickname" class="custom-input profile-input setting-custom-select" id="auto_account_delete">
-      {% if user.disposable %}
-      <option id= "0" value="0" {% if  user.auto_account_delete_time == 0 %}selected{% endif %}>1 Day</option>
-      {% endif %}
-      <option id= "1" value="1" {% if  user.auto_account_delete_time == 1 %}selected{% endif %}>1 Month</option>
-      <option id="6" value="6" {% if  user.auto_account_delete_time == 6 %}selected{% endif %}>6 Months</option>
-      <option id="12" value="12" {% if  user.auto_account_delete_time == 12 %}selected{% endif %}>12 Months</option>
-      </select>
-      </div>
-      <p class="text-item short-p text-justify">
-      If you do not come online at least once within this period, your account will be deleted along with all your data.
-      </p>
       </div>
       <br>
       <div class="modal fade"

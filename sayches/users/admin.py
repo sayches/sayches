@@ -57,7 +57,7 @@ class UserAdmin(auth_admin.UserAdmin):
     fieldsets = (("User", {"fields":
                                ("user_hash", "country",
                                 "warrant_canary",
-                                "first_login", "first_post", "lost_virginity", "disposable", "auto_account_delete_time",
+                                "first_login", "first_post", "lost_virginity", "disposable",
                                 "last_activity_date", "notes", "send_email")}),)
     list_display = ["username", "name", "country", "warrant_canary", "first_post", "lost_virginity", "disposable",
                     "is_active", "is_superuser", "notes"]
@@ -127,10 +127,9 @@ class DeletedUserAdmin(admin.ModelAdmin, ExportCsvMixin):
     readonly_fields = ('id', 'user_hash', 'country', 'bio',
                        'warrant_canary', 'last_activity_date', 'disposable',
                        'notes', 'alias', 'lost_virginity', 'first_post', 'first_login',
-                       'auto_account_delete_time', 'date_joined', 'deleted_date_time')
-    list_display = ('id', 'user_hash', 'last_activity_date',
-                    'auto_account_delete_time', 'deleted_date_time')
-    list_filter = ['auto_account_delete_time', 'last_activity_date']
+                       'date_joined', 'deleted_date_time')
+    list_display = ('user_hash', 'country', 'last_activity_date', 'date_joined', 'deleted_date_time', 'first_login', 'disposable')
+    list_filter = ['last_activity_date']
     actions = ["export_as_csv"]
     date_hierarchy = 'created_at'
 
