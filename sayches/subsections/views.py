@@ -173,7 +173,6 @@ def home(request):
 
     if request.user.is_authenticated:
         try:
-            first_post(request)
             lost_virginity(request)
         except:
             pass

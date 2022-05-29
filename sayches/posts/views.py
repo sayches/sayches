@@ -19,7 +19,7 @@ from subsections.models import Ads
 from users.models import BlacklistUser, FromSayches
 from users.models import User
 from users.utils import create_action, get_mention_tags
-
+from subsections.views import first_post
 from config.choices import FLAIR_CHOICES
 from config.settings.base import SET_INTERVAL_ALLOW, BASE_URL
 from .forms import SearchPost
@@ -182,6 +182,7 @@ def create_post(request):
                     post_object = single_post_to_json(request.user, post)
                     data.append(post_object)
                     send_notifications_to_user_bell_list(request.user, post)
+                    first_post(request)
         return JsonResponse(data, safe=False)
     return HttpResponseBadRequest()
 
