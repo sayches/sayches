@@ -33,23 +33,6 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractUser):
-    ONE_DAY = 0
-    ONE_MONTH = 1
-    SIX_MONTH = 6
-    TWELVE_MONTH = 12
-
-    AUTO_ACCOUNT_DELETE_CHOICES = (
-        (ONE_DAY, 'DISPOSABLE'),
-        (ONE_MONTH, '1'),
-        (SIX_MONTH, '6'),
-        (TWELVE_MONTH, '12'),
-    )
-
-    TWENTY_FOUR_HOURS = 24
-    FORTY_EIGHT_HOURS = 48
-    SEVENTY_TWO_HOURS = 72
-    ZERO = 0
-
     UNKNOWN_USER = 'Unknown'
     ANONYMOUS_USER = 'Anonymous'
     UNIDENTIFIED_USER = 'Unidentified'
@@ -83,7 +66,6 @@ class User(AbstractUser):
     warrant_canary = models.BooleanField(default=True)
     alias = models.CharField(max_length=20, default=ANONYMOUS_USER, choices=ALIASES)
     notes = models.TextField(null=True, blank=True)
-    auto_account_delete_time = models.IntegerField(choices=AUTO_ACCOUNT_DELETE_CHOICES, default=TWELVE_MONTH)
     last_activity_date = models.DateTimeField(default=timezone.now)
     send_email = models.BooleanField(null=True, blank=True)
     disposable = models.BooleanField(null=True, blank=True, default=False)
@@ -98,12 +80,7 @@ class User(AbstractUser):
                                          to=get_username)
                 self.send_email = False
         return super().save(*args, **kwargs)
-
-    @property
-    def compare_last_activity_with_auto_delete_time(self):
-        last_active = timezone.now() - self.last_activity_date
-        return self.auto_account_delete_time * 30 - last_active.days
-
+        
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
@@ -327,7 +304,6 @@ class DeletedUser(BaseModel):
     user_hash = models.CharField(max_length=15, null=True, blank=False)
     country = CountryField(null=True, blank=False, blank_label='(Select Location)')
     warrant_canary = models.BooleanField(default=True)
-    auto_account_delete_time = models.IntegerField(choices=User.AUTO_ACCOUNT_DELETE_CHOICES, default=User.TWELVE_MONTH)
     last_activity_date = models.DateTimeField(default=timezone.now)
     date_joined = models.DateTimeField(default=timezone.now)
     deleted_date_time = models.DateTimeField(auto_now_add=True, null=True)

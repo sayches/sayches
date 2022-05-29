@@ -40,7 +40,6 @@ def signup(request):
             new_user.is_active = True
             if cd['disposable']:
                 new_user.disposable = True
-                new_user.auto_account_delete_time = 0
             new_user.save()
             Profile.objects.create(user=new_user)
             user = authenticate(request, username=cd['user_hash'], password=cd['password'])
