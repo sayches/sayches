@@ -25,7 +25,7 @@ class ValidPosts(models.Manager):
 
 class Post(BaseModel):
     id = models.CharField(primary_key=True, editable=False, max_length=10)
-    user = models.ForeignKey(User, related_name="posts", on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, related_name="posts", on_delete=models.SET_NULL, null=True)
     text = models.TextField(blank=False, null=True)
     have_mentions = models.BooleanField(default=False)
     post_followers = models.ManyToManyField(User, related_name="post_followed", blank=True)
