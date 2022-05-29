@@ -40,16 +40,10 @@ profile_name_var = 'users:profile_name'
 
 @require_GET
 def forget_user(request, username):
-    try:
-        user = request.user
-        user.is_active = False
-        user.save()
-        log_deleted_user(user)
-        User.objects.filter(username=request.user).delete()
-        Profile.objects.filter(user=user)
-    except User.DoesNotExist:
-        pass
-
+    user = request.user
+    log_deleted_user(user)
+    User.objects.filter(username=user).delete()
+    Profile.objects.filter(user=user).delete()
     return redirect('/')
 
 

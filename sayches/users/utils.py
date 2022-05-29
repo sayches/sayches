@@ -5,7 +5,6 @@ from users.models import DeletedUser, User, Activity
 
 def log_deleted_user(user):
     profile = user.profile
-
     DeletedUser.objects.create(user_hash=user.user_hash,
                                warrant_canary=user.warrant_canary,
                                country=user.country,
@@ -18,9 +17,6 @@ def log_deleted_user(user):
                                first_post=user.first_post,
                                first_login=user.first_login,
                                )
-    body = f'Your account has been destroyed.'
-
-
 
 def create_action(sender, receiver, verb, text=None, target=None, count=1, activity_type="default"):
     if not receiver.profile.disable_notifications:
