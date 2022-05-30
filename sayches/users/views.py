@@ -43,6 +43,7 @@ def forget_user(request, username):
     user = request.user
     log_deleted_user(user)
     User.objects.filter(username=user).delete()
+    Post.objects.filter(user=user).update(user="DELETED")
     Profile.objects.filter(user=user).delete()
     return redirect('/')
 
