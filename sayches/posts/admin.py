@@ -47,7 +47,7 @@ class PostAdmin(admin.ModelAdmin, ExportCsvMixin):
     )
     readonly_fields = [
         'id',
-        'user',
+        # 'user',
         'text',
         'flair',
         'post_option',
