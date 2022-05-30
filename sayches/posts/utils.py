@@ -7,7 +7,7 @@ from datetime import timedelta
 from html.parser import HTMLParser
 from urllib.parse import (parse_qsl, quote, unquote, urlencode, urlsplit, urlunsplit, )
 from urllib.parse import urlparse
-from django.templatetags.static import static
+
 from django.db.models import Count
 from django.urls import reverse
 from django.utils import timezone
@@ -514,10 +514,7 @@ def format_post_type_data(user, post, json_object):
 
 
 def get_profile_pic(post):
-    try:
-        return post.user.profile.photo_url
-    except:
-        return static('assets/images/avatars/suspended.png')
+    return post.user.profile.photo_url
 
 
 def posts_to_json(request, user, posts):
@@ -559,38 +556,24 @@ def posts_to_json(request, user, posts):
         check = False
         if post.media:
             check = check_image_exists(post.media)
-
-        try:
-            name = escape(post.user.display_user_name())
-            user_hash = escape(post.user.user_hash)
-            nickname = escape(post.user.get_alias_display())
-            user_page = reverse(profile_name_variable, args=[post.user.user_hash])
-            bio = escape(post.user.profile.bio)
-        except:
-            name = "Deleted User"
-            user_hash = ""
-            nickname = ""
-            user_page = "#"
-            bio = "This user has deleted their account."
-
         json_object = {
             "id": post.id,
             "user_img": image_url,
-            "name": name,
-            "user_name": user_hash,
-            "user_nickname": nickname,
+            "name": escape(post.user.display_user_name()),
+            "user_name": escape(post.user.user_hash),
+            "user_nickname": escape(post.user.get_alias_display()),
             "date": post.created_at.strftime("%d/%m/%Y %I:%M %p"),
             "created_at": post.created_at.isoformat(),
             "post_count": post_followers,
             "post_p": urlize(prevent_hashtag_repetition(post)),
-            "user_page": user_page,
+            "user_page": reverse(profile_name_variable, args=[post.user.user_hash]),
             "pinned": post.pinned_post if type(posts) is not list else 'false',
             "post_flair": post.flair,
             "post_option": post.post_option,
             "post_media": post.media.url if check else 'null',
             "flag": flag,
             "do_status": do_status,
-            "bio": bio,
+            "bio": escape(post.user.profile.bio),
             "reaction_number": reaction_number,
             "reaction_status": "action",
             "total_posts": total_posts
@@ -603,7 +586,10 @@ def posts_to_json(request, user, posts):
 
 
 def single_post_to_json(user, post):
-
+    if post.user.name == "":
+        name = post.user.user_hash
+    else:
+        name = post.user.name
 
     image_url = get_profile_pic(post)
 
@@ -632,23 +618,10 @@ def single_post_to_json(user, post):
     check = False
     if post.media:
         check = check_image_exists(post.media)
-    try:
-        name = escape(post.user.display_user_name())
-        user_hash = escape(post.user.user_hash)
-        nickname = escape(post.user.get_alias_display())
-        user_page = reverse(profile_name_variable, args=[post.user.user_hash])
-        bio = escape(post.user.profile.bio)
-    except:
-        name = "Deleted User"
-        user_hash = ""
-        nickname = ""
-        user_page = "#"
-        bio = "This user has deleted their account."
-
     json_object = {}
     json_object['id'] = post.id
     json_object['user_img'] = image_url
-    json_object["name"] = name
+    json_object["name"] = escape(post.user.display_user_name())
     json_object["date"] = post.created_at.strftime("%d/%m/%Y %I:%M %p")
     json_object["post_count"] = post_followers
     json_object["post_p"] = post_p
@@ -657,12 +630,12 @@ def single_post_to_json(user, post):
     json_object["is_pin_post"] = post.pinned_post
     json_object["post_media"] = post.media.url if check else 'null',
     json_object["post_url"] = post_url
-    json_object["user_nickname"] = nickname
-    json_object["user_name"] = user_hash
-    json_object["user_page"] = user_page
+    json_object["user_nickname"] = escape(post.user.get_alias_display())
+    json_object["user_name"] = escape(post.user.user_hash)
+    json_object["user_page"] = reverse(profile_name_variable, args=[post.user.user_hash])
     json_object["flag"] = flag
     json_object["do_status"] = do_status
-    json_object["bio"] = bio
+    json_object["bio"] = escape(post.user.profile.bio)
     json_object["pinned"] = post.pinned_post
     json_object["post_flair"] = post.flair
     json_object["post_option"] = post.post_option
