@@ -4,9 +4,9 @@
 {% load static %}
 {% block othermeta %}
 <meta name="description" content="{{ post.text }}" />
-<meta property="og:title" content="{{ post.user.user_hash }} on Sayches: "{{ post.text }}" {% else %} "{{ post.text }}"" />
+<meta property="og:title" content="{{ post.user.user_hash }} on Sayches: "{{ post.text }}"" />
 <meta property="og:description" content="{{ post.text }}" />
-<meta name="twitter:title" content="{{ post.user.user_hash }} on Sayches: "{{ post.text }}" {% else %} "{{ post.text }}"" />
+<meta name="twitter:title" content="{{ post.user.user_hash }} on Sayches: "{{ post.text }}"" />
 <meta name="twitter:description" content="{{ post.text }}" />
 {% if post.media %}
 <meta property="og:image" content="{{ post.media.url }}" />
@@ -17,7 +17,7 @@
 {% endif %}
 
 {% endblock %}
-{% block title %}{{ post.user.user_hash }} on Sayches: "{{ post.text }}" {% else %} "{{ post.text }}"{% endblock %}
+{% block title %}{{ post.user.user_hash }} on Sayches: "{{ post.text }}"{% endblock %}
 {% block content %}
 <div class="main-sec">
    <div class="container">
