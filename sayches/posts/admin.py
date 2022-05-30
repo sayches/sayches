@@ -26,7 +26,7 @@ class PostAdmin(admin.ModelAdmin, ExportCsvMixin):
     date_hierarchy = 'created_at'
     list_display = (
         'id',
-        'user',
+        # 'user',
         'flair',
         'post_option',
         'image_thumbnail',
